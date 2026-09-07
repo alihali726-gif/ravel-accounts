@@ -2279,16 +2279,7 @@ function generateReport(){
         supplierPaidUSD+=sp.usd;
         supplierPaidIQD+=sp.iqd;
 
-        profitUSD+=
-            equivalentUSD(
-                s.usd,s.iqd,t.exchangeRate
-            )
-            -
-            equivalentUSD(
-                Number(t.supplierAmountUSD||0),
-                Number(t.supplierAmountIQD||0),
-                t.exchangeRate
-            );
+        profitUSD += operationProfitUSD(t);
     });
 
 
@@ -2715,16 +2706,7 @@ function renderDashboard(){
         supplierUSD+=sb.usd;
         supplierIQD+=sb.iqd;
 
-        profitUSD+=
-            equivalentUSD(
-                s.usd,s.iqd,t.exchangeRate
-            )
-            -
-            equivalentUSD(
-                Number(t.supplierAmountUSD||0),
-                Number(t.supplierAmountIQD||0),
-                t.exchangeRate
-            );
+        profitUSD += operationProfitUSD(t);
     });
 
     document.getElementById("dashOperations").textContent=
