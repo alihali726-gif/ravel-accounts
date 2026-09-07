@@ -31,17 +31,40 @@ function customerPaid(t){
     let usd = 0;
     let iqd = 0;
 
+    let equivalentUSDValue = 0;
+    let equivalentIQDValue = 0;
+
     (t.customerPayments || []).forEach(p => {
 
-        usd += Number(p.usd || 0);
-        iqd += Number(p.iqd || 0);
+        const paymentUSD = Number(p.usd || 0);
+        const paymentIQD = Number(p.iqd || 0);
+
+        const paymentRate = Number(
+            p.exchangeRate ||
+            t.exchangeRate ||
+            1550
+        );
+
+        usd += paymentUSD;
+        iqd += paymentIQD;
+
+        equivalentUSDValue +=
+            paymentUSD +
+            (paymentIQD / paymentRate);
+
+        equivalentIQDValue +=
+            paymentIQD +
+            (paymentUSD * paymentRate);
 
     });
 
     return {
         usd: usd,
-        iqd: iqd
+        iqd: iqd,
+        equivalentUSD: equivalentUSDValue,
+        equivalentIQD: equivalentIQDValue
     };
+}
 }
 
 
