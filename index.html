@@ -26,6 +26,10 @@ function saleTotals(t){
 }
 
 
+/* ================================
+   تسديدات الزبون
+================================ */
+
 function customerPaid(t){
 
     let usd = 0;
@@ -48,10 +52,16 @@ function customerPaid(t){
         usd += paymentUSD;
         iqd += paymentIQD;
 
+        /*
+         * قيمة التسديد بالدولار
+         */
         equivalentUSDValue +=
             paymentUSD +
             (paymentIQD / paymentRate);
 
+        /*
+         * قيمة التسديد بالدينار
+         */
         equivalentIQDValue +=
             paymentIQD +
             (paymentUSD * paymentRate);
@@ -65,8 +75,11 @@ function customerPaid(t){
         equivalentIQD: equivalentIQDValue
     };
 }
-}
 
+
+/* ================================
+   تسديدات المورد
+================================ */
 
 function supplierPaid(t){
 
@@ -87,6 +100,10 @@ function supplierPaid(t){
 }
 
 
+/* ================================
+   تحويل إلى دولار
+================================ */
+
 function equivalentUSD(usd, iqd, rate){
 
     rate = Number(rate || 1550);
@@ -99,6 +116,10 @@ function equivalentUSD(usd, iqd, rate){
            (Number(iqd || 0) / rate);
 }
 
+
+/* ================================
+   تحويل إلى دينار
+================================ */
 
 function equivalentIQD(usd, iqd, rate){
 
@@ -114,7 +135,7 @@ function equivalentIQD(usd, iqd, rate){
 
 
 /* ================================
-   ربح العملية
+   ربح العملية بالدينار
 ================================ */
 
 function operationProfitIQD(t){
@@ -139,6 +160,10 @@ function operationProfitIQD(t){
 }
 
 
+/* ================================
+   ربح العملية بالدولار
+================================ */
+
 function operationProfitUSD(t){
 
     const rate = Number(t.exchangeRate || 1550);
@@ -150,6 +175,10 @@ function operationProfitUSD(t){
     return operationProfitIQD(t) / rate;
 }
 
+
+/* ================================
+   حالة ربح العملية
+================================ */
 
 function operationProfitStatus(t){
 
@@ -174,22 +203,12 @@ function operationProfitStatus(t){
 function customerBalance(t){
 
     const sale = saleTotals(t);
-
     const paid = customerPaid(t);
 
     const rate = Number(t.exchangeRate || 1550);
 
     /*
-     * قيمة البيع بالدولار حسب سعر صرف العملية
-     */
-    const saleUSDValue = equivalentUSD(
-        sale.usd,
-        sale.iqd,
-        rate
-    );
-
-    /*
-     * قيمة البيع بالدينار حسب سعر صرف العملية
+     * نحول البيع كله إلى الدينار
      */
     const saleIQDValue = equivalentIQD(
         sale.usd,
@@ -198,67 +217,51 @@ function customerBalance(t){
     );
 
     /*
-     * التسديدات:
-     * إذا كان التسديد بالدولار، يتم تحويله
-     * حسب سعر صرف التسديد نفسه.
+     * التسديدات كلها إلى الدينار
      *
-     * إذا كان التسديد بالدينار، يبقى كما هو.
+     * الدولار يستخدم سعر صرف التسديد
+     * إذا كان محفوظاً معه.
      */
-    const paidUSDValue = Number(
-        paid.equivalentUSD || 0
-    );
+    let paidIQDValue = 0;
 
-    const paidIQDValue = Number(
-        paid.equivalentIQD || 0
+    (t.customerPayments || []).forEach(p => {
+
+        const paymentUSD = Number(p.usd || 0);
+        const paymentIQD = Number(p.iqd || 0);
+
+        const paymentRate = Number(
+            p.exchangeRate ||
+            rate ||
+            1550
+        );
+
+        paidIQDValue +=
+            paymentIQD +
+            (paymentUSD * paymentRate);
+
+    });
+
+    /*
+     * المتبقي بالدينار
+     */
+    const remainingIQD = Math.max(
+        0,
+        saleIQDValue - paidIQDValue
     );
 
     /*
-     * الرصيد المتبقي
+     * المتبقي بالدولار
      */
-    return {
-
-        usd: Math.max(
-            0,
-            saleUSDValue - paidUSDValue
-        ),
-
-        iqd: Math.max(
-            0,
-            saleIQDValue - paidIQDValue
-        )
-
-    };
-}
-
-    const paidUSDValue = equivalentUSD(
-        paid.usd,
-        paid.iqd,
-        rate
-    );
-
-    const saleIQDValue = equivalentIQD(
-        sale.usd,
-        sale.iqd,
-        rate
-    );
-
-    const paidIQDValue = equivalentIQD(
-        paid.usd,
-        paid.iqd,
-        rate
-    );
+    const remainingUSD =
+        rate > 0
+        ? remainingIQD / rate
+        : 0;
 
     return {
 
-        usd: Math.max(
-            0,
-            saleUSDValue - paidUSDValue
-        ),
+        usd: remainingUSD,
 
-        iqd: Math.max(
-            0,
-            saleIQDValue - paidIQDValue
-        )
+        iqd: remainingIQD
 
     };
 }
@@ -272,15 +275,7 @@ function customerStatus(t){
 
     const balance = customerBalance(t);
 
-    const rate = Number(t.exchangeRate || 1550);
-
-    const remainingUSD = equivalentUSD(
-        balance.usd,
-        balance.iqd,
-        rate
-    );
-
-    if(remainingUSD > 0.01){
+    if(Number(balance.iqd || 0) > 0.01){
 
         return "متبقي";
 
@@ -308,41 +303,42 @@ function supplierBalance(t){
         t.supplierAmountIQD || 0
     );
 
-    const supplierUSDValue = equivalentUSD(
-        supplierUSD,
-        supplierIQD,
-        rate
-    );
-
-    const paidUSDValue = equivalentUSD(
-        paid.usd,
-        paid.iqd,
-        rate
-    );
-
+    /*
+     * إجمالي كلفة المورد بالدينار
+     */
     const supplierIQDValue = equivalentIQD(
         supplierUSD,
         supplierIQD,
         rate
     );
 
+    /*
+     * إجمالي ما تم دفعه للمورد بالدينار
+     */
     const paidIQDValue = equivalentIQD(
         paid.usd,
         paid.iqd,
         rate
     );
 
+    /*
+     * المتبقي
+     */
+    const remainingIQD = Math.max(
+        0,
+        supplierIQDValue - paidIQDValue
+    );
+
+    const remainingUSD =
+        rate > 0
+        ? remainingIQD / rate
+        : 0;
+
     return {
 
-        usd: Math.max(
-            0,
-            supplierUSDValue - paidUSDValue
-        ),
+        usd: remainingUSD,
 
-        iqd: Math.max(
-            0,
-            supplierIQDValue - paidIQDValue
-        )
+        iqd: remainingIQD
 
     };
 }
@@ -356,15 +352,7 @@ function supplierStatus(t){
 
     const balance = supplierBalance(t);
 
-    const rate = Number(t.exchangeRate || 1550);
-
-    const remainingUSD = equivalentUSD(
-        balance.usd,
-        balance.iqd,
-        rate
-    );
-
-    if(remainingUSD > 0.01){
+    if(Number(balance.iqd || 0) > 0.01){
 
         return "متبقي";
 
