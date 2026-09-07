@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>حسابات السفر والسياحة</title>
+<title>نظام حسابات السفر والسياحة</title>
 
 <style>
 *{box-sizing:border-box}
@@ -11,212 +11,202 @@ body{
     margin:0;
     font-family:Tahoma,Arial,sans-serif;
     background:#f4f6f9;
-    color:#222;
+    color:#1f2937
 }
-.container{
-    max-width:1500px;
-    margin:auto;
-    padding:20px;
+header{
+    background:#111827;
+    color:white;
+    padding:18px 25px;
+    position:sticky;
+    top:0;
+    z-index:20;
+    box-shadow:0 2px 10px #0002
 }
-h1{
-    margin:0 0 20px;
-    color:#17365d;
+header h1{margin:0 0 5px;font-size:23px}
+header small{color:#cbd5e1}
+
+nav{
+    background:white;
+    padding:10px;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    position:sticky;
+    top:77px;
+    z-index:19;
+    box-shadow:0 2px 8px #0001
 }
-h2{
-    color:#17365d;
-    margin-top:0;
+nav button{
+    border:0;
+    background:#e5e7eb;
+    padding:11px 15px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold
 }
-.card{
-    background:#fff;
-    border-radius:14px;
-    padding:20px;
-    margin-bottom:20px;
-    box-shadow:0 3px 12px rgba(0,0,0,.08);
-}
+nav button.active{background:#111827;color:white}
+
+main{max-width:1500px;margin:auto;padding:20px}
+
+.page{display:none}
+.page.active{display:block}
+
 .grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:12px;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px
+}
+.card{
+    background:white;
+    padding:18px;
+    border-radius:12px;
+    box-shadow:0 2px 8px #0001;
+    margin-bottom:18px
+}
+.stat{
+    font-size:27px;
+    font-weight:bold;
+    margin-top:8px
+}
+.stat-title{color:#64748b}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:12px
 }
 label{
     display:block;
     font-weight:bold;
-    margin-bottom:5px;
+    margin-bottom:5px
 }
 input,select,textarea{
     width:100%;
     padding:10px;
-    border:1px solid #ccd3dc;
-    border-radius:8px;
+    border:1px solid #cbd5e1;
+    border-radius:7px;
     font-size:14px;
+    background:white
 }
-textarea{min-height:70px;resize:vertical}
+textarea{min-height:80px;resize:vertical}
+
 button{
-    border:0;
-    border-radius:8px;
-    padding:10px 16px;
-    cursor:pointer;
-    font-weight:bold;
+    font-family:inherit
 }
-.btn-primary{background:#17365d;color:#fff}
-.btn-success{background:#198754;color:#fff}
-.btn-danger{background:#dc3545;color:#fff}
-.btn-warning{background:#ffc107;color:#111}
-.btn-secondary{background:#6c757d;color:#fff}
-.btn-info{background:#0dcaf0;color:#111}
+.btn{
+    border:0;
+    border-radius:7px;
+    padding:10px 15px;
+    cursor:pointer;
+    font-weight:bold
+}
+.btn-primary{background:#2563eb;color:white}
+.btn-success{background:#16a34a;color:white}
+.btn-danger{background:#dc2626;color:white}
+.btn-warning{background:#d97706;color:white}
+.btn-dark{background:#111827;color:white}
+.btn-secondary{background:#64748b;color:white}
+.btn-light{background:#e5e7eb;color:#111827}
 
 .actions{
     display:flex;
-    gap:8px;
+    gap:7px;
     flex-wrap:wrap;
-    margin-top:15px;
+    margin-top:15px
 }
 
-.dashboard{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:12px;
+.type-box{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap
 }
-.stat{
-    background:#fff;
-    padding:18px;
-    border-radius:12px;
-    box-shadow:0 2px 8px rgba(0,0,0,.06);
+.type-box label{
+    background:#f1f5f9;
+    padding:9px 12px;
+    border-radius:7px;
+    cursor:pointer
 }
-.stat-title{font-size:13px;color:#666}
-.stat-value{
-    font-size:22px;
-    font-weight:bold;
-    margin-top:8px;
-    color:#17365d;
-}
+.type-box input{width:auto}
 
 .passenger{
-    border:1px solid #dce2e8;
-    border-radius:12px;
+    border:1px solid #dbe3ec;
     padding:15px;
-    margin-top:12px;
-    background:#fafbfd;
-}
-.passenger-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:12px;
-}
-.passenger-header strong{color:#17365d}
-
-.checkbox-group{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-}
-.check-item{
-    background:#f1f4f7;
-    border:1px solid #d5dbe2;
-    padding:8px 12px;
-    border-radius:8px;
-}
-.check-item input{
-    width:auto;
-    margin-left:5px;
-}
-
-.payment-row{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-    gap:8px;
-    margin-top:10px;
-    padding:12px;
-    background:#f8f9fa;
     border-radius:10px;
-    border:1px solid #e1e5e9;
+    margin-bottom:12px;
+    background:#fafafa
 }
 
-.table-wrap{
-    overflow-x:auto;
-}
 table{
     width:100%;
     border-collapse:collapse;
-    min-width:1200px;
+    background:white
 }
 th,td{
-    border:1px solid #ddd;
-    padding:9px;
-    text-align:center;
-    font-size:13px;
+    border-bottom:1px solid #e5e7eb;
+    padding:10px;
+    text-align:right;
+    vertical-align:top
 }
-th{
-    background:#17365d;
-    color:white;
-}
-tr:nth-child(even){background:#f8f9fa}
+th{background:#f1f5f9}
+.table-wrap{overflow:auto}
 
 .badge{
     display:inline-block;
     padding:5px 9px;
     border-radius:20px;
     font-size:12px;
-    font-weight:bold;
+    font-weight:bold
 }
-.badge-green{background:#d1e7dd;color:#0f5132}
-.badge-yellow{background:#fff3cd;color:#664d03}
-.badge-red{background:#f8d7da;color:#842029}
-.badge-blue{background:#cff4fc;color:#055160}
-.badge-gray{background:#e2e3e5;color:#41464b}
-
-.section-title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
-}
-
-.hidden{display:none}
-
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.55);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:15px;
-    z-index:9999;
-}
-.modal-content{
-    background:#fff;
-    width:min(900px,100%);
-    max-height:90vh;
-    overflow:auto;
-    border-radius:15px;
-    padding:20px;
-}
+.badge-green{background:#dcfce7;color:#166534}
+.badge-orange{background:#ffedd5;color:#9a3412}
+.badge-red{background:#fee2e2;color:#991b1b}
+.badge-blue{background:#dbeafe;color:#1e40af}
 
 .search-box{
     display:grid;
     grid-template-columns:1fr auto;
     gap:10px;
+    margin-bottom:15px
 }
 
-.small{
-    font-size:12px;
-    color:#666;
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:#0008;
+    z-index:100;
+    padding:20px;
+    overflow:auto
+}
+.modal-content{
+    background:white;
+    max-width:1000px;
+    margin:30px auto;
+    border-radius:12px;
+    padding:20px
+}
+.modal.show{display:block}
+
+.notice{
+    padding:12px;
+    background:#eff6ff;
+    border-right:4px solid #2563eb;
+    margin-bottom:15px;
+    border-radius:5px
 }
 
-.total-box{
-    margin-top:15px;
-    padding:15px;
-    background:#eef3f8;
-    border-radius:10px;
-    font-weight:bold;
+.empty{
+    text-align:center;
+    padding:30px;
+    color:#64748b
 }
 
-@media(max-width:600px){
-    .container{padding:10px}
-    .card{padding:13px}
+hr{border:0;border-top:1px solid #e5e7eb;margin:20px 0}
+
+@media(max-width:700px){
+    main{padding:10px}
+    nav{top:75px}
+    th,td{font-size:12px}
     .search-box{grid-template-columns:1fr}
 }
 </style>
@@ -224,23 +214,149 @@ tr:nth-child(even){background:#f8f9fa}
 
 <body>
 
-<div class="container">
+<header>
+    <h1>نظام حسابات السفر والسياحة</h1>
+    <small>إدارة العمليات والزبائن والموردين والتسديدات والتقارير</small>
+</header>
 
-<h1>📊 نظام حسابات السفر والسياحة</h1>
+<nav>
+    <button class="active" onclick="showPage('dashboard',this)">الرئيسية</button>
+    <button onclick="showPage('operations',this)">العمليات</button>
+    <button onclick="showPage('newOperation',this)">عملية جديدة</button>
+    <button onclick="showPage('customerPayments',this)">تسديد الزبائن</button>
+    <button onclick="showPage('suppliers',this)">الموردين</button>
+    <button onclick="showPage('reports',this)">التقارير</button>
+    <button onclick="showPage('customerStatement',this)">كشف الزبون</button>
+    <button onclick="showPage('supplierStatement',this)">كشف المورد</button>
+    <button onclick="showPage('backup',this)">نسخ احتياطي</button>
+</nav>
 
-<!-- Dashboard -->
-<div class="dashboard" id="dashboard"></div>
+<main>
 
-<!-- إضافة / تعديل عملية -->
+<!-- DASHBOARD -->
+<section id="dashboard" class="page active">
+
+<div class="grid">
+    <div class="card">
+        <div class="stat-title">عدد العمليات</div>
+        <div class="stat" id="dashOperations">0</div>
+    </div>
+
+    <div class="card">
+        <div class="stat-title">مبيعات USD</div>
+        <div class="stat" id="dashSalesUSD">0</div>
+    </div>
+
+    <div class="card">
+        <div class="stat-title">مبيعات IQD</div>
+        <div class="stat" id="dashSalesIQD">0</div>
+    </div>
+
+    <div class="card">
+        <div class="stat-title">متبقي على الزبائن USD</div>
+        <div class="stat" id="dashCustomerUSD">0</div>
+    </div>
+
+    <div class="card">
+        <div class="stat-title">متبقي على الزبائن IQD</div>
+        <div class="stat" id="dashCustomerIQD">0</div>
+    </div>
+
+    <div class="card">
+        <div class="stat-title">متبقي للموردين USD</div>
+        <div class="stat" id="dashSupplierUSD">0</div>
+    </div>
+
+    <div class="card">
+        <div class="stat-title">متبقي للموردين IQD</div>
+        <div class="stat" id="dashSupplierIQD">0</div>
+    </div>
+
+    <div class="card">
+        <div class="stat-title">ربح مكافئ USD</div>
+        <div class="stat" id="dashProfitUSD">0</div>
+    </div>
+</div>
+
 <div class="card">
-    <div class="section-title">
-        <h2 id="formTitle">➕ إضافة عملية جديدة</h2>
-        <button class="btn-secondary" onclick="resetForm()">عملية جديدة</button>
+    <h2>آخر العمليات</h2>
+    <div id="recentOperations"></div>
+</div>
+
+</section>
+
+
+<!-- OPERATIONS -->
+<section id="operations" class="page">
+
+<div class="card">
+    <h2>جميع العمليات</h2>
+
+    <div class="search-box">
+        <input id="operationSearch"
+               placeholder="بحث برقم العملية، الاسم، الهاتف، PNR، المورد، نوع العملية...">
+        <button class="btn btn-primary" onclick="renderOperations()">بحث</button>
+    </div>
+
+    <div class="form-grid">
+        <div>
+            <label>حالة الزبون</label>
+            <select id="filterCustomerStatus" onchange="renderOperations()">
+                <option value="">الكل</option>
+                <option value="مسدد">مسدد</option>
+                <option value="مسدد جزئي">مسدد جزئي</option>
+                <option value="غير مسدد">غير مسدد</option>
+            </select>
+        </div>
+
+        <div>
+            <label>المورد</label>
+            <select id="filterSupplier" onchange="renderOperations()">
+                <option value="">كل الموردين</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>رقم العملية</th>
+                    <th>الزبون</th>
+                    <th>المسافرين</th>
+                    <th>PNR</th>
+                    <th>النوع</th>
+                    <th>البيع</th>
+                    <th>المدفوع</th>
+                    <th>المتبقي</th>
+                    <th>المورد</th>
+                    <th>الحالة</th>
+                    <th>إجراءات</th>
+                </tr>
+            </thead>
+            <tbody id="operationsTable"></tbody>
+        </table>
+    </div>
+</div>
+
+</section>
+
+
+<!-- NEW OPERATION -->
+<section id="newOperation" class="page">
+
+<div class="card">
+    <h2 id="operationFormTitle">إضافة عملية جديدة</h2>
+
+    <div class="notice">
+        رقم العملية يتم توليده تلقائياً ولا يتكرر حتى إذا تم حذف عملية.
     </div>
 
     <input type="hidden" id="editId">
 
-    <div class="grid">
+    <div class="form-grid">
 
         <div>
             <label>رقم العملية</label>
@@ -249,7 +365,7 @@ tr:nth-child(even){background:#f8f9fa}
 
         <div>
             <label>PNR</label>
-            <input id="pnr" placeholder="رقم حجز التذكرة">
+            <input id="pnr" placeholder="مثال: ABC123">
         </div>
 
         <div>
@@ -278,285 +394,425 @@ tr:nth-child(even){background:#f8f9fa}
         </div>
 
         <div>
-            <label>جهة الإصدار / المورد</label>
-            <input id="issuer" placeholder="اسم المورد">
-        </div>
-
-        <div>
             <label>سعر التصريف للعملية</label>
-            <input type="number" id="exchangeRate" step="0.01" placeholder="مثلاً 1550">
+            <input type="number" id="exchangeRate" value="1550">
         </div>
 
         <div>
-            <label>حالة العملية</label>
-            <select id="operationStatus">
-                <option value="جديدة">جديدة</option>
-                <option value="قيد المعالجة">قيد المعالجة</option>
-                <option value="مكتملة">مكتملة</option>
-                <option value="ملغاة">ملغاة</option>
-                <option value="مسترجعة">مسترجعة</option>
-                <option value="مؤجلة">مؤجلة</option>
+            <label>جهة الإصدار / المورد</label>
+            <input id="supplier" placeholder="اسم المورد">
+        </div>
+
+        <div>
+            <label>موعد استحقاق المورد</label>
+            <input type="date" id="supplierDueDate">
+        </div>
+
+    </div>
+
+    <hr>
+
+    <h3>نوع العملية</h3>
+
+    <div class="type-box">
+        <label><input type="checkbox" value="تذكرة" class="operationType"> تذكرة</label>
+        <label><input type="checkbox" value="فيزا" class="operationType"> فيزا</label>
+        <label><input type="checkbox" value="حجز فندقي" class="operationType"> حجز فندقي</label>
+        <label><input type="checkbox" value="تأمين صحي" class="operationType"> تأمين صحي</label>
+        <label><input type="checkbox" value="تأمين سيارة" class="operationType"> تأمين سيارة</label>
+        <label><input type="checkbox" value="حجز مبدئي" class="operationType"> حجز مبدئي</label>
+        <label><input type="checkbox" value="باقة سياحية" class="operationType"> باقة سياحية</label>
+        <label><input type="checkbox" value="استقبال / توصيل" class="operationType"> استقبال / توصيل</label>
+        <label><input type="checkbox" value="أخرى" class="operationType"> أخرى</label>
+    </div>
+
+</div>
+
+
+<div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+        <h2>المسافرون</h2>
+        <button class="btn btn-success" onclick="addPassenger()">+ إضافة مسافر</button>
+    </div>
+
+    <div id="passengersContainer"></div>
+</div>
+
+
+<div class="card">
+
+    <h2>حساب المورد</h2>
+
+    <div class="form-grid">
+
+        <div>
+            <label>مبلغ المورد USD</label>
+            <input type="number" id="supplierAmountUSD" step="0.01" value="0">
+        </div>
+
+        <div>
+            <label>مبلغ المورد IQD</label>
+            <input type="number" id="supplierAmountIQD" step="1" value="0">
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <label>ملاحظات العملية</label>
+    <textarea id="operationNotes"></textarea>
+
+    <div class="actions">
+        <button class="btn btn-success" onclick="saveOperation()">حفظ العملية</button>
+        <button class="btn btn-secondary" onclick="resetOperationForm()">إلغاء</button>
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- CUSTOMER PAYMENTS -->
+<section id="customerPayments" class="page">
+
+<div class="card">
+
+    <h2>تسديد الزبائن</h2>
+
+    <div class="notice">
+        ابحث برقم العملية أو اسم الزبون أو اسم أي مسافر أو الهاتف أو PNR، وبعدها أضف الدفعة مباشرة بدون فتح العملية.
+    </div>
+
+    <div class="search-box">
+        <input id="customerPaymentSearch"
+               placeholder="رقم العملية / الاسم / الهاتف / PNR">
+        <button class="btn btn-primary" onclick="searchCustomerPayments()">بحث</button>
+    </div>
+
+</div>
+
+<div class="card">
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>العملية</th>
+                    <th>الزبون</th>
+                    <th>PNR</th>
+                    <th>إجمالي البيع</th>
+                    <th>المدفوع</th>
+                    <th>المتبقي</th>
+                    <th>الحالة</th>
+                    <th>إجراء</th>
+                </tr>
+            </thead>
+            <tbody id="customerPaymentResults"></tbody>
+        </table>
+    </div>
+</div>
+
+</section>
+
+
+<!-- SUPPLIERS -->
+<section id="suppliers" class="page">
+
+<div class="card">
+
+    <h2>إدارة الموردين</h2>
+
+    <div class="search-box">
+        <input id="supplierSearch" placeholder="ابحث باسم المورد أو رقم العملية أو اسم الزبون">
+        <button class="btn btn-primary" onclick="renderSuppliers()">بحث</button>
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>المورد</th>
+                    <th>العملية</th>
+                    <th>الزبون</th>
+                    <th>PNR</th>
+                    <th>مبلغ المورد</th>
+                    <th>المدفوع</th>
+                    <th>المتبقي</th>
+                    <th>الاستحقاق</th>
+                    <th>إجراء</th>
+                </tr>
+            </thead>
+            <tbody id="supplierTable"></tbody>
+        </table>
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- REPORTS -->
+<section id="reports" class="page">
+
+<div class="card">
+
+    <h2>تقرير المبيعات</h2>
+
+    <div class="form-grid">
+
+        <div>
+            <label>من تاريخ</label>
+            <input type="date" id="reportFrom">
+        </div>
+
+        <div>
+            <label>إلى تاريخ</label>
+            <input type="date" id="reportTo">
+        </div>
+
+        <div>
+            <label>نوع العملية</label>
+            <select id="reportType">
+                <option value="">الكل</option>
+                <option>تذكرة</option>
+                <option>فيزا</option>
+                <option>حجز فندقي</option>
+                <option>تأمين صحي</option>
+                <option>تأمين سيارة</option>
+                <option>حجز مبدئي</option>
+                <option>باقة سياحية</option>
+                <option>استقبال / توصيل</option>
+                <option>أخرى</option>
+            </select>
+        </div>
+
+        <div>
+            <label>المورد</label>
+            <select id="reportSupplier">
+                <option value="">كل الموردين</option>
             </select>
         </div>
 
     </div>
 
-    <br>
-
-    <label>نوع العملية / الخدمات</label>
-
-    <div class="checkbox-group">
-
-        <label class="check-item">
-            <input type="checkbox" class="operationType" value="تذكرة">
-            تذكرة
-        </label>
-
-        <label class="check-item">
-            <input type="checkbox" class="operationType" value="فيزا">
-            فيزا
-        </label>
-
-        <label class="check-item">
-            <input type="checkbox" class="operationType" value="حجز فندقي">
-            حجز فندقي
-        </label>
-
-        <label class="check-item">
-            <input type="checkbox" class="operationType" value="تأمين صحي">
-            تأمين صحي
-        </label>
-
-        <label class="check-item">
-            <input type="checkbox" class="operationType" value="تأمين سيارة">
-            تأمين سيارة
-        </label>
-
-        <label class="check-item">
-            <input type="checkbox" class="operationType" value="حجز مبدئي">
-            حجز مبدئي
-        </label>
-
-        <label class="check-item">
-            <input type="checkbox" class="operationType" value="باقة سياحية">
-            باقة سياحية
-        </label>
-
-        <label class="check-item">
-            <input type="checkbox" class="operationType" value="استقبال / توصيل">
-            استقبال / توصيل
-        </label>
-
-        <label class="check-item">
-            <input type="checkbox" class="operationType" value="أخرى">
-            أخرى
-        </label>
-
-    </div>
-
-    <br>
-
-    <!-- المسافرون -->
-    <div class="section-title">
-        <h2>👨‍👩‍👧‍👦 المسافرون</h2>
-        <button class="btn-success" onclick="addPassenger()">+ إضافة مسافر</button>
-    </div>
-
-    <div id="passengersContainer"></div>
-
-    <div id="saleTotals" class="total-box">
-        إجمالي البيع: 0 دولار | 0 دينار
-    </div>
-
-    <br>
-
-    <!-- دفعات الزبون -->
-    <div class="section-title">
-        <h2>💰 دفعات الزبون</h2>
-        <button class="btn-success" onclick="addCustomerPayment()">+ إضافة دفعة</button>
-    </div>
-
-    <div id="customerPayments"></div>
-
-    <div id="customerTotals" class="total-box">
-        مجموع المدفوع: 0 دولار | 0 دينار
-    </div>
-
-    <br>
-
-    <!-- المورد -->
-    <h2>🏢 حساب المورد</h2>
-
-    <div class="grid">
-
-        <div>
-            <label>مبلغ المورد بالدولار</label>
-            <input type="number" id="supplierAmountUSD" step="0.01" value="0">
-        </div>
-
-        <div>
-            <label>مبلغ المورد بالدينار</label>
-            <input type="number" id="supplierAmountIQD" step="1" value="0">
-        </div>
-
-        <div>
-            <label>تاريخ استحقاق المورد</label>
-            <input type="date" id="supplierDueDate">
-        </div>
-
-        <div>
-            <label>يوم الاستحقاق</label>
-            <input id="supplierDueDay" readonly>
-        </div>
-
-    </div>
-
-    <br>
-
-    <div class="section-title">
-        <h2>💵 تسديدات المورد</h2>
-        <button class="btn-success" onclick="addSupplierPayment()">+ إضافة تسديد</button>
-    </div>
-
-    <div id="supplierPayments"></div>
-
-    <div id="supplierTotals" class="total-box">
-        مجموع تسديد المورد: 0 دولار | 0 دينار
-    </div>
-
-    <br>
-
-    <label>ملاحظات</label>
-    <textarea id="notes" placeholder="أي ملاحظات على العملية"></textarea>
-
     <div class="actions">
-        <button class="btn-primary" onclick="saveTransaction()">💾 حفظ العملية</button>
-        <button class="btn-secondary" onclick="resetForm()">إلغاء / عملية جديدة</button>
+        <button class="btn btn-primary" onclick="generateReport()">إنشاء التقرير</button>
+        <button class="btn btn-success" onclick="printReport()">طباعة التقرير</button>
     </div>
 
 </div>
 
 
-<!-- البحث -->
+<div id="reportResults"></div>
+
+</section>
+
+
+<!-- CUSTOMER STATEMENT -->
+<section id="customerStatement" class="page">
+
 <div class="card">
 
-    <h2>🔎 البحث بالعمليات</h2>
+    <h2>كشف حساب الزبون</h2>
 
     <div class="search-box">
-        <input id="searchInput"
-               placeholder="ابحث برقم العملية، PNR، اسم المسافر، الهاتف، المورد..."
-               oninput="renderTransactions()">
-
-        <select id="statusFilter" onchange="renderTransactions()">
-            <option value="">كل الحالات</option>
-            <option value="مسدد">مسدد</option>
-            <option value="مسدد جزئي">مسدد جزئي</option>
-            <option value="غير مسدد">غير مسدد</option>
-        </select>
+        <input id="customerStatementSearch" placeholder="اسم الزبون أو الهاتف">
+        <button class="btn btn-primary" onclick="customerStatement()">عرض</button>
     </div>
 
 </div>
 
+<div id="customerStatementResult"></div>
 
-<!-- جدول العمليات -->
+</section>
+
+
+<!-- SUPPLIER STATEMENT -->
+<section id="supplierStatement" class="page">
+
 <div class="card">
 
-    <div class="section-title">
-        <h2>📋 العمليات</h2>
-        <button class="btn-danger" onclick="deleteAllTransactions()">حذف الكل</button>
-    </div>
+    <h2>كشف حساب المورد</h2>
 
-    <div class="table-wrap">
-
-        <table>
-
-            <thead>
-                <tr>
-                    <th>رقم العملية</th>
-                    <th>PNR</th>
-                    <th>نوع العملية</th>
-                    <th>الزبون</th>
-                    <th>المسافرون</th>
-                    <th>الهاتف</th>
-                    <th>السفر</th>
-                    <th>المورد</th>
-                    <th>البيع USD</th>
-                    <th>البيع IQD</th>
-                    <th>مدفوع الزبون</th>
-                    <th>متبقي الزبون</th>
-                    <th>المورد</th>
-                    <th>تسديد المورد</th>
-                    <th>متبقي المورد</th>
-                    <th>الحالة</th>
-                    <th>إجراءات</th>
-                </tr>
-            </thead>
-
-            <tbody id="transactionsTable"></tbody>
-
-        </table>
-
+    <div class="search-box">
+        <input id="supplierStatementSearch" placeholder="اسم المورد">
+        <button class="btn btn-primary" onclick="supplierStatement()">عرض</button>
     </div>
 
 </div>
 
+<div id="supplierStatementResult"></div>
+
+</section>
+
+
+<!-- BACKUP -->
+<section id="backup" class="page">
+
+<div class="card">
+
+    <h2>النسخ الاحتياطي</h2>
+
+    <div class="notice">
+        بيانات الموقع محفوظة داخل المتصفح. أنصحك بشكل دوري تسوي نسخة احتياطية حتى إذا انمسحت بيانات المتصفح ما تخسر حساباتك.
+    </div>
+
+    <div class="actions">
+        <button class="btn btn-success" onclick="exportBackup()">تحميل نسخة احتياطية</button>
+
+        <label class="btn btn-primary" style="display:inline-block">
+            استعادة نسخة
+            <input type="file" accept=".json" onchange="importBackup(event)" style="display:none">
+        </label>
+    </div>
+
 </div>
 
 
-<!-- نافذة الدفعات -->
-<div class="modal" id="paymentModal">
+<div class="card">
 
-    <div class="modal-content">
+    <h2>إدارة البيانات</h2>
 
-        <div class="section-title">
+    <button class="btn btn-danger" onclick="deleteAllData()">
+        حذف جميع البيانات
+    </button>
 
-            <h2 id="paymentModalTitle">دفعات العملية</h2>
+</div>
 
-            <button class="btn-secondary"
-                    onclick="closePaymentModal()">
-                إغلاق
-            </button>
+</section>
 
+</main>
+
+
+<!-- PAYMENT MODAL -->
+<div id="paymentModal" class="modal">
+
+<div class="modal-content">
+
+    <h2>إضافة تسديد من الزبون</h2>
+
+    <div id="paymentOperationInfo"></div>
+
+    <hr>
+
+    <div class="form-grid">
+
+        <div>
+            <label>تاريخ الدفعة</label>
+            <input type="date" id="paymentDate">
         </div>
 
-        <div id="paymentModalBody"></div>
+        <div>
+            <label>المبلغ USD</label>
+            <input type="number" id="paymentUSD" step="0.01" value="0">
+        </div>
+
+        <div>
+            <label>المبلغ IQD</label>
+            <input type="number" id="paymentIQD" step="1" value="0">
+        </div>
+
+        <div>
+            <label>سعر التصريف وقت التسديد</label>
+            <input type="number" id="paymentRate" value="1550">
+        </div>
 
     </div>
 
+    <label style="margin-top:12px">ملاحظات</label>
+    <textarea id="paymentNotes"></textarea>
+
+    <div class="actions">
+        <button class="btn btn-success" onclick="saveCustomerPayment()">حفظ التسديد</button>
+        <button class="btn btn-secondary" onclick="closeModal()">إغلاق</button>
+    </div>
+
+</div>
+</div>
+
+
+<!-- SUPPLIER PAYMENT MODAL -->
+<div id="supplierPaymentModal" class="modal">
+
+<div class="modal-content">
+
+    <h2>تسديد المورد</h2>
+
+    <div id="supplierPaymentInfo"></div>
+
+    <hr>
+
+    <div class="form-grid">
+
+        <div>
+            <label>تاريخ التسديد</label>
+            <input type="date" id="supplierPaymentDate">
+        </div>
+
+        <div>
+            <label>المبلغ USD</label>
+            <input type="number" id="supplierPaymentUSD" step="0.01" value="0">
+        </div>
+
+        <div>
+            <label>المبلغ IQD</label>
+            <input type="number" id="supplierPaymentIQD" step="1" value="0">
+        </div>
+
+        <div>
+            <label>سعر التصريف</label>
+            <input type="number" id="supplierPaymentRate" value="1550">
+        </div>
+
+    </div>
+
+    <label style="margin-top:12px">ملاحظات</label>
+    <textarea id="supplierPaymentNotes"></textarea>
+
+    <div class="actions">
+        <button class="btn btn-success" onclick="saveSupplierPayment()">حفظ التسديد</button>
+        <button class="btn btn-secondary" onclick="closeSupplierModal()">إغلاق</button>
+    </div>
+
+</div>
 </div>
 
 
 <script>
 
 const STORAGE_KEY = "travelTransactions";
-const SCHEMA_VERSION = 2;
+const SEQUENCE_KEY = "travelOperationSequence";
 
 let transactions = [];
-let passengerCounter = 0;
-let customerPaymentCounter = 0;
-let supplierPaymentCounter = 0;
+let currentPaymentOperationId = null;
+let currentSupplierPaymentOperationId = null;
 
 
 /* =========================
-   أدوات
+   BASIC FUNCTIONS
 ========================= */
-
-function uid(prefix="id"){
-    return prefix + "_" + Date.now() + "_" +
-           Math.random().toString(36).substring(2,9);
-}
 
 function today(){
     return new Date().toISOString().split("T")[0];
 }
 
-function money(value){
-    return Number(value || 0).toLocaleString("en-US",{
+function money(n){
+    return Number(n || 0).toLocaleString("en-US",{
         maximumFractionDigits:2
     });
 }
 
-function escapeHTML(value){
+function uid(){
+    return Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+}
+
+function esc(value){
     return String(value ?? "")
         .replace(/&/g,"&amp;")
         .replace(/</g,"&lt;")
@@ -565,145 +821,153 @@ function escapeHTML(value){
         .replace(/'/g,"&#039;");
 }
 
+function saveData(){
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(transactions));
+}
 
-/* =========================
-   تحميل البيانات
-========================= */
+function showPage(id,btn){
 
-function loadTransactions(){
+    document.querySelectorAll(".page").forEach(p=>{
+        p.classList.remove("active");
+    });
 
-    try{
-        const saved = localStorage.getItem(STORAGE_KEY);
+    document.getElementById(id).classList.add("active");
 
-        transactions = saved ? JSON.parse(saved) : [];
+    document.querySelectorAll("nav button").forEach(b=>{
+        b.classList.remove("active");
+    });
 
-        if(!Array.isArray(transactions)){
-            transactions = [];
-        }
+    if(btn) btn.classList.add("active");
 
-        migrateOldTransactions();
-
-    }catch(error){
-
-        console.error(error);
-
-        transactions = [];
-
-        alert("حدثت مشكلة في قراءة البيانات القديمة.");
-    }
+    if(id==="dashboard") renderDashboard();
+    if(id==="operations") renderOperations();
+    if(id==="customerPayments") searchCustomerPayments();
+    if(id==="suppliers") renderSuppliers();
 }
 
 
 /* =========================
-   ترقية البيانات القديمة
+   MIGRATION
 ========================= */
 
-function migrateOldTransactions(){
+function loadData(){
 
-    let changed = false;
+    let raw = localStorage.getItem(STORAGE_KEY);
 
-    transactions = transactions.map((t,index)=>{
+    if(!raw){
+        transactions=[];
+        return;
+    }
+
+    try{
+        transactions=JSON.parse(raw);
+
+        if(!Array.isArray(transactions)){
+            transactions=[];
+        }
+
+    }catch(e){
+        transactions=[];
+        alert("تعذر قراءة البيانات القديمة.");
+    }
+
+    migrateData();
+}
+
+
+function migrateData(){
+
+    let changed=false;
+
+    transactions.forEach(t=>{
 
         if(!t.id){
-            t.id = uid("op");
-            changed = true;
+            t.id=uid();
+            changed=true;
         }
 
-        if(!t.operationNumber){
-            t.operationNumber =
-                "OP-" +
-                String(index + 1).padStart(5,"0");
+        if(!t.schemaVersion || t.schemaVersion<2){
 
-            changed = true;
-        }
-
-        /*
-          تحويل العملية القديمة إلى
-          قائمة مسافرين
-        */
-
-        if(!Array.isArray(t.passengers)){
-
-            const oldName =
-                t.passengerName ||
-                t.mainCustomer ||
-                "";
-
-            t.passengers = [{
-                id:uid("p"),
-                fullName:oldName,
-                gender:"",
-                passengerType:"بالغ",
-                passportNumber:"",
-                saleAmount:Number(t.saleUSD || t.saleIQD || 0),
-                saleCurrency:t.saleCurrency || "USD",
-                saleUSD:Number(t.saleUSD || 0),
-                saleIQD:Number(t.saleIQD || 0),
-                notes:""
-            }];
-
-            changed = true;
-        }
-
-        if(!Array.isArray(t.operationTypes)){
-
-            t.operationTypes =
-                t.operationType ?
-                [t.operationType] :
-                ["تذكرة"];
-
-            changed = true;
-        }
-
-        if(!Array.isArray(t.customerPayments)){
-
-            t.customerPayments = [];
-
-            /*
-              محاولة الحفاظ على الدفعة القديمة
-            */
-
-            if(Number(t.paidUSD || 0) !== 0 ||
-               Number(t.paidIQD || 0) !== 0){
-
-                t.customerPayments.push({
-                    id:uid("cp"),
-                    usd:Number(t.paidUSD || 0),
-                    iqd:Number(t.paidIQD || 0),
-                    exchangeRate:Number(
-                        t.exchangeRate || 1550
-                    ),
-                    date:t.paymentDate || today(),
-                    notes:""
-                });
+            if(!t.operationNumber){
+                t.operationNumber="";
             }
 
-            changed = true;
+            if(!t.operationTypes){
+                t.operationTypes = t.operationType
+                    ? [t.operationType]
+                    : ["تذكرة"];
+            }
+
+            if(!t.pnr) t.pnr="";
+
+            if(!t.mainCustomer){
+                t.mainCustomer=t.passengerName || "";
+            }
+
+            if(!t.phone){
+                t.phone=t.phoneNumber || "";
+            }
+
+            if(!t.passengers){
+
+                t.passengers=[{
+                    id:uid(),
+                    fullName:t.passengerName || "",
+                    gender:"",
+                    passengerType:"بالغ",
+                    passportNumber:"",
+                    saleAmount:Number(t.saleAmount || t.saleUSD || t.saleIQD || 0),
+                    saleCurrency:t.saleCurrency || (
+                        Number(t.saleIQD)>0 ? "IQD" : "USD"
+                    ),
+                    saleUSD:Number(t.saleUSD || 0),
+                    saleIQD:Number(t.saleIQD || 0),
+                    notes:""
+                }];
+
+            }
+
+            if(!t.customerPayments){
+
+                t.customerPayments=[];
+
+                if(Number(t.paidUSD||0)>0 || Number(t.paidIQD||0)>0){
+
+                    t.customerPayments.push({
+                        id:uid(),
+                        date:t.paymentDate || t.transactionDate || today(),
+                        usd:Number(t.paidUSD||0),
+                        iqd:Number(t.paidIQD||0),
+                        exchangeRate:Number(t.exchangeRate||1550),
+                        notes:"دفعة قديمة"
+                    });
+                }
+            }
+
+            if(!t.supplierPayments){
+                t.supplierPayments=[];
+            }
+
+            if(!t.supplierAmountUSD)
+                t.supplierAmountUSD=Number(t.supplierUSD||0);
+
+            if(!t.supplierAmountIQD)
+                t.supplierAmountIQD=Number(t.supplierIQD||0);
+
+            if(!t.operationNotes)
+                t.operationNotes=t.notes || "";
+
+            t.schemaVersion=2;
+            changed=true;
         }
 
-        if(!Array.isArray(t.supplierPayments)){
-            t.supplierPayments = [];
-            changed = true;
-        }
-
-        if(!t.operationStatus){
-            t.operationStatus = "مكتملة";
-            changed = true;
-        }
-
-        if(!t.exchangeRate){
-            t.exchangeRate = 1550;
-            changed = true;
-        }
-
-        if(!t.schemaVersion){
-            t.schemaVersion = SCHEMA_VERSION;
-            changed = true;
-        }
-
-        return t;
+        if(!t.customerPayments) t.customerPayments=[];
+        if(!t.supplierPayments) t.supplierPayments=[];
+        if(!t.passengers) t.passengers=[];
 
     });
+
+    assignMissingOperationNumbers();
 
     if(changed){
         saveData();
@@ -711,959 +975,52 @@ function migrateOldTransactions(){
 }
 
 
-function saveData(){
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(transactions)
-    );
-}
+function assignMissingOperationNumbers(){
 
-
-/* =========================
-   أرقام العمليات
-========================= */
-
-function generateOperationNumber(){
-
-    let max = 0;
+    let max=Number(localStorage.getItem(SEQUENCE_KEY)||0);
 
     transactions.forEach(t=>{
 
-        const match =
-            String(t.operationNumber || "")
-            .match(/(\d+)$/);
+        if(t.operationNumber){
 
-        if(match){
-            max = Math.max(max,Number(match[1]));
+            let m=String(t.operationNumber).match(/(\d+)$/);
+
+            if(m){
+                max=Math.max(max,Number(m[1]));
+            }
+
         }
 
     });
 
-    return "OP-" + String(max + 1).padStart(5,"0");
-}
+    transactions.forEach(t=>{
 
+        if(!t.operationNumber){
 
-/* =========================
-   إضافة مسافر
-========================= */
+            max++;
 
-function addPassenger(data=null){
+            t.operationNumber="OP-"+String(max).padStart(5,"0");
 
-    passengerCounter++;
-
-    const id = uid("passenger");
-
-    const div = document.createElement("div");
-
-    div.className = "passenger";
-
-    div.dataset.id = id;
-
-    div.innerHTML = `
-
-        <div class="passenger-header">
-
-            <strong>
-                مسافر #${passengerCounter}
-            </strong>
-
-            <button
-                type="button"
-                class="btn-danger"
-                onclick="removePassenger('${id}')">
-                حذف المسافر
-            </button>
-
-        </div>
-
-        <div class="grid">
-
-            <div>
-                <label>الاسم الكامل</label>
-                <input
-                    class="p-name"
-                    value="${escapeHTML(data?.fullName || "")}"
-                    placeholder="اسم المسافر">
-            </div>
-
-            <div>
-                <label>الجنس</label>
-
-                <select class="p-gender">
-
-                    <option value="">غير محدد</option>
-                    <option value="ذكر"
-                        ${data?.gender==="ذكر"?"selected":""}>
-                        ذكر
-                    </option>
-
-                    <option value="أنثى"
-                        ${data?.gender==="أنثى"?"selected":""}>
-                        أنثى
-                    </option>
-
-                </select>
-
-            </div>
-
-            <div>
-                <label>نوع المسافر</label>
-
-                <select class="p-type">
-
-                    <option value="بالغ"
-                        ${!data?.passengerType ||
-                          data?.passengerType==="بالغ"
-                          ?"selected":""}>
-                        بالغ
-                    </option>
-
-                    <option value="طفل"
-                        ${data?.passengerType==="طفل"
-                          ?"selected":""}>
-                        طفل
-                    </option>
-
-                    <option value="رضيع"
-                        ${data?.passengerType==="رضيع"
-                          ?"selected":""}>
-                        رضيع
-                    </option>
-
-                </select>
-
-            </div>
-
-            <div>
-                <label>رقم الجواز</label>
-
-                <input
-                    class="p-passport"
-                    value="${escapeHTML(data?.passportNumber || "")}"
-                    placeholder="رقم الجواز">
-            </div>
-
-            <div>
-                <label>مبلغ البيع</label>
-
-                <input
-                    type="number"
-                    step="0.01"
-                    class="p-amount"
-                    value="${data?.saleAmount ?? ""}"
-                    oninput="calculateSaleTotals()"
-                    placeholder="المبلغ">
-            </div>
-
-            <div>
-                <label>عملة البيع</label>
-
-                <select
-                    class="p-currency"
-                    onchange="calculateSaleTotals()">
-
-                    <option value="USD"
-                        ${!data?.saleCurrency ||
-                          data?.saleCurrency==="USD"
-                          ?"selected":""}>
-                        دولار USD
-                    </option>
-
-                    <option value="IQD"
-                        ${data?.saleCurrency==="IQD"
-                          ?"selected":""}>
-                        دينار IQD
-                    </option>
-
-                </select>
-
-            </div>
-
-        </div>
-
-        <br>
-
-        <label>ملاحظات المسافر</label>
-
-        <textarea
-            class="p-notes"
-            placeholder="ملاحظات">${escapeHTML(data?.notes || "")}</textarea>
-
-    `;
-
-    document
-        .getElementById("passengersContainer")
-        .appendChild(div);
-
-    calculateSaleTotals();
-}
-
-
-function removePassenger(id){
-
-    const item =
-        document.querySelector(
-            `.passenger[data-id="${id}"]`
-        );
-
-    if(!item) return;
-
-    const all =
-        document.querySelectorAll(".passenger");
-
-    if(all.length <= 1){
-
-        alert("يجب أن تحتوي العملية على مسافر واحد على الأقل.");
-
-        return;
-    }
-
-    item.remove();
-
-    calculateSaleTotals();
-}
-
-
-/* =========================
-   قراءة المسافرين
-========================= */
-
-function collectPassengers(){
-
-    const result = [];
-
-    document.querySelectorAll(".passenger")
-        .forEach(item=>{
-
-            const amount =
-                Number(
-                    item.querySelector(".p-amount").value || 0
-                );
-
-            const currency =
-                item.querySelector(".p-currency").value;
-
-            result.push({
-
-                id:item.dataset.id || uid("p"),
-
-                fullName:
-                    item.querySelector(".p-name").value.trim(),
-
-                gender:
-                    item.querySelector(".p-gender").value,
-
-                passengerType:
-                    item.querySelector(".p-type").value,
-
-                passportNumber:
-                    item.querySelector(".p-passport").value.trim(),
-
-                saleAmount:amount,
-
-                saleCurrency:currency,
-
-                saleUSD:
-                    currency==="USD" ? amount : 0,
-
-                saleIQD:
-                    currency==="IQD" ? amount : 0,
-
-                notes:
-                    item.querySelector(".p-notes").value.trim()
-
-            });
-
-        });
-
-    return result;
-}
-
-
-/* =========================
-   حساب البيع
-========================= */
-
-function calculateSaleTotals(){
-
-    let usd = 0;
-    let iqd = 0;
-
-    document.querySelectorAll(".passenger")
-        .forEach(item=>{
-
-            const amount =
-                Number(
-                    item.querySelector(".p-amount").value || 0
-                );
-
-            const currency =
-                item.querySelector(".p-currency").value;
-
-            if(currency==="USD") usd += amount;
-            else iqd += amount;
-
-        });
-
-    document.getElementById("saleTotals").innerHTML =
-        `إجمالي البيع:
-         <b>${money(usd)} دولار</b>
-         |
-         <b>${money(iqd)} دينار</b>`;
-
-    calculateCustomerTotals();
-}
-
-
-/* =========================
-   دفعات الزبون
-========================= */
-
-function addCustomerPayment(data=null){
-
-    customerPaymentCounter++;
-
-    const id = uid("cp");
-
-    const div = document.createElement("div");
-
-    div.className = "payment-row";
-
-    div.dataset.id = id;
-
-    div.innerHTML = `
-
-        <div>
-            <label>التاريخ</label>
-
-            <input
-                type="date"
-                class="cp-date"
-                value="${data?.date || today()}">
-        </div>
-
-        <div>
-            <label>دولار</label>
-
-            <input
-                type="number"
-                step="0.01"
-                class="cp-usd"
-                value="${data?.usd ?? 0}"
-                oninput="calculateCustomerTotals()">
-        </div>
-
-        <div>
-            <label>دينار</label>
-
-            <input
-                type="number"
-                step="1"
-                class="cp-iqd"
-                value="${data?.iqd ?? 0}"
-                oninput="calculateCustomerTotals()">
-        </div>
-
-        <div>
-            <label>سعر التصريف</label>
-
-            <input
-                type="number"
-                step="0.01"
-                class="cp-rate"
-                value="${data?.exchangeRate || document.getElementById("exchangeRate").value || 1550}">
-        </div>
-
-        <div>
-            <label>ملاحظات</label>
-
-            <input
-                class="cp-notes"
-                value="${escapeHTML(data?.notes || "")}">
-        </div>
-
-        <div style="display:flex;align-items:end">
-
-            <button
-                type="button"
-                class="btn-danger"
-                onclick="this.closest('.payment-row').remove();calculateCustomerTotals()">
-                حذف
-            </button>
-
-        </div>
-
-    `;
-
-    document
-        .getElementById("customerPayments")
-        .appendChild(div);
-
-    calculateCustomerTotals();
-}
-
-
-function collectCustomerPayments(){
-
-    const result=[];
-
-    document.querySelectorAll(
-        "#customerPayments .payment-row"
-    ).forEach(row=>{
-
-        result.push({
-
-            id:row.dataset.id || uid("cp"),
-
-            date:
-                row.querySelector(".cp-date").value,
-
-            usd:
-                Number(
-                    row.querySelector(".cp-usd").value || 0
-                ),
-
-            iqd:
-                Number(
-                    row.querySelector(".cp-iqd").value || 0
-                ),
-
-            exchangeRate:
-                Number(
-                    row.querySelector(".cp-rate").value || 1550
-                ),
-
-            notes:
-                row.querySelector(".cp-notes").value.trim()
-
-        });
-
-    });
-
-    return result;
-}
-
-
-function calculateCustomerTotals(){
-
-    let usd=0;
-    let iqd=0;
-
-    document.querySelectorAll(
-        "#customerPayments .payment-row"
-    ).forEach(row=>{
-
-        usd += Number(
-            row.querySelector(".cp-usd").value || 0
-        );
-
-        iqd += Number(
-            row.querySelector(".cp-iqd").value || 0
-        );
-
-    });
-
-    document.getElementById("customerTotals").innerHTML =
-        `مجموع المدفوع:
-        <b>${money(usd)} دولار</b>
-        |
-        <b>${money(iqd)} دينار</b>`;
-}
-
-
-/* =========================
-   دفعات المورد
-========================= */
-
-function addSupplierPayment(data=null){
-
-    supplierPaymentCounter++;
-
-    const id=uid("sp");
-
-    const div=document.createElement("div");
-
-    div.className="payment-row";
-
-    div.dataset.id=id;
-
-    div.innerHTML=`
-
-        <div>
-            <label>التاريخ</label>
-
-            <input
-                type="date"
-                class="sp-date"
-                value="${data?.date || today()}">
-        </div>
-
-        <div>
-            <label>دولار</label>
-
-            <input
-                type="number"
-                step="0.01"
-                class="sp-usd"
-                value="${data?.usd ?? 0}"
-                oninput="calculateSupplierTotals()">
-        </div>
-
-        <div>
-            <label>دينار</label>
-
-            <input
-                type="number"
-                step="1"
-                class="sp-iqd"
-                value="${data?.iqd ?? 0}"
-                oninput="calculateSupplierTotals()">
-        </div>
-
-        <div>
-            <label>سعر التصريف</label>
-
-            <input
-                type="number"
-                step="0.01"
-                class="sp-rate"
-                value="${data?.exchangeRate || document.getElementById("exchangeRate").value || 1550}">
-        </div>
-
-        <div>
-            <label>ملاحظات</label>
-
-            <input
-                class="sp-notes"
-                value="${escapeHTML(data?.notes || "")}">
-        </div>
-
-        <div style="display:flex;align-items:end">
-
-            <button
-                type="button"
-                class="btn-danger"
-                onclick="this.closest('.payment-row').remove();calculateSupplierTotals()">
-                حذف
-            </button>
-
-        </div>
-    `;
-
-    document
-        .getElementById("supplierPayments")
-        .appendChild(div);
-
-    calculateSupplierTotals();
-}
-
-
-function collectSupplierPayments(){
-
-    const result=[];
-
-    document.querySelectorAll(
-        "#supplierPayments .payment-row"
-    ).forEach(row=>{
-
-        result.push({
-
-            id:
-                row.dataset.id || uid("sp"),
-
-            date:
-                row.querySelector(".sp-date").value,
-
-            usd:
-                Number(
-                    row.querySelector(".sp-usd").value || 0
-                ),
-
-            iqd:
-                Number(
-                    row.querySelector(".sp-iqd").value || 0
-                ),
-
-            exchangeRate:
-                Number(
-                    row.querySelector(".sp-rate").value || 1550
-                ),
-
-            notes:
-                row.querySelector(".sp-notes").value.trim()
-
-        });
-
-    });
-
-    return result;
-}
-
-
-function calculateSupplierTotals(){
-
-    let usd=0;
-    let iqd=0;
-
-    document.querySelectorAll(
-        "#supplierPayments .payment-row"
-    ).forEach(row=>{
-
-        usd += Number(
-            row.querySelector(".sp-usd").value || 0
-        );
-
-        iqd += Number(
-            row.querySelector(".sp-iqd").value || 0
-        );
-
-    });
-
-    document.getElementById("supplierTotals").innerHTML =
-        `مجموع تسديد المورد:
-        <b>${money(usd)} دولار</b>
-        |
-        <b>${money(iqd)} دينار</b>`;
-}
-
-
-/* =========================
-   حفظ العملية
-========================= */
-
-function saveTransaction(){
-
-    const editId =
-        document.getElementById("editId").value;
-
-    const passengers = collectPassengers();
-
-    if(passengers.length===0){
-
-        alert("أضف مسافر واحد على الأقل.");
-
-        return;
-    }
-
-    if(passengers.some(p=>!p.fullName)){
-
-        alert("يرجى إدخال اسم كل مسافر.");
-
-        return;
-    }
-
-    const operationTypes =
-        [...document.querySelectorAll(".operationType:checked")]
-        .map(x=>x.value);
-
-    if(operationTypes.length===0){
-
-        alert("اختر نوع العملية على الأقل.");
-
-        return;
-    }
-
-    const exchangeRate =
-        Number(
-            document.getElementById("exchangeRate").value || 1550
-        );
-
-    const data={
-
-        schemaVersion:SCHEMA_VERSION,
-
-        id:
-            editId ||
-            uid("op"),
-
-        operationNumber:
-            document.getElementById("operationNumber").value,
-
-        operationTypes,
-
-        pnr:
-            document.getElementById("pnr").value.trim(),
-
-        mainCustomer:
-            document.getElementById("mainCustomer").value.trim(),
-
-        phone:
-            document.getElementById("phone").value.trim(),
-
-        transactionDate:
-            document.getElementById("transactionDate").value,
-
-        travelDate:
-            document.getElementById("travelDate").value,
-
-        returnDate:
-            document.getElementById("returnDate").value,
-
-        addedDate:
-            editId ?
-            (
-                transactions.find(t=>t.id===editId)?.addedDate ||
-                today()
-            ) :
-            today(),
-
-        issuer:
-            document.getElementById("issuer").value.trim(),
-
-        exchangeRate,
-
-        passengers,
-
-        customerPayments:
-            collectCustomerPayments(),
-
-        supplier:
-            document.getElementById("issuer").value.trim(),
-
-        supplierAmountUSD:
-            Number(
-                document.getElementById("supplierAmountUSD").value || 0
-            ),
-
-        supplierAmountIQD:
-            Number(
-                document.getElementById("supplierAmountIQD").value || 0
-            ),
-
-        supplierDueDate:
-            document.getElementById("supplierDueDate").value,
-
-        supplierDueDay:
-            document.getElementById("supplierDueDay").value,
-
-        supplierPayments:
-            collectSupplierPayments(),
-
-        operationStatus:
-            document.getElementById("operationStatus").value,
-
-        notes:
-            document.getElementById("notes").value.trim()
-
-    };
-
-
-    if(editId){
-
-        const index =
-            transactions.findIndex(t=>t.id===editId);
-
-        if(index!==-1){
-
-            transactions[index]=data;
-
-        }else{
-
-            transactions.push(data);
         }
 
-    }else{
+    });
 
-        transactions.push(data);
+    localStorage.setItem(SEQUENCE_KEY,max);
+}
 
-    }
 
+function nextOperationNumber(){
 
-    saveData();
+    let n=Number(localStorage.getItem(SEQUENCE_KEY)||0)+1;
 
-    alert(
-        editId ?
-        "تم تعديل العملية بنجاح ✅" :
-        "تم حفظ العملية بنجاح ✅"
-    );
+    localStorage.setItem(SEQUENCE_KEY,n);
 
-    resetForm();
-
-    renderAll();
+    return "OP-"+String(n).padStart(5,"0");
 }
 
 
 /* =========================
-   تعديل العملية
-========================= */
-
-function editTransaction(id){
-
-    const t =
-        transactions.find(x=>x.id===id);
-
-    if(!t) return;
-
-    document.getElementById("editId").value=t.id;
-
-    document.getElementById("operationNumber").value =
-        t.operationNumber || generateOperationNumber();
-
-    document.getElementById("pnr").value =
-        t.pnr || "";
-
-    document.getElementById("mainCustomer").value =
-        t.mainCustomer || t.passengerName || "";
-
-    document.getElementById("phone").value =
-        t.phone || "";
-
-    document.getElementById("transactionDate").value =
-        t.transactionDate || today();
-
-    document.getElementById("travelDate").value =
-        t.travelDate || "";
-
-    document.getElementById("returnDate").value =
-        t.returnDate || "";
-
-    document.getElementById("issuer").value =
-        t.issuer || t.supplier || "";
-
-    document.getElementById("exchangeRate").value =
-        t.exchangeRate || 1550;
-
-    document.getElementById("operationStatus").value =
-        t.operationStatus || "جديدة";
-
-    document.getElementById("supplierAmountUSD").value =
-        t.supplierAmountUSD || 0;
-
-    document.getElementById("supplierAmountIQD").value =
-        t.supplierAmountIQD || 0;
-
-    document.getElementById("supplierDueDate").value =
-        t.supplierDueDate || "";
-
-    document.getElementById("supplierDueDay").value =
-        t.supplierDueDay || "";
-
-    document.getElementById("notes").value =
-        t.notes || "";
-
-
-    document
-        .querySelectorAll(".operationType")
-        .forEach(cb=>{
-
-            cb.checked =
-                (t.operationTypes || [])
-                .includes(cb.value);
-
-        });
-
-
-    document.getElementById("passengersContainer").innerHTML="";
-
-    passengerCounter=0;
-
-    (t.passengers || []).forEach(p=>{
-        addPassenger(p);
-    });
-
-    if(!t.passengers?.length){
-        addPassenger();
-    }
-
-
-    document.getElementById("customerPayments").innerHTML="";
-
-    customerPaymentCounter=0;
-
-    (t.customerPayments || []).forEach(p=>{
-        addCustomerPayment(p);
-    });
-
-
-    document.getElementById("supplierPayments").innerHTML="";
-
-    supplierPaymentCounter=0;
-
-    (t.supplierPayments || []).forEach(p=>{
-        addSupplierPayment(p);
-    });
-
-
-    document.getElementById("formTitle").innerText =
-        "✏️ تعديل العملية";
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
-    calculateSaleTotals();
-    calculateCustomerTotals();
-    calculateSupplierTotals();
-}
-
-
-/* =========================
-   إعادة النموذج
-========================= */
-
-function resetForm(){
-
-    document.getElementById("editId").value="";
-
-    document.getElementById("operationNumber").value =
-        generateOperationNumber();
-
-    document.getElementById("pnr").value="";
-    document.getElementById("mainCustomer").value="";
-    document.getElementById("phone").value="";
-
-    document.getElementById("transactionDate").value=today();
-
-    document.getElementById("travelDate").value="";
-    document.getElementById("returnDate").value="";
-    document.getElementById("issuer").value="";
-
-    document.getElementById("exchangeRate").value=1550;
-
-    document.getElementById("operationStatus").value="جديدة";
-
-    document.getElementById("supplierAmountUSD").value=0;
-    document.getElementById("supplierAmountIQD").value=0;
-
-    document.getElementById("supplierDueDate").value="";
-    document.getElementById("supplierDueDay").value="";
-
-    document.getElementById("notes").value="";
-
-
-    document
-        .querySelectorAll(".operationType")
-        .forEach(cb=>cb.checked=false);
-
-
-    document.getElementById("passengersContainer").innerHTML="";
-
-    document.getElementById("customerPayments").innerHTML="";
-
-    document.getElementById("supplierPayments").innerHTML="";
-
-
-    passengerCounter=0;
-    customerPaymentCounter=0;
-    supplierPaymentCounter=0;
-
-
-    document.getElementById("formTitle").innerText =
-        "➕ إضافة عملية جديدة";
-
-
-    addPassenger();
-
-    calculateSaleTotals();
-    calculateCustomerTotals();
-    calculateSupplierTotals();
-
-}
-
-
-/* =========================
-   حسابات العملية
+   CALCULATIONS
 ========================= */
 
 function saleTotals(t){
@@ -1671,13 +1028,9 @@ function saleTotals(t){
     let usd=0;
     let iqd=0;
 
-    (t.passengers || []).forEach(p=>{
-
-        if(p.saleCurrency==="IQD")
-            iqd += Number(p.saleAmount || 0);
-        else
-            usd += Number(p.saleAmount || 0);
-
+    (t.passengers||[]).forEach(p=>{
+        usd+=Number(p.saleUSD||0);
+        iqd+=Number(p.saleIQD||0);
     });
 
     return {usd,iqd};
@@ -1689,13 +1042,10 @@ function customerPaid(t){
     let usd=0;
     let iqd=0;
 
-    (t.customerPayments || [])
-        .forEach(p=>{
-
-            usd += Number(p.usd || 0);
-            iqd += Number(p.iqd || 0);
-
-        });
+    (t.customerPayments||[]).forEach(p=>{
+        usd+=Number(p.usd||0);
+        iqd+=Number(p.iqd||0);
+    });
 
     return {usd,iqd};
 }
@@ -1706,15 +1056,71 @@ function supplierPaid(t){
     let usd=0;
     let iqd=0;
 
-    (t.supplierPayments || [])
-        .forEach(p=>{
-
-            usd += Number(p.usd || 0);
-            iqd += Number(p.iqd || 0);
-
-        });
+    (t.supplierPayments||[]).forEach(p=>{
+        usd+=Number(p.usd||0);
+        iqd+=Number(p.iqd||0);
+    });
 
     return {usd,iqd};
+}
+
+
+function equivalentUSD(usd,iqd,rate){
+
+    rate=Number(rate||1550);
+
+    return Number(usd||0) + Number(iqd||0)/rate;
+}
+
+
+function equivalentIQD(usd,iqd,rate){
+
+    rate=Number(rate||1550);
+
+    return Number(iqd||0) + Number(usd||0)*rate;
+}
+
+
+function customerBalance(t){
+
+    const sale=saleTotals(t);
+    const paid=customerPaid(t);
+    const rate=Number(t.exchangeRate||1550);
+
+    return {
+        usd:Math.max(0,equivalentUSD(sale.usd,sale.iqd,rate) -
+            equivalentUSD(paid.usd,paid.iqd,rate)),
+
+        iqd:Math.max(0,equivalentIQD(sale.usd,sale.iqd,rate) -
+            equivalentIQD(paid.usd,paid.iqd,rate))
+    };
+}
+
+
+function supplierBalance(t){
+
+    const paid=supplierPaid(t);
+    const rate=Number(t.exchangeRate||1550);
+
+    return {
+        usd:Math.max(0,
+            equivalentUSD(
+                Number(t.supplierAmountUSD||0),
+                Number(t.supplierAmountIQD||0),
+                rate
+            ) -
+            equivalentUSD(paid.usd,paid.iqd,rate)
+        ),
+
+        iqd:Math.max(0,
+            equivalentIQD(
+                Number(t.supplierAmountUSD||0),
+                Number(t.supplierAmountIQD||0),
+                rate
+            ) -
+            equivalentIQD(paid.usd,paid.iqd,rate)
+        )
+    };
 }
 
 
@@ -1722,785 +1128,1816 @@ function customerStatus(t){
 
     const sale=saleTotals(t);
     const paid=customerPaid(t);
+    const rate=Number(t.exchangeRate||1550);
 
-    const rate =
-        Number(t.exchangeRate || 1550);
+    const total=equivalentUSD(sale.usd,sale.iqd,rate);
+    const p=equivalentUSD(paid.usd,paid.iqd,rate);
 
-    /*
-      تحويل الدينار إلى دولار للمقارنة
-    */
+    if(total<=0) return "مسدد";
+    if(p<=0) return "غير مسدد";
+    if(p>=total-0.01) return "مسدد";
 
-    const saleUSD =
-        sale.usd + sale.iqd / rate;
-
-    const paidUSD =
-        paid.usd + paid.iqd / rate;
-
-    const remaining =
-        saleUSD - paidUSD;
-
-    if(remaining <= 0.01)
-        return "مسدد";
-
-    if(paidUSD > 0)
-        return "مسدد جزئي";
-
-    return "غير مسدد";
+    return "مسدد جزئي";
 }
 
 
 function supplierStatus(t){
 
-    const amountUSD =
-        Number(t.supplierAmountUSD || 0);
+    const total=equivalentUSD(
+        Number(t.supplierAmountUSD||0),
+        Number(t.supplierAmountIQD||0),
+        Number(t.exchangeRate||1550)
+    );
 
-    const amountIQD =
-        Number(t.supplierAmountIQD || 0);
+    const paid=equivalentUSD(
+        supplierPaid(t).usd,
+        supplierPaid(t).iqd,
+        Number(t.exchangeRate||1550)
+    );
 
-    const paid=supplierPaid(t);
+    if(total<=0) return "مسدد";
+    if(paid<=0) return "غير مسدد";
+    if(paid>=total-0.01) return "مسدد";
 
-    const rate =
-        Number(t.exchangeRate || 1550);
-
-    const total =
-        amountUSD + amountIQD / rate;
-
-    const paidTotal =
-        paid.usd + paid.iqd / rate;
-
-    const remaining =
-        total - paidTotal;
-
-    if(total <= 0)
-        return "غير مسدد";
-
-    if(remaining <= 0.01)
-        return "مسدد";
-
-    if(paidTotal > 0)
-        return "مسدد جزئي";
-
-    return "غير مسدد";
+    return "مسدد جزئي";
 }
 
 
 function badge(status){
 
-    let cls="badge-gray";
+    let cls="badge-red";
 
-    if(status==="مسدد")
-        cls="badge-green";
+    if(status==="مسدد") cls="badge-green";
+    if(status==="مسدد جزئي") cls="badge-orange";
 
-    if(status==="مسدد جزئي")
-        cls="badge-yellow";
-
-    if(status==="غير مسدد")
-        cls="badge-red";
-
-    if(status==="جديدة" ||
-       status==="قيد المعالجة")
-        cls="badge-blue";
-
-    if(status==="مكتملة")
-        cls="badge-green";
-
-    if(status==="ملغاة" ||
-       status==="مسترجعة")
-        cls="badge-red";
-
-    return `<span class="badge ${cls}">
-                ${escapeHTML(status)}
-            </span>`;
+    return `<span class="badge ${cls}">${esc(status)}</span>`;
 }
 
 
 /* =========================
-   عرض العمليات
+   PASSENGERS
 ========================= */
 
-function renderTransactions(){
+function addPassenger(data={}){
 
-    const tbody =
-        document.getElementById("transactionsTable");
+    const container=document.getElementById("passengersContainer");
 
-    const search =
-        document.getElementById("searchInput")
-        .value
-        .trim()
-        .toLowerCase();
+    const id=data.id || uid();
 
-    const statusFilter =
-        document.getElementById("statusFilter").value;
+    const div=document.createElement("div");
+
+    div.className="passenger";
+    div.dataset.id=id;
+
+    div.innerHTML=`
+
+    <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3>مسافر</h3>
+        <button class="btn btn-danger" onclick="this.closest('.passenger').remove()">
+            حذف
+        </button>
+    </div>
+
+    <div class="form-grid">
+
+        <div>
+            <label>الاسم الكامل</label>
+            <input class="p-name" value="${esc(data.fullName||"")}">
+        </div>
+
+        <div>
+            <label>الجنس</label>
+            <select class="p-gender">
+                <option value="">غير محدد</option>
+                <option ${data.gender==="ذكر"?"selected":""}>ذكر</option>
+                <option ${data.gender==="أنثى"?"selected":""}>أنثى</option>
+            </select>
+        </div>
+
+        <div>
+            <label>نوع المسافر</label>
+            <select class="p-type">
+                <option ${data.passengerType==="بالغ"||!data.passengerType?"selected":""}>بالغ</option>
+                <option ${data.passengerType==="طفل"?"selected":""}>طفل</option>
+                <option ${data.passengerType==="رضيع"?"selected":""}>رضيع</option>
+            </select>
+        </div>
+
+        <div>
+            <label>رقم الجواز</label>
+            <input class="p-passport" value="${esc(data.passportNumber||"")}">
+        </div>
+
+        <div>
+            <label>مبلغ البيع</label>
+            <input type="number" class="p-sale" step="0.01"
+                   value="${Number(data.saleAmount||0)}">
+        </div>
+
+        <div>
+            <label>عملة البيع</label>
+            <select class="p-currency" onchange="updatePassengerCurrency(this)">
+                <option value="USD" ${data.saleCurrency==="USD"||!data.saleCurrency?"selected":""}>USD دولار</option>
+                <option value="IQD" ${data.saleCurrency==="IQD"?"selected":""}>IQD دينار</option>
+            </select>
+        </div>
+
+        <div>
+            <label>ملاحظات</label>
+            <input class="p-notes" value="${esc(data.notes||"")}">
+        </div>
+
+    </div>
+    `;
+
+    container.appendChild(div);
+}
 
 
-    const filtered =
-        transactions.filter(t=>{
+function collectPassengers(){
 
-            const passengersText =
-                (t.passengers || [])
-                .map(p=>p.fullName)
-                .join(" ");
+    const list=[];
 
-            const typesText =
-                (t.operationTypes || [])
-                .join(" ");
+    document.querySelectorAll(".passenger").forEach(el=>{
 
-            const customerStat =
-                customerStatus(t);
+        const amount=Number(el.querySelector(".p-sale").value||0);
+        const currency=el.querySelector(".p-currency").value;
 
-            const text = [
+        list.push({
 
-                t.operationNumber,
-                t.pnr,
-                t.mainCustomer,
-                t.phone,
-                t.issuer,
-                t.supplier,
-                passengersText,
-                typesText,
-                customerStat
+            id:el.dataset.id || uid(),
 
-            ]
-            .join(" ")
-            .toLowerCase();
+            fullName:el.querySelector(".p-name").value.trim(),
 
+            gender:el.querySelector(".p-gender").value,
 
-            const matchesSearch =
-                !search ||
-                text.includes(search);
+            passengerType:el.querySelector(".p-type").value,
 
-            const matchesStatus =
-                !statusFilter ||
-                customerStat===statusFilter;
+            passportNumber:el.querySelector(".p-passport").value.trim(),
 
+            saleAmount:amount,
 
-            return matchesSearch &&
-                   matchesStatus;
+            saleCurrency:currency,
 
+            saleUSD:currency==="USD"?amount:0,
+
+            saleIQD:currency==="IQD"?amount:0,
+
+            notes:el.querySelector(".p-notes").value.trim()
         });
 
+    });
 
-    if(filtered.length===0){
-
-        tbody.innerHTML=`
-            <tr>
-                <td colspan="17">
-                    لا توجد عمليات
-                </td>
-            </tr>
-        `;
-
-        return;
-    }
-
-
-    tbody.innerHTML =
-        filtered.map(t=>{
-
-            const sale=saleTotals(t);
-
-            const paid=customerPaid(t);
-
-            const spaid=supplierPaid(t);
-
-            const rate =
-                Number(t.exchangeRate || 1550);
-
-
-            const customerRemaining =
-                (sale.usd + sale.iqd/rate)
-                -
-                (paid.usd + paid.iqd/rate);
-
-
-            const supplierRemaining =
-                (
-                    Number(t.supplierAmountUSD || 0) +
-                    Number(t.supplierAmountIQD || 0)/rate
-                )
-                -
-                (
-                    spaid.usd +
-                    spaid.iqd/rate
-                );
-
-
-            const passengerNames =
-                (t.passengers || [])
-                .map(p=>escapeHTML(p.fullName))
-                .join("<br>");
-
-
-            return `
-
-            <tr>
-
-                <td>
-                    <b>${escapeHTML(t.operationNumber)}</b>
-                </td>
-
-                <td>
-                    ${escapeHTML(t.pnr || "-")}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        (t.operationTypes || []).join(" + ")
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(t.mainCustomer || "-")}
-                </td>
-
-                <td>
-                    ${passengerNames || "-"}
-                </td>
-
-                <td>
-                    ${escapeHTML(t.phone || "-")}
-                </td>
-
-                <td>
-                    ${escapeHTML(t.travelDate || "-")}
-                </td>
-
-                <td>
-                    ${escapeHTML(t.supplier || t.issuer || "-")}
-                </td>
-
-                <td>
-                    ${money(sale.usd)}
-                </td>
-
-                <td>
-                    ${money(sale.iqd)}
-                </td>
-
-                <td>
-                    ${money(paid.usd)} $
-                    <br>
-                    ${money(paid.iqd)} د.ع
-                </td>
-
-                <td>
-                    ${money(Math.max(customerRemaining,0))} $
-                </td>
-
-                <td>
-                    ${money(t.supplierAmountUSD || 0)} $
-                    <br>
-                    ${money(t.supplierAmountIQD || 0)} د.ع
-                </td>
-
-                <td>
-                    ${money(spaid.usd)} $
-                    <br>
-                    ${money(spaid.iqd)} د.ع
-                </td>
-
-                <td>
-                    ${money(Math.max(supplierRemaining,0))} $
-                </td>
-
-                <td>
-                    ${badge(t.operationStatus || "جديدة")}
-                    <br>
-                    ${badge(customerStatus(t))}
-                </td>
-
-                <td>
-
-                    <button
-                        class="btn-info"
-                        onclick="editTransaction('${t.id}')">
-                        تعديل
-                    </button>
-
-                    <button
-                        class="btn-warning"
-                        onclick="viewTransaction('${t.id}')">
-                        عرض
-                    </button>
-
-                    <button
-                        class="btn-danger"
-                        onclick="deleteTransaction('${t.id}')">
-                        حذف
-                    </button>
-
-                    <button
-                        class="btn-danger"
-                        onclick="forceDelete('${t.id}')">
-                        حذف إجباري
-                    </button>
-
-                </td>
-
-            </tr>
-
-            `;
-
-        }).join("");
+    return list;
 }
 
 
 /* =========================
-   حذف عادي
+   SAVE OPERATION
 ========================= */
 
-function deleteTransaction(id){
+function saveOperation(){
 
-    const t =
-        transactions.find(x=>x.id===id);
+    const editId=document.getElementById("editId").value;
 
-    if(!t) return;
+    const passengers=collectPassengers();
 
-    const ok =
-        confirm(
-            `هل أنت متأكد من حذف العملية ${t.operationNumber}؟`
-        );
-
-    if(!ok) return;
-
-    transactions =
-        transactions.filter(x=>x.id!==id);
-
-    saveData();
-
-    renderAll();
-}
-
-
-/* =========================
-   حذف إجباري
-========================= */
-
-function forceDelete(id){
-
-    const index =
-        transactions.findIndex(x=>x.id===id);
-
-    if(index===-1){
-
-        alert("العملية غير موجودة.");
-
+    if(passengers.length===0){
+        alert("أضف مسافر واحد على الأقل.");
         return;
     }
 
-    const t=transactions[index];
+    const customer=document.getElementById("mainCustomer").value.trim();
 
-    if(!confirm(
-        `حذف إجباري للعملية ${t.operationNumber}؟`
-    )) return;
+    if(!customer){
+        alert("اكتب اسم الزبون.");
+        return;
+    }
 
-    if(!confirm(
-        "تأكيد نهائي: سيتم حذف العملية من المتصفح نهائياً."
-    )) return;
+    let types=[];
 
-    transactions.splice(index,1);
+    document.querySelectorAll(".operationType:checked")
+        .forEach(x=>types.push(x.value));
 
-    saveData();
+    if(types.length===0){
+        types=["أخرى"];
+    }
 
-    const exists =
-        transactions.some(x=>x.id===id);
+    const existing=editId
+        ? transactions.find(t=>t.id===editId)
+        : null;
 
-    if(exists){
+    const obj={
 
-        alert("فشل الحذف.");
+        schemaVersion:2,
+
+        id:editId || uid(),
+
+        operationNumber:
+            existing?.operationNumber ||
+            document.getElementById("operationNumber").value ||
+            nextOperationNumber(),
+
+        operationTypes:types,
+
+        pnr:document.getElementById("pnr").value.trim(),
+
+        mainCustomer:customer,
+
+        phone:document.getElementById("phone").value.trim(),
+
+        transactionDate:
+            document.getElementById("transactionDate").value || today(),
+
+        travelDate:
+            document.getElementById("travelDate").value,
+
+        returnDate:
+            document.getElementById("returnDate").value,
+
+        addedDate:
+            existing?.addedDate || today(),
+
+        exchangeRate:
+            Number(document.getElementById("exchangeRate").value||1550),
+
+        issuer:
+            document.getElementById("supplier").value.trim(),
+
+        passengers,
+
+        customerPayments:
+            existing?.customerPayments || [],
+
+        supplier:
+            document.getElementById("supplier").value.trim(),
+
+        supplierAmountUSD:
+            Number(document.getElementById("supplierAmountUSD").value||0),
+
+        supplierAmountIQD:
+            Number(document.getElementById("supplierAmountIQD").value||0),
+
+        supplierDueDate:
+            document.getElementById("supplierDueDate").value,
+
+        supplierDueDay:
+            document.getElementById("supplierDueDate").value,
+
+        supplierPayments:
+            existing?.supplierPayments || [],
+
+        operationNotes:
+            document.getElementById("operationNotes").value.trim(),
+
+        operationStatus:
+            existing?.operationStatus || "مفتوحة"
+    };
+
+
+    if(editId){
+
+        const index=transactions.findIndex(t=>t.id===editId);
+
+        if(index>=0){
+            transactions[index]=obj;
+        }
 
     }else{
 
-        alert("تم الحذف الإجباري بنجاح ✅");
+        transactions.unshift(obj);
 
-        renderAll();
     }
-}
-
-
-/* =========================
-   حذف الكل
-========================= */
-
-function deleteAllTransactions(){
-
-    if(transactions.length===0){
-
-        alert("لا توجد عمليات.");
-
-        return;
-    }
-
-    if(!confirm(
-        "هل أنت متأكد من حذف جميع العمليات؟"
-    )) return;
-
-    if(!confirm(
-        "تأكيد نهائي: سيتم حذف جميع البيانات من هذا المتصفح."
-    )) return;
-
-    transactions=[];
 
     saveData();
 
-    renderAll();
+    alert(editId ? "تم تعديل العملية بنجاح" : "تم حفظ العملية بنجاح");
+
+    resetOperationForm();
+
+    renderDashboard();
+
+    showPage("operations",document.querySelectorAll("nav button")[1]);
 }
 
 
 /* =========================
-   عرض العملية
+   FORM RESET / EDIT
 ========================= */
 
-function viewTransaction(id){
+function resetOperationForm(){
 
-    const t =
-        transactions.find(x=>x.id===id);
+    document.getElementById("editId").value="";
+    document.getElementById("operationFormTitle").textContent="إضافة عملية جديدة";
+    document.getElementById("operationNumber").value=nextOperationNumber();
+
+    document.getElementById("pnr").value="";
+    document.getElementById("mainCustomer").value="";
+    document.getElementById("phone").value="";
+    document.getElementById("transactionDate").value=today();
+    document.getElementById("travelDate").value="";
+    document.getElementById("returnDate").value="";
+    document.getElementById("exchangeRate").value=1550;
+    document.getElementById("supplier").value="";
+    document.getElementById("supplierDueDate").value="";
+    document.getElementById("supplierAmountUSD").value=0;
+    document.getElementById("supplierAmountIQD").value=0;
+    document.getElementById("operationNotes").value="";
+
+    document.querySelectorAll(".operationType")
+        .forEach(x=>x.checked=false);
+
+    document.querySelectorAll(".passenger").forEach(x=>x.remove());
+
+    addPassenger();
+}
+
+
+function editOperation(id){
+
+    const t=transactions.find(x=>x.id===id);
 
     if(!t) return;
 
-    const sale=saleTotals(t);
-    const paid=customerPaid(t);
-    const spaid=supplierPaid(t);
+    document.getElementById("editId").value=t.id;
+    document.getElementById("operationFormTitle").textContent="تعديل العملية";
+    document.getElementById("operationNumber").value=t.operationNumber;
 
-    const html=`
+    document.getElementById("pnr").value=t.pnr||"";
+    document.getElementById("mainCustomer").value=t.mainCustomer||"";
+    document.getElementById("phone").value=t.phone||"";
+    document.getElementById("transactionDate").value=t.transactionDate||"";
+    document.getElementById("travelDate").value=t.travelDate||"";
+    document.getElementById("returnDate").value=t.returnDate||"";
+    document.getElementById("exchangeRate").value=t.exchangeRate||1550;
+    document.getElementById("supplier").value=t.supplier||"";
+    document.getElementById("supplierDueDate").value=t.supplierDueDate||"";
+    document.getElementById("supplierAmountUSD").value=t.supplierAmountUSD||0;
+    document.getElementById("supplierAmountIQD").value=t.supplierAmountIQD||0;
+    document.getElementById("operationNotes").value=t.operationNotes||"";
 
-        <div class="card">
+    document.querySelectorAll(".operationType")
+        .forEach(x=>{
+            x.checked=(t.operationTypes||[]).includes(x.value);
+        });
 
-            <h3>
-                العملية ${escapeHTML(t.operationNumber)}
-            </h3>
+    document.querySelectorAll(".passenger").forEach(x=>x.remove());
 
-            <p>
-                <b>PNR:</b>
-                ${escapeHTML(t.pnr || "-")}
-            </p>
+    (t.passengers||[]).forEach(p=>addPassenger(p));
 
-            <p>
-                <b>الزبون:</b>
-                ${escapeHTML(t.mainCustomer || "-")}
-            </p>
+    showPage("newOperation",document.querySelectorAll("nav button")[2]);
 
-            <p>
-                <b>الهاتف:</b>
-                ${escapeHTML(t.phone || "-")}
-            </p>
-
-            <p>
-                <b>نوع العملية:</b>
-                ${escapeHTML(
-                    (t.operationTypes || []).join(" + ")
-                )}
-            </p>
-
-            <p>
-                <b>المورد:</b>
-                ${escapeHTML(t.supplier || "-")}
-            </p>
-
-            <p>
-                <b>سعر التصريف:</b>
-                ${money(t.exchangeRate)}
-            </p>
-
-            <hr>
-
-            <h3>المسافرون</h3>
-
-            ${(t.passengers || []).map((p,i)=>`
-
-                <div class="passenger">
-
-                    <b>${i+1}. ${escapeHTML(p.fullName)}</b>
-
-                    <br>
-
-                    الجنس:
-                    ${escapeHTML(p.gender || "-")}
-
-                    |
-
-                    النوع:
-                    ${escapeHTML(p.passengerType || "-")}
-
-                    <br>
-
-                    الجواز:
-                    ${escapeHTML(p.passportNumber || "-")}
-
-                    <br>
-
-                    البيع:
-                    ${money(p.saleAmount)}
-                    ${p.saleCurrency==="USD" ? "$" : "د.ع"}
-
-                </div>
-
-            `).join("")}
-
-            <hr>
-
-            <h3>الحساب</h3>
-
-            <p>
-                البيع:
-                ${money(sale.usd)} $
-                |
-                ${money(sale.iqd)} د.ع
-            </p>
-
-            <p>
-                مدفوع الزبون:
-                ${money(paid.usd)} $
-                |
-                ${money(paid.iqd)} د.ع
-            </p>
-
-            <p>
-                المورد:
-                ${money(t.supplierAmountUSD)} $
-                |
-                ${money(t.supplierAmountIQD)} د.ع
-            </p>
-
-            <p>
-                تسديد المورد:
-                ${money(spaid.usd)} $
-                |
-                ${money(spaid.iqd)} د.ع
-            </p>
-
-            <p>
-                <b>حالة الزبون:</b>
-                ${badge(customerStatus(t))}
-            </p>
-
-            <p>
-                <b>حالة المورد:</b>
-                ${badge(supplierStatus(t))}
-            </p>
-
-            <p>
-                <b>حالة العملية:</b>
-                ${badge(t.operationStatus)}
-            </p>
-
-            <p>
-                <b>ملاحظات:</b>
-                ${escapeHTML(t.notes || "-")}
-            </p>
-
-        </div>
-    `;
-
-    document.getElementById("paymentModalTitle").innerText =
-        "تفاصيل العملية";
-
-    document.getElementById("paymentModalBody").innerHTML =
-        html;
-
-    document.getElementById("paymentModal").style.display =
-        "flex";
-}
-
-
-function closePaymentModal(){
-
-    document.getElementById("paymentModal")
-        .style.display="none";
-
+    window.scrollTo({top:0,behavior:"smooth"});
 }
 
 
 /* =========================
-   Dashboard
+   OPERATIONS TABLE
+========================= */
+
+function renderOperations(){
+
+    const search=(document.getElementById("operationSearch").value||"")
+        .toLowerCase()
+        .trim();
+
+    const customerStatusFilter=
+        document.getElementById("filterCustomerStatus").value;
+
+    const supplierFilter=
+        document.getElementById("filterSupplier").value;
+
+    const rows=transactions.filter(t=>{
+
+        const text=[
+
+            t.operationNumber,
+            t.mainCustomer,
+            t.phone,
+            t.pnr,
+            t.supplier,
+            ...(t.operationTypes||[]),
+            ...(t.passengers||[]).map(p=>p.fullName)
+
+        ].join(" ").toLowerCase();
+
+        const okSearch=!search || text.includes(search);
+
+        const okStatus=
+            !customerStatusFilter ||
+            customerStatus(t)===customerStatusFilter;
+
+        const okSupplier=
+            !supplierFilter ||
+            (t.supplier||"")===supplierFilter;
+
+        return okSearch && okStatus && okSupplier;
+    });
+
+    const tbody=document.getElementById("operationsTable");
+
+    if(!rows.length){
+        tbody.innerHTML=`
+        <tr>
+            <td colspan="11" class="empty">لا توجد عمليات</td>
+        </tr>`;
+        return;
+    }
+
+    tbody.innerHTML=rows.map(t=>{
+
+        const sale=saleTotals(t);
+        const paid=customerPaid(t);
+        const balance=customerBalance(t);
+
+        return `
+        <tr>
+
+            <td><b>${esc(t.operationNumber)}</b></td>
+
+            <td>
+                ${esc(t.mainCustomer)}
+                <br>
+                <small>${esc(t.phone)}</small>
+            </td>
+
+            <td>
+                ${(t.passengers||[]).map(p=>esc(p.fullName)).join("<br>")}
+            </td>
+
+            <td>${esc(t.pnr)}</td>
+
+            <td>${esc((t.operationTypes||[]).join(" + "))}</td>
+
+            <td>
+                ${money(sale.usd)} USD
+                <br>
+                ${money(sale.iqd)} IQD
+            </td>
+
+            <td>
+                ${money(paid.usd)} USD
+                <br>
+                ${money(paid.iqd)} IQD
+            </td>
+
+            <td>
+                ${money(balance.usd)} USD
+                <br>
+                ${money(balance.iqd)} IQD
+            </td>
+
+            <td>${esc(t.supplier||"-")}</td>
+
+            <td>${badge(customerStatus(t))}</td>
+
+            <td>
+                <div class="actions">
+                    <button class="btn btn-primary"
+                        onclick="viewOperation('${t.id}')">عرض</button>
+
+                    <button class="btn btn-success"
+                        onclick="openCustomerPayment('${t.id}')">تسديد</button>
+
+                    <button class="btn btn-warning"
+                        onclick="openSupplierPayment('${t.id}')">مورد</button>
+
+                    <button class="btn btn-secondary"
+                        onclick="editOperation('${t.id}')">تعديل</button>
+
+                    <button class="btn btn-danger"
+                        onclick="deleteOperation('${t.id}')">حذف</button>
+                </div>
+            </td>
+
+        </tr>`;
+    }).join("");
+}
+
+
+/* =========================
+   VIEW OPERATION
+========================= */
+
+function viewOperation(id){
+
+    const t=transactions.find(x=>x.id===id);
+
+    if(!t)return;
+
+    const sale=saleTotals(t);
+    const paid=customerPaid(t);
+    const balance=customerBalance(t);
+    const spaid=supplierPaid(t);
+    const sbal=supplierBalance(t);
+
+    const passengers=(t.passengers||[]).map(p=>`
+        <tr>
+            <td>${esc(p.fullName)}</td>
+            <td>${esc(p.passengerType)}</td>
+            <td>${esc(p.gender)}</td>
+            <td>${esc(p.passportNumber)}</td>
+            <td>${money(p.saleAmount)} ${p.saleCurrency}</td>
+        </tr>
+    `).join("");
+
+    const customerPayments=(t.customerPayments||[]).map(p=>`
+        <tr>
+            <td>${esc(p.date)}</td>
+            <td>${money(p.usd)}</td>
+            <td>${money(p.iqd)}</td>
+            <td>${money(p.exchangeRate)}</td>
+            <td>${esc(p.notes)}</td>
+        </tr>
+    `).join("");
+
+    const supplierPayments=(t.supplierPayments||[]).map(p=>`
+        <tr>
+            <td>${esc(p.date)}</td>
+            <td>${money(p.usd)}</td>
+            <td>${money(p.iqd)}</td>
+            <td>${money(p.exchangeRate)}</td>
+            <td>${esc(p.notes)}</td>
+        </tr>
+    `).join("");
+
+    const html=`
+
+    <div class="card">
+
+        <h2>${esc(t.operationNumber)}</h2>
+
+        <p><b>الزبون:</b> ${esc(t.mainCustomer)}</p>
+        <p><b>الهاتف:</b> ${esc(t.phone)}</p>
+        <p><b>PNR:</b> ${esc(t.pnr)}</p>
+        <p><b>نوع العملية:</b> ${esc((t.operationTypes||[]).join(" + "))}</p>
+        <p><b>تاريخ المعاملة:</b> ${esc(t.transactionDate)}</p>
+        <p><b>السفر:</b> ${esc(t.travelDate)}</p>
+        <p><b>الإياب:</b> ${esc(t.returnDate)}</p>
+        <p><b>المورد:</b> ${esc(t.supplier)}</p>
+        <p><b>التصريف:</b> ${money(t.exchangeRate)}</p>
+
+        <hr>
+
+        <h3>المسافرون</h3>
+
+        <div class="table-wrap">
+        <table>
+            <tr>
+                <th>الاسم</th>
+                <th>النوع</th>
+                <th>الجنس</th>
+                <th>الجواز</th>
+                <th>البيع</th>
+            </tr>
+            ${passengers}
+        </table>
+        </div>
+
+        <hr>
+
+        <h3>حساب الزبون</h3>
+
+        <p>
+            البيع:
+            <b>${money(sale.usd)} USD</b>
+            /
+            <b>${money(sale.iqd)} IQD</b>
+        </p>
+
+        <p>
+            المدفوع:
+            <b>${money(paid.usd)} USD</b>
+            /
+            <b>${money(paid.iqd)} IQD</b>
+        </p>
+
+        <p>
+            المتبقي:
+            <b>${money(balance.usd)} USD تقريباً</b>
+        </p>
+
+        <h4>دفعات الزبون</h4>
+
+        <div class="table-wrap">
+        <table>
+            <tr>
+                <th>التاريخ</th>
+                <th>USD</th>
+                <th>IQD</th>
+                <th>التصريف</th>
+                <th>ملاحظات</th>
+            </tr>
+            ${customerPayments || `<tr><td colspan="5">لا توجد دفعات</td></tr>`}
+        </table>
+        </div>
+
+        <hr>
+
+        <h3>حساب المورد</h3>
+
+        <p>
+            المطلوب:
+            <b>${money(t.supplierAmountUSD)} USD</b>
+            /
+            <b>${money(t.supplierAmountIQD)} IQD</b>
+        </p>
+
+        <p>
+            المدفوع:
+            <b>${money(spaid.usd)} USD</b>
+            /
+            <b>${money(spaid.iqd)} IQD</b>
+        </p>
+
+        <p>
+            المتبقي:
+            <b>${money(sbal.usd)} USD تقريباً</b>
+        </p>
+
+        <h4>دفعات المورد</h4>
+
+        <div class="table-wrap">
+        <table>
+            <tr>
+                <th>التاريخ</th>
+                <th>USD</th>
+                <th>IQD</th>
+                <th>التصريف</th>
+                <th>ملاحظات</th>
+            </tr>
+            ${supplierPayments || `<tr><td colspan="5">لا توجد دفعات</td></tr>`}
+        </table>
+        </div>
+
+        <hr>
+
+        <p><b>ملاحظات:</b> ${esc(t.operationNotes)}</p>
+
+    </div>
+    `;
+
+    const w=window.open("","_blank");
+
+    w.document.write(`
+        <html lang="ar" dir="rtl">
+        <head>
+        <title>${esc(t.operationNumber)}</title>
+        <style>
+        body{font-family:Tahoma;padding:30px}
+        table{width:100%;border-collapse:collapse}
+        th,td{border:1px solid #ddd;padding:8px;text-align:right}
+        th{background:#eee}
+        </style>
+        </head>
+        <body>${html}</body>
+        </html>
+    `);
+
+    w.document.close();
+}
+
+
+/* =========================
+   DELETE
+========================= */
+
+function deleteOperation(id){
+
+    const t=transactions.find(x=>x.id===id);
+
+    if(!t)return;
+
+    if(!confirm(
+        "هل أنت متأكد من حذف العملية "+t.operationNumber+"؟"
+    )) return;
+
+    if(!confirm(
+        "تأكيد أخير: حذف العملية نهائياً؟"
+    )) return;
+
+    transactions=transactions.filter(x=>x.id!==id);
+
+    saveData();
+
+    renderOperations();
+    renderDashboard();
+
+    alert("تم حذف العملية.");
+}
+
+
+/* =========================
+   CUSTOMER PAYMENT
+========================= */
+
+function searchCustomerPayments(){
+
+    const q=(document.getElementById("customerPaymentSearch").value||"")
+        .toLowerCase()
+        .trim();
+
+    const results=transactions.filter(t=>{
+
+        if(!q)return true;
+
+        const text=[
+            t.operationNumber,
+            t.mainCustomer,
+            t.phone,
+            t.pnr,
+            ...(t.passengers||[]).map(p=>p.fullName)
+        ].join(" ").toLowerCase();
+
+        return text.includes(q);
+    });
+
+    const tbody=document.getElementById("customerPaymentResults");
+
+    if(!results.length){
+        tbody.innerHTML=`
+        <tr>
+            <td colspan="8" class="empty">لا توجد نتائج</td>
+        </tr>`;
+        return;
+    }
+
+    tbody.innerHTML=results.map(t=>{
+
+        const sale=saleTotals(t);
+        const paid=customerPaid(t);
+        const bal=customerBalance(t);
+
+        return `
+        <tr>
+
+            <td><b>${esc(t.operationNumber)}</b></td>
+
+            <td>
+                ${esc(t.mainCustomer)}
+                <br>
+                ${esc(t.phone)}
+            </td>
+
+            <td>${esc(t.pnr)}</td>
+
+            <td>
+                ${money(sale.usd)} USD
+                <br>${money(sale.iqd)} IQD
+            </td>
+
+            <td>
+                ${money(paid.usd)} USD
+                <br>${money(paid.iqd)} IQD
+            </td>
+
+            <td>
+                ${money(bal.usd)} USD
+                <br>${money(bal.iqd)} IQD
+            </td>
+
+            <td>${badge(customerStatus(t))}</td>
+
+            <td>
+                <button class="btn btn-success"
+                    onclick="openCustomerPayment('${t.id}')">
+                    + إضافة دفعة
+                </button>
+            </td>
+
+        </tr>`;
+    }).join("");
+}
+
+
+function openCustomerPayment(id){
+
+    const t=transactions.find(x=>x.id===id);
+
+    if(!t)return;
+
+    currentPaymentOperationId=id;
+
+    const sale=saleTotals(t);
+    const paid=customerPaid(t);
+    const bal=customerBalance(t);
+
+    document.getElementById("paymentOperationInfo").innerHTML=`
+        <div class="notice">
+            <b>${esc(t.operationNumber)}</b>
+            <br>
+            الزبون: ${esc(t.mainCustomer)}
+            <br>
+            PNR: ${esc(t.pnr)}
+            <br>
+            البيع: ${money(sale.usd)} USD / ${money(sale.iqd)} IQD
+            <br>
+            المدفوع: ${money(paid.usd)} USD / ${money(paid.iqd)} IQD
+            <br>
+            المتبقي التقريبي: ${money(bal.usd)} USD
+        </div>
+    `;
+
+    document.getElementById("paymentDate").value=today();
+    document.getElementById("paymentUSD").value=0;
+    document.getElementById("paymentIQD").value=0;
+    document.getElementById("paymentRate").value=t.exchangeRate||1550;
+    document.getElementById("paymentNotes").value="";
+
+    document.getElementById("paymentModal").classList.add("show");
+}
+
+
+function saveCustomerPayment(){
+
+    const t=transactions.find(x=>x.id===currentPaymentOperationId);
+
+    if(!t)return;
+
+    const usd=Number(document.getElementById("paymentUSD").value||0);
+    const iqd=Number(document.getElementById("paymentIQD").value||0);
+    const rate=Number(document.getElementById("paymentRate").value||0);
+
+    if(usd<=0 && iqd<=0){
+        alert("أدخل مبلغ التسديد.");
+        return;
+    }
+
+    if(rate<=0){
+        alert("أدخل سعر التصريف.");
+        return;
+    }
+
+    t.customerPayments=t.customerPayments||[];
+
+    t.customerPayments.push({
+
+        id:uid(),
+
+        date:
+            document.getElementById("paymentDate").value || today(),
+
+        usd,
+
+        iqd,
+
+        exchangeRate:rate,
+
+        notes:
+            document.getElementById("paymentNotes").value.trim()
+    });
+
+    saveData();
+
+    closeModal();
+
+    searchCustomerPayments();
+
+    renderDashboard();
+
+    alert("تم تسجيل دفعة الزبون.");
+}
+
+
+function closeModal(){
+    document.getElementById("paymentModal").classList.remove("show");
+}
+
+
+/* =========================
+   SUPPLIERS
+========================= */
+
+function renderSuppliers(){
+
+    const q=(document.getElementById("supplierSearch").value||"")
+        .toLowerCase().trim();
+
+    const results=transactions.filter(t=>{
+
+        const text=[
+            t.supplier,
+            t.operationNumber,
+            t.mainCustomer,
+            t.pnr
+        ].join(" ").toLowerCase();
+
+        return !q || text.includes(q);
+    });
+
+    const tbody=document.getElementById("supplierTable");
+
+    if(!results.length){
+        tbody.innerHTML=`
+        <tr><td colspan="9" class="empty">لا توجد عمليات</td></tr>`;
+        return;
+    }
+
+    tbody.innerHTML=results.map(t=>{
+
+        const paid=supplierPaid(t);
+        const bal=supplierBalance(t);
+
+        return `
+        <tr>
+
+            <td>${esc(t.supplier||"-")}</td>
+
+            <td><b>${esc(t.operationNumber)}</b></td>
+
+            <td>${esc(t.mainCustomer)}</td>
+
+            <td>${esc(t.pnr)}</td>
+
+            <td>
+                ${money(t.supplierAmountUSD)} USD
+                <br>
+                ${money(t.supplierAmountIQD)} IQD
+            </td>
+
+            <td>
+                ${money(paid.usd)} USD
+                <br>
+                ${money(paid.iqd)} IQD
+            </td>
+
+            <td>
+                ${money(bal.usd)} USD
+                <br>
+                ${money(bal.iqd)} IQD
+            </td>
+
+            <td>${esc(t.supplierDueDate||"-")}</td>
+
+            <td>
+                <button class="btn btn-success"
+                    onclick="openSupplierPayment('${t.id}')">
+                    + تسديد
+                </button>
+            </td>
+
+        </tr>`;
+    }).join("");
+}
+
+
+function openSupplierPayment(id){
+
+    const t=transactions.find(x=>x.id===id);
+
+    if(!t)return;
+
+    currentSupplierPaymentOperationId=id;
+
+    const paid=supplierPaid(t);
+    const bal=supplierBalance(t);
+
+    document.getElementById("supplierPaymentInfo").innerHTML=`
+        <div class="notice">
+            العملية: <b>${esc(t.operationNumber)}</b>
+            <br>
+            المورد: <b>${esc(t.supplier||"-")}</b>
+            <br>
+            المطلوب:
+            ${money(t.supplierAmountUSD)} USD /
+            ${money(t.supplierAmountIQD)} IQD
+            <br>
+            المدفوع:
+            ${money(paid.usd)} USD /
+            ${money(paid.iqd)} IQD
+            <br>
+            المتبقي التقريبي:
+            ${money(bal.usd)} USD
+        </div>
+    `;
+
+    document.getElementById("supplierPaymentDate").value=today();
+    document.getElementById("supplierPaymentUSD").value=0;
+    document.getElementById("supplierPaymentIQD").value=0;
+    document.getElementById("supplierPaymentRate").value=t.exchangeRate||1550;
+    document.getElementById("supplierPaymentNotes").value="";
+
+    document.getElementById("supplierPaymentModal")
+        .classList.add("show");
+}
+
+
+function saveSupplierPayment(){
+
+    const t=transactions.find(
+        x=>x.id===currentSupplierPaymentOperationId
+    );
+
+    if(!t)return;
+
+    const usd=Number(
+        document.getElementById("supplierPaymentUSD").value||0
+    );
+
+    const iqd=Number(
+        document.getElementById("supplierPaymentIQD").value||0
+    );
+
+    const rate=Number(
+        document.getElementById("supplierPaymentRate").value||0
+    );
+
+    if(usd<=0 && iqd<=0){
+        alert("أدخل مبلغ التسديد.");
+        return;
+    }
+
+    if(rate<=0){
+        alert("أدخل سعر التصريف.");
+        return;
+    }
+
+    t.supplierPayments=t.supplierPayments||[];
+
+    t.supplierPayments.push({
+
+        id:uid(),
+
+        date:
+            document.getElementById("supplierPaymentDate").value || today(),
+
+        usd,
+
+        iqd,
+
+        exchangeRate:rate,
+
+        notes:
+            document.getElementById("supplierPaymentNotes").value.trim()
+    });
+
+    saveData();
+
+    closeSupplierModal();
+
+    renderSuppliers();
+    renderDashboard();
+
+    alert("تم تسجيل تسديد المورد.");
+}
+
+
+function closeSupplierModal(){
+    document.getElementById("supplierPaymentModal")
+        .classList.remove("show");
+}
+
+
+/* =========================
+   REPORTS
+========================= */
+
+function fillSupplierFilters(){
+
+    const suppliers=[...new Set(
+        transactions
+        .map(t=>t.supplier)
+        .filter(Boolean)
+    )].sort();
+
+    ["filterSupplier","reportSupplier"].forEach(id=>{
+
+        const el=document.getElementById(id);
+
+        if(!el)return;
+
+        const old=el.value;
+
+        const first=id==="filterSupplier"
+            ? `<option value="">كل الموردين</option>`
+            : `<option value="">كل الموردين</option>`;
+
+        el.innerHTML=first;
+
+        suppliers.forEach(s=>{
+            const o=document.createElement("option");
+            o.value=s;
+            o.textContent=s;
+            el.appendChild(o);
+        });
+
+        el.value=old;
+    });
+}
+
+
+function generateReport(){
+
+    const from=document.getElementById("reportFrom").value;
+    const to=document.getElementById("reportTo").value;
+    const type=document.getElementById("reportType").value;
+    const supplier=document.getElementById("reportSupplier").value;
+
+    const rows=transactions.filter(t=>{
+
+        const d=t.transactionDate||"";
+
+        if(from && d<from)return false;
+        if(to && d>to)return false;
+
+        if(type &&
+           !(t.operationTypes||[]).includes(type))
+            return false;
+
+        if(supplier &&
+           (t.supplier||"")!==supplier)
+            return false;
+
+        return true;
+    });
+
+    let salesUSD=0;
+    let salesIQD=0;
+    let paidUSD=0;
+    let paidIQD=0;
+    let supplierUSD=0;
+    let supplierIQD=0;
+    let supplierPaidUSD=0;
+    let supplierPaidIQD=0;
+    let profitUSD=0;
+
+    rows.forEach(t=>{
+
+        const s=saleTotals(t);
+        const p=customerPaid(t);
+        const sp=supplierPaid(t);
+
+        salesUSD+=s.usd;
+        salesIQD+=s.iqd;
+
+        paidUSD+=p.usd;
+        paidIQD+=p.iqd;
+
+        supplierUSD+=Number(t.supplierAmountUSD||0);
+        supplierIQD+=Number(t.supplierAmountIQD||0);
+
+        supplierPaidUSD+=sp.usd;
+        supplierPaidIQD+=sp.iqd;
+
+        profitUSD+=
+            equivalentUSD(
+                s.usd,s.iqd,t.exchangeRate
+            )
+            -
+            equivalentUSD(
+                Number(t.supplierAmountUSD||0),
+                Number(t.supplierAmountIQD||0),
+                t.exchangeRate
+            );
+    });
+
+
+    document.getElementById("reportResults").innerHTML=`
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="stat-title">عدد العمليات</div>
+            <div class="stat">${rows.length}</div>
+        </div>
+
+        <div class="card">
+            <div class="stat-title">المبيعات USD</div>
+            <div class="stat">${money(salesUSD)}</div>
+        </div>
+
+        <div class="card">
+            <div class="stat-title">المبيعات IQD</div>
+            <div class="stat">${money(salesIQD)}</div>
+        </div>
+
+        <div class="card">
+            <div class="stat-title">مدفوع الزبائن USD</div>
+            <div class="stat">${money(paidUSD)}</div>
+        </div>
+
+        <div class="card">
+            <div class="stat-title">مدفوع الزبائن IQD</div>
+            <div class="stat">${money(paidIQD)}</div>
+        </div>
+
+        <div class="card">
+            <div class="stat-title">المطلوب من الموردين USD</div>
+            <div class="stat">${money(supplierUSD)}</div>
+        </div>
+
+        <div class="card">
+            <div class="stat-title">المطلوب من الموردين IQD</div>
+            <div class="stat">${money(supplierIQD)}</div>
+        </div>
+
+        <div class="card">
+            <div class="stat-title">الربح المكافئ USD</div>
+            <div class="stat">${money(profitUSD)}</div>
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>تفاصيل التقرير</h3>
+
+        <div class="table-wrap">
+        <table>
+
+        <thead>
+        <tr>
+            <th>التاريخ</th>
+            <th>العملية</th>
+            <th>الزبون</th>
+            <th>النوع</th>
+            <th>المورد</th>
+            <th>البيع</th>
+            <th>حالة الزبون</th>
+            <th>حالة المورد</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        ${
+            rows.map(t=>{
+
+                const s=saleTotals(t);
+
+                return `
+                <tr>
+                    <td>${esc(t.transactionDate)}</td>
+                    <td>${esc(t.operationNumber)}</td>
+                    <td>${esc(t.mainCustomer)}</td>
+                    <td>${esc((t.operationTypes||[]).join(" + "))}</td>
+                    <td>${esc(t.supplier||"-")}</td>
+                    <td>
+                        ${money(s.usd)} USD
+                        <br>
+                        ${money(s.iqd)} IQD
+                    </td>
+                    <td>${badge(customerStatus(t))}</td>
+                    <td>${badge(supplierStatus(t))}</td>
+                </tr>`;
+            }).join("")
+            ||
+            `<tr><td colspan="8" class="empty">لا توجد نتائج</td></tr>`
+        }
+
+        </tbody>
+
+        </table>
+        </div>
+
+    </div>
+    `;
+}
+
+
+function printReport(){
+
+    const content=document.getElementById("reportResults").innerHTML;
+
+    if(!content){
+        alert("أنشئ التقرير أولاً.");
+        return;
+    }
+
+    const w=window.open("","_blank");
+
+    w.document.write(`
+        <html lang="ar" dir="rtl">
+        <head>
+        <title>تقرير المبيعات</title>
+        <style>
+        body{font-family:Tahoma;padding:25px}
+        .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+        .card{border:1px solid #ddd;padding:15px;margin-bottom:15px}
+        table{width:100%;border-collapse:collapse}
+        th,td{border:1px solid #ddd;padding:8px;text-align:right}
+        th{background:#eee}
+        </style>
+        </head>
+        <body>
+        <h1>تقرير المبيعات</h1>
+        ${content}
+        </body>
+        </html>
+    `);
+
+    w.document.close();
+    w.print();
+}
+
+
+/* =========================
+   CUSTOMER STATEMENT
+========================= */
+
+function customerStatement(){
+
+    const q=document.getElementById("customerStatementSearch")
+        .value.toLowerCase().trim();
+
+    if(!q){
+        alert("اكتب اسم الزبون أو الهاتف.");
+        return;
+    }
+
+    const rows=transactions.filter(t=>{
+
+        const text=[
+            t.mainCustomer,
+            t.phone,
+            ...(t.passengers||[]).map(p=>p.fullName)
+        ].join(" ").toLowerCase();
+
+        return text.includes(q);
+    });
+
+    let salesUSD=0;
+    let salesIQD=0;
+    let paidUSD=0;
+    let paidIQD=0;
+
+    rows.forEach(t=>{
+
+        const s=saleTotals(t);
+        const p=customerPaid(t);
+
+        salesUSD+=s.usd;
+        salesIQD+=s.iqd;
+        paidUSD+=p.usd;
+        paidIQD+=p.iqd;
+    });
+
+    document.getElementById("customerStatementResult").innerHTML=`
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="stat-title">عدد العمليات</div>
+            <div class="stat">${rows.length}</div>
+        </div>
+
+        <div class="card">
+            <div class="stat-title">المبيعات USD</div>
+            <div class="stat">${money(salesUSD)}</div>
+        </div>
+
+        <div class="card">
+            <div class="stat-title">المبيعات IQD</div>
+            <div class="stat">${money(salesIQD)}</div>
+        </div>
+
+        <div class="card">
+            <div class="stat-title">المدفوع USD</div>
+            <div class="stat">${money(paidUSD)}</div>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h3>العمليات</h3>
+
+        <div class="table-wrap">
+        <table>
+
+        <tr>
+            <th>العملية</th>
+            <th>التاريخ</th>
+            <th>النوع</th>
+            <th>البيع</th>
+            <th>المدفوع</th>
+            <th>المتبقي</th>
+            <th>الحالة</th>
+        </tr>
+
+        ${
+            rows.map(t=>{
+
+                const s=saleTotals(t);
+                const p=customerPaid(t);
+                const b=customerBalance(t);
+
+                return `
+                <tr>
+
+                    <td>${esc(t.operationNumber)}</td>
+
+                    <td>${esc(t.transactionDate)}</td>
+
+                    <td>${esc((t.operationTypes||[]).join(" + "))}</td>
+
+                    <td>
+                        ${money(s.usd)} USD
+                        <br>
+                        ${money(s.iqd)} IQD
+                    </td>
+
+                    <td>
+                        ${money(p.usd)} USD
+                        <br>
+                        ${money(p.iqd)} IQD
+                    </td>
+
+                    <td>
+                        ${money(b.usd)} USD تقريباً
+                    </td>
+
+                    <td>${badge(customerStatus(t))}</td>
+
+                </tr>`;
+            }).join("")
+            ||
+            `<tr><td colspan="7" class="empty">لا توجد نتائج</td></tr>`
+        }
+
+        </table>
+        </div>
+
+    </div>
+    `;
+}
+
+
+/* =========================
+   SUPPLIER STATEMENT
+========================= */
+
+function supplierStatement(){
+
+    const q=document.getElementById("supplierStatementSearch")
+        .value.toLowerCase().trim();
+
+    if(!q){
+        alert("اكتب اسم المورد.");
+        return;
+    }
+
+    const rows=transactions.filter(t=>
+        (t.supplier||"").toLowerCase().includes(q)
+    );
+
+    let totalUSD=0;
+    let totalIQD=0;
+    let paidUSD=0;
+    let paidIQD=0;
+
+    rows.forEach(t=>{
+
+        totalUSD+=Number(t.supplierAmountUSD||0);
+        totalIQD+=Number(t.supplierAmountIQD||0);
+
+        const p=supplierPaid(t);
+
+        paidUSD+=p.usd;
+        paidIQD+=p.iqd;
+    });
+
+    document.getElementById("supplierStatementResult").innerHTML=`
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="stat-title">عدد العمليات</div>
+            <div class="stat">${rows.length}</div>
+        </div>
+
+        <div class="card">
+            <div class="stat-title">إجمالي المورد USD</div>
+            <div class="stat">${money(totalUSD)}</div>
+        </div>
+
+        <div class="card">
+            <div class="stat-title">إجمالي المورد IQD</div>
+            <div class="stat">${money(totalIQD)}</div>
+        </div>
+
+        <div class="card">
+            <div class="stat-title">المدفوع USD</div>
+            <div class="stat">${money(paidUSD)}</div>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="table-wrap">
+        <table>
+
+        <tr>
+            <th>العملية</th>
+            <th>الزبون</th>
+            <th>المطلوب</th>
+            <th>المدفوع</th>
+            <th>المتبقي</th>
+            <th>الاستحقاق</th>
+            <th>الحالة</th>
+        </tr>
+
+        ${
+            rows.map(t=>{
+
+                const p=supplierPaid(t);
+                const b=supplierBalance(t);
+
+                return `
+                <tr>
+
+                    <td>${esc(t.operationNumber)}</td>
+
+                    <td>${esc(t.mainCustomer)}</td>
+
+                    <td>
+                        ${money(t.supplierAmountUSD)} USD
+                        <br>
+                        ${money(t.supplierAmountIQD)} IQD
+                    </td>
+
+                    <td>
+                        ${money(p.usd)} USD
+                        <br>
+                        ${money(p.iqd)} IQD
+                    </td>
+
+                    <td>
+                        ${money(b.usd)} USD تقريباً
+                    </td>
+
+                    <td>${esc(t.supplierDueDate||"-")}</td>
+
+                    <td>${badge(supplierStatus(t))}</td>
+
+                </tr>`;
+            }).join("")
+            ||
+            `<tr><td colspan="7" class="empty">لا توجد نتائج</td></tr>`
+        }
+
+        </table>
+        </div>
+
+    </div>
+    `;
+}
+
+
+/* =========================
+   DASHBOARD
 ========================= */
 
 function renderDashboard(){
 
     let salesUSD=0;
     let salesIQD=0;
-
-    let customerOutstandingUSD=0;
-
-    let supplierOutstandingUSD=0;
-
+    let customerUSD=0;
+    let customerIQD=0;
+    let supplierUSD=0;
+    let supplierIQD=0;
+    let profitUSD=0;
 
     transactions.forEach(t=>{
 
-        const sale=saleTotals(t);
-        const paid=customerPaid(t);
-        const spaid=supplierPaid(t);
+        const s=saleTotals(t);
+        const cb=customerBalance(t);
+        const sb=supplierBalance(t);
 
-        const rate =
-            Number(t.exchangeRate || 1550);
+        salesUSD+=s.usd;
+        salesIQD+=s.iqd;
 
+        customerUSD+=cb.usd;
+        customerIQD+=cb.iqd;
 
-        salesUSD += sale.usd;
-        salesIQD += sale.iqd;
+        supplierUSD+=sb.usd;
+        supplierIQD+=sb.iqd;
 
-
-        customerOutstandingUSD +=
-            Math.max(
-                0,
-                (sale.usd + sale.iqd/rate)
-                -
-                (paid.usd + paid.iqd/rate)
+        profitUSD+=
+            equivalentUSD(
+                s.usd,s.iqd,t.exchangeRate
+            )
+            -
+            equivalentUSD(
+                Number(t.supplierAmountUSD||0),
+                Number(t.supplierAmountIQD||0),
+                t.exchangeRate
             );
-
-
-        supplierOutstandingUSD +=
-            Math.max(
-                0,
-                (
-                    Number(t.supplierAmountUSD || 0)
-                    +
-                    Number(t.supplierAmountIQD || 0)/rate
-                )
-                -
-                (
-                    spaid.usd +
-                    spaid.iqd/rate
-                )
-            );
-
     });
 
+    document.getElementById("dashOperations").textContent=
+        transactions.length;
 
-    document.getElementById("dashboard").innerHTML=`
+    document.getElementById("dashSalesUSD").textContent=
+        money(salesUSD);
 
-        <div class="stat">
+    document.getElementById("dashSalesIQD").textContent=
+        money(salesIQD);
 
-            <div class="stat-title">
-                عدد العمليات
-            </div>
+    document.getElementById("dashCustomerUSD").textContent=
+        money(customerUSD);
 
-            <div class="stat-value">
-                ${transactions.length}
-            </div>
+    document.getElementById("dashCustomerIQD").textContent=
+        money(customerIQD);
 
-        </div>
+    document.getElementById("dashSupplierUSD").textContent=
+        money(supplierUSD);
 
-        <div class="stat">
+    document.getElementById("dashSupplierIQD").textContent=
+        money(supplierIQD);
 
-            <div class="stat-title">
-                إجمالي المبيعات USD
-            </div>
+    document.getElementById("dashProfitUSD").textContent=
+        money(profitUSD);
 
-            <div class="stat-value">
-                ${money(salesUSD)} $
-            </div>
+    const recent=transactions.slice(0,10);
 
-        </div>
+    document.getElementById("recentOperations").innerHTML=
 
-        <div class="stat">
+        recent.length
+        ?
+        `<div class="table-wrap">
+        <table>
+        <tr>
+            <th>العملية</th>
+            <th>الزبون</th>
+            <th>التاريخ</th>
+            <th>المبلغ</th>
+            <th>الحالة</th>
+        </tr>
 
-            <div class="stat-title">
-                إجمالي المبيعات IQD
-            </div>
+        ${
+            recent.map(t=>{
 
-            <div class="stat-value">
-                ${money(salesIQD)} د.ع
-            </div>
+                const s=saleTotals(t);
 
-        </div>
+                return `
+                <tr>
+                    <td>${esc(t.operationNumber)}</td>
+                    <td>${esc(t.mainCustomer)}</td>
+                    <td>${esc(t.transactionDate)}</td>
+                    <td>
+                        ${money(s.usd)} USD
+                        <br>${money(s.iqd)} IQD
+                    </td>
+                    <td>${badge(customerStatus(t))}</td>
+                </tr>`;
+            }).join("")
+        }
 
-        <div class="stat">
-
-            <div class="stat-title">
-                متبقي الزبائن
-            </div>
-
-            <div class="stat-value">
-                ${money(customerOutstandingUSD)} $
-            </div>
-
-        </div>
-
-        <div class="stat">
-
-            <div class="stat-title">
-                متبقي الموردين
-            </div>
-
-            <div class="stat-value">
-                ${money(supplierOutstandingUSD)} $
-            </div>
-
-        </div>
-
-    `;
+        </table>
+        </div>`
+        :
+        `<div class="empty">لا توجد عمليات حالياً</div>`;
 }
 
 
 /* =========================
-   تاريخ استحقاق المورد
+   BACKUP
 ========================= */
 
-document.getElementById("supplierDueDate")
-    .addEventListener("change",function(){
+function exportBackup(){
 
-        if(!this.value){
+    const backup={
+        version:2,
+        exportedAt:new Date().toISOString(),
+        sequence:Number(localStorage.getItem(SEQUENCE_KEY)||0),
+        transactions
+    };
 
-            document.getElementById("supplierDueDay")
-                .value="";
+    const blob=new Blob(
+        [JSON.stringify(backup,null,2)],
+        {type:"application/json"}
+    );
 
-            return;
+    const url=URL.createObjectURL(blob);
+
+    const a=document.createElement("a");
+
+    a.href=url;
+    a.download=
+        "travel-accounts-backup-"+today()+".json";
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+}
+
+
+function importBackup(event){
+
+    const file=event.target.files[0];
+
+    if(!file)return;
+
+    const reader=new FileReader();
+
+    reader.onload=function(){
+
+        try{
+
+            const data=JSON.parse(reader.result);
+
+            let imported=data.transactions || data;
+
+            if(!Array.isArray(imported)){
+                throw new Error();
+            }
+
+            if(!confirm(
+                "استعادة النسخة ستستبدل البيانات الحالية. هل أنت متأكد؟"
+            )){
+                return;
+            }
+
+            transactions=imported;
+
+            if(data.sequence){
+                localStorage.setItem(
+                    SEQUENCE_KEY,
+                    Number(data.sequence)
+                );
+            }
+
+            migrateData();
+            saveData();
+
+            renderDashboard();
+            renderOperations();
+            fillSupplierFilters();
+
+            alert("تمت استعادة النسخة الاحتياطية بنجاح.");
+
+        }catch(e){
+
+            alert("ملف النسخة الاحتياطية غير صحيح.");
+
         }
 
-        const date=new Date(this.value + "T00:00:00");
+    };
 
-        const days=[
-            "الأحد",
-            "الاثنين",
-            "الثلاثاء",
-            "الأربعاء",
-            "الخميس",
-            "الجمعة",
-            "السبت"
-        ];
+    reader.readAsText(file);
+}
 
-        document.getElementById("supplierDueDay")
-            .value=days[date.getDay()];
 
-    });
+function deleteAllData(){
+
+    if(!confirm(
+        "تحذير: سيتم حذف جميع العمليات من هذا المتصفح."
+    )) return;
+
+    if(!confirm(
+        "تأكيد أخير جداً: هل تريد حذف جميع البيانات؟"
+    )) return;
+
+    transactions=[];
+
+    localStorage.removeItem(STORAGE_KEY);
+
+    renderDashboard();
+    renderOperations();
+    fillSupplierFilters();
+
+    alert("تم حذف جميع البيانات.");
+}
 
 
 /* =========================
-   تشغيل النظام
+   INITIALIZATION
 ========================= */
 
-function renderAll(){
+document.addEventListener("DOMContentLoaded",()=>{
+
+    loadData();
+
+    document.getElementById("transactionDate").value=today();
+
+    document.getElementById("operationNumber").value=
+        nextOperationNumber();
+
+    document.getElementById("paymentDate").value=today();
+
+    document.getElementById("supplierPaymentDate").value=today();
+
+    addPassenger();
+
+    fillSupplierFilters();
 
     renderDashboard();
 
-    renderTransactions();
+    renderOperations();
 
-    calculateSaleTotals();
+    document.getElementById("operationSearch")
+        .addEventListener("input",renderOperations);
 
-    calculateCustomerTotals();
+    document.getElementById("customerPaymentSearch")
+        .addEventListener("input",searchCustomerPayments);
 
-    calculateSupplierTotals();
+    document.getElementById("supplierSearch")
+        .addEventListener("input",renderSuppliers);
 
-}
-
-
-loadTransactions();
-
-resetForm();
-
-renderAll();
-
-
-/* إغلاق النافذة عند الضغط خارجها */
-
-document.getElementById("paymentModal")
-    .addEventListener("click",function(e){
-
-        if(e.target===this){
-            closePaymentModal();
-        }
-
-    });
+});
 
 </script>
 
