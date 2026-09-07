@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>نظام حسابات السفر والسياحة</title>
 
 <style>
+
 * {
     box-sizing: border-box;
 }
@@ -19,13 +21,12 @@ body {
 
 .container {
     width: 95%;
-    max-width: 1400px;
+    max-width: 1500px;
     margin: auto;
 }
 
 header {
     padding: 25px 0;
-    margin-bottom: 20px;
 }
 
 header h1 {
@@ -35,7 +36,6 @@ header h1 {
 
 header p {
     color: #9fb1c7;
-    margin-top: 8px;
 }
 
 .cards {
@@ -50,7 +50,6 @@ header p {
     border: 1px solid #1b3552;
     border-radius: 16px;
     padding: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.2);
 }
 
 .card .title {
@@ -74,7 +73,6 @@ header p {
 
 .section h2 {
     margin-top: 0;
-    font-size: 20px;
 }
 
 .form-grid {
@@ -153,10 +151,14 @@ textarea {
 button {
     border: 0;
     border-radius: 10px;
-    padding: 12px 20px;
+    padding: 11px 16px;
     cursor: pointer;
     font-weight: bold;
     color: white;
+}
+
+button:hover {
+    opacity: .85;
 }
 
 .btn-primary {
@@ -175,12 +177,13 @@ button {
     background: #d68910;
 }
 
-.btn-secondary {
-    background: #34495e;
+.btn-dark-danger {
+    background: #8e1b12;
+    border: 1px solid #ff5c4d;
 }
 
-button:hover {
-    opacity: .85;
+.btn-secondary {
+    background: #34495e;
 }
 
 .table-wrapper {
@@ -190,7 +193,7 @@ button:hover {
 table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 1200px;
+    min-width: 1400px;
 }
 
 th,
@@ -234,21 +237,6 @@ td {
     color: #ff8073;
 }
 
-.badge-blue {
-    background: rgba(22,119,255,.2);
-    color: #70b0ff;
-}
-
-.actions {
-    display: flex;
-    gap: 6px;
-}
-
-.actions button {
-    padding: 7px 10px;
-    font-size: 11px;
-}
-
 .search-row {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
@@ -256,11 +244,22 @@ td {
     margin-bottom: 15px;
 }
 
+.actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.actions button {
+    padding: 7px 10px;
+    font-size: 11px;
+}
+
 .modal {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,.75);
+    background: rgba(0,0,0,.78);
     z-index: 999;
     align-items: center;
     justify-content: center;
@@ -278,19 +277,11 @@ td {
     overflow-y: auto;
 }
 
-.modal-content h2 {
-    margin-top: 0;
-}
-
 .close {
     float: left;
     cursor: pointer;
-    font-size: 22px;
+    font-size: 24px;
     color: #aaa;
-}
-
-.payment-list {
-    margin-top: 15px;
 }
 
 .payment-item {
@@ -307,13 +298,22 @@ td {
     color: #7f95ac;
 }
 
-@media(max-width: 1000px) {
+.delete-warning {
+    background: #351511;
+    border: 1px solid #7d2b22;
+    color: #ffaaa1;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+@media(max-width:1000px) {
     .form-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media(max-width: 600px) {
+@media(max-width:600px) {
     .form-grid,
     .search-row {
         grid-template-columns: 1fr;
@@ -323,6 +323,7 @@ td {
         font-size: 22px;
     }
 }
+
 </style>
 </head>
 
@@ -331,40 +332,47 @@ td {
 <div class="container">
 
 <header>
-    <h1>نظام حسابات السفر والسياحة</h1>
-    <p>إدارة المبيعات، التسديدات، التصريف، والمبالغ المستحقة</p>
+
+<h1>نظام حسابات السفر والسياحة</h1>
+
+<p>
+إدارة المبيعات، التسديدات، التصريف، والمبالغ المستحقة
+</p>
+
 </header>
+
 
 <!-- DASHBOARD -->
 
 <div class="cards">
 
-    <div class="card">
-        <div class="title">عدد المعاملات</div>
-        <div class="value" id="totalTransactions">0</div>
-    </div>
+<div class="card">
+<div class="title">عدد المعاملات</div>
+<div class="value" id="totalTransactions">0</div>
+</div>
 
-    <div class="card">
-        <div class="title">إجمالي المبيعات بالدولار</div>
-        <div class="value" id="totalSalesUSD">$0</div>
-    </div>
+<div class="card">
+<div class="title">إجمالي المبيعات بالدولار</div>
+<div class="value" id="totalSalesUSD">$0</div>
+</div>
 
-    <div class="card">
-        <div class="title">إجمالي المبيعات بالدينار</div>
-        <div class="value" id="totalSalesIQD">0 د.ع</div>
-    </div>
+<div class="card">
+<div class="title">إجمالي المبيعات بالدينار</div>
+<div class="value" id="totalSalesIQD">0 د.ع</div>
+</div>
 
-    <div class="card">
-        <div class="title">المتبقي من الزبائن</div>
-        <div class="value" id="customerOutstanding">$0</div>
-    </div>
+<div class="card">
+<div class="title">المتبقي من الزبائن</div>
+<div class="value" id="customerOutstanding">$0</div>
+</div>
 
-    <div class="card">
-        <div class="title">المتبقي للموردين</div>
-        <div class="value" id="supplierOutstanding">$0</div>
-    </div>
+<div class="card">
+<div class="title">المتبقي للموردين</div>
+<div class="value" id="supplierOutstanding">$0</div>
+</div>
 
 </div>
+
 
 <!-- ADD TRANSACTION -->
 
@@ -374,167 +382,303 @@ td {
 
 <div class="form-grid">
 
-    <div class="field">
-        <label>اسم المسافر</label>
-        <input id="passengerName" type="text">
-    </div>
+<div class="field">
 
-    <div class="field">
-        <label>رقم الهاتف</label>
-        <input id="phone" type="text">
-    </div>
+<label>اسم المسافر</label>
 
-    <div class="field">
-        <label>تاريخ المعاملة</label>
-        <input id="transactionDate" type="date">
-    </div>
-
-    <div class="field">
-        <label>تاريخ إضافة العملية</label>
-        <input id="addedDate" type="date">
-    </div>
-
-    <div class="field">
-        <label>تاريخ السفر</label>
-        <input id="travelDate" type="date">
-    </div>
-
-    <div class="field">
-        <label>تاريخ الإياب</label>
-        <input id="returnDate" type="date">
-    </div>
-
-    <div class="field">
-        <label>جهة الإصدار / المورد</label>
-        <input id="issuer" type="text">
-    </div>
-
-    <!-- SALE -->
-
-    <div class="sale-box">
-
-        <h3>معلومات البيع والتصريف</h3>
-
-        <div class="form-grid">
-
-            <div class="field">
-                <label>عملة البيع</label>
-
-                <select id="saleCurrency" onchange="calculateSale()">
-                    <option value="USD">دولار</option>
-                    <option value="IQD">دينار عراقي</option>
-                </select>
-            </div>
-
-            <div class="field">
-                <label>مبلغ البيع</label>
-                <input id="saleAmount" type="number" step="0.01" oninput="calculateSale()">
-            </div>
-
-            <div class="field">
-                <label>سعر التصريف</label>
-                <input id="exchangeRate" type="number" step="0.01" placeholder="مثلاً 1550" oninput="calculateSale()">
-            </div>
-
-            <div class="field">
-                <label>المبلغ المقابل بالدينار</label>
-                <input id="saleIQD" type="number" readonly>
-            </div>
-
-            <div class="field">
-                <label>المبلغ المقابل بالدولار</label>
-                <input id="saleUSD" type="number" readonly>
-            </div>
-
-        </div>
-
-        <div class="exchange-result" id="exchangeResult">
-            أدخل مبلغ البيع وسعر التصريف
-        </div>
-
-    </div>
-
-    <!-- CUSTOMER PAYMENT -->
-
-    <div class="sale-box">
-
-        <h3>تسديد المسافر</h3>
-
-        <div class="form-grid">
-
-            <div class="field">
-                <label>المبلغ المسدد دولار</label>
-                <input id="paidUSD" type="number" step="0.01">
-            </div>
-
-            <div class="field">
-                <label>المبلغ المسدد دينار</label>
-                <input id="paidIQD" type="number" step="1">
-            </div>
-
-            <div class="field">
-                <label>تاريخ التسديد</label>
-                <input id="paymentDate" type="date">
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- SUPPLIER -->
-
-    <div class="sale-box">
-
-        <h3>مبلغ المورد / جهة الإصدار</h3>
-
-        <div class="form-grid">
-
-            <div class="field">
-                <label>مبلغ المورد بالدولار</label>
-                <input id="supplierAmountUSD" type="number" step="0.01">
-            </div>
-
-            <div class="field">
-                <label>مبلغ المورد بالدينار</label>
-                <input id="supplierAmountIQD" type="number" step="1">
-            </div>
-
-            <div class="field">
-                <label>تاريخ استحقاق المورد</label>
-                <input id="supplierDueDate" type="date">
-            </div>
-
-            <div class="field">
-                <label>يوم التسديد</label>
-                <select id="supplierDueDay">
-                    <option value="">اختيار</option>
-                    <option>السبت</option>
-                    <option>الأحد</option>
-                    <option>الاثنين</option>
-                    <option>الثلاثاء</option>
-                    <option>الأربعاء</option>
-                    <option>الخميس</option>
-                    <option>الجمعة</option>
-                </select>
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="field full">
-        <label>الملاحظات</label>
-        <textarea id="notes"></textarea>
-    </div>
+<input id="passengerName" type="text">
 
 </div>
+
+
+<div class="field">
+
+<label>رقم الهاتف</label>
+
+<input id="phone" type="text">
+
+</div>
+
+
+<div class="field">
+
+<label>تاريخ المعاملة</label>
+
+<input id="transactionDate" type="date">
+
+</div>
+
+
+<div class="field">
+
+<label>تاريخ إضافة العملية</label>
+
+<input id="addedDate" type="date">
+
+</div>
+
+
+<div class="field">
+
+<label>تاريخ السفر</label>
+
+<input id="travelDate" type="date">
+
+</div>
+
+
+<div class="field">
+
+<label>تاريخ الإياب</label>
+
+<input id="returnDate" type="date">
+
+</div>
+
+
+<div class="field">
+
+<label>جهة الإصدار / المورد</label>
+
+<input id="issuer" type="text">
+
+</div>
+
+
+<!-- SALE -->
+
+<div class="sale-box">
+
+<h3>معلومات البيع والتصريف</h3>
+
+<div class="form-grid">
+
+<div class="field">
+
+<label>عملة البيع</label>
+
+<select id="saleCurrency" onchange="calculateSale()">
+
+<option value="USD">
+دولار
+</option>
+
+<option value="IQD">
+دينار عراقي
+</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>مبلغ البيع</label>
+
+<input
+id="saleAmount"
+type="number"
+step="0.01"
+oninput="calculateSale()"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>سعر التصريف</label>
+
+<input
+id="exchangeRate"
+type="number"
+step="0.01"
+placeholder="مثلاً 1550"
+oninput="calculateSale()"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>المبلغ المقابل بالدينار</label>
+
+<input id="saleIQD" type="number" readonly>
+
+</div>
+
+
+<div class="field">
+
+<label>المبلغ المقابل بالدولار</label>
+
+<input id="saleUSD" type="number" readonly>
+
+</div>
+
+</div>
+
+
+<div
+class="exchange-result"
+id="exchangeResult"
+>
+أدخل مبلغ البيع وسعر التصريف
+</div>
+
+</div>
+
+
+<!-- CUSTOMER PAYMENT -->
+
+<div class="sale-box">
+
+<h3>تسديد المسافر</h3>
+
+<div class="form-grid">
+
+<div class="field">
+
+<label>المبلغ المسدد دولار</label>
+
+<input
+id="paidUSD"
+type="number"
+step="0.01"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>المبلغ المسدد دينار</label>
+
+<input
+id="paidIQD"
+type="number"
+step="1"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>تاريخ التسديد</label>
+
+<input id="paymentDate" type="date">
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- SUPPLIER -->
+
+<div class="sale-box">
+
+<h3>مبلغ المورد / جهة الإصدار</h3>
+
+<div class="form-grid">
+
+<div class="field">
+
+<label>مبلغ المورد بالدولار</label>
+
+<input
+id="supplierAmountUSD"
+type="number"
+step="0.01"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>مبلغ المورد بالدينار</label>
+
+<input
+id="supplierAmountIQD"
+type="number"
+step="1"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>تاريخ استحقاق المورد</label>
+
+<input
+id="supplierDueDate"
+type="date"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>يوم التسديد</label>
+
+<select id="supplierDueDay">
+
+<option value="">اختيار</option>
+<option>السبت</option>
+<option>الأحد</option>
+<option>الاثنين</option>
+<option>الثلاثاء</option>
+<option>الأربعاء</option>
+<option>الخميس</option>
+<option>الجمعة</option>
+
+</select>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="field full">
+
+<label>الملاحظات</label>
+
+<textarea id="notes"></textarea>
+
+</div>
+
+</div>
+
 
 <div class="buttons">
-    <button class="btn-primary" onclick="saveTransaction()">حفظ المعاملة</button>
-    <button class="btn-secondary" onclick="clearForm()">مسح الحقول</button>
+
+<button
+class="btn-primary"
+onclick="saveTransaction()"
+>
+حفظ المعاملة
+</button>
+
+<button
+class="btn-secondary"
+onclick="clearForm()"
+>
+مسح الحقول
+</button>
+
 </div>
 
 </div>
+
 
 <!-- TRANSACTIONS -->
 
@@ -544,48 +688,87 @@ td {
 
 <div class="search-row">
 
-    <input
-        id="searchInput"
-        placeholder="بحث باسم المسافر أو الهاتف أو المورد"
-        oninput="renderTransactions()"
-    >
+<input
+id="searchInput"
+placeholder="بحث باسم المسافر أو الهاتف أو المورد"
+oninput="renderTransactions()"
+>
 
-    <select id="customerFilter" onchange="renderTransactions()">
-        <option value="">كل حالات الزبائن</option>
-        <option value="مسدد">مسدد</option>
-        <option value="مسدد جزئي">مسدد جزئي</option>
-        <option value="غير مسدد">غير مسدد</option>
-    </select>
 
-    <select id="supplierFilter" onchange="renderTransactions()">
-        <option value="">كل حالات الموردين</option>
-        <option value="مسدد">مسدد</option>
-        <option value="مسدد جزئي">مسدد جزئي</option>
-        <option value="غير مسدد">غير مسدد</option>
-    </select>
+<select
+id="customerFilter"
+onchange="renderTransactions()"
+>
+
+<option value="">
+كل حالات الزبائن
+</option>
+
+<option value="مسدد">
+مسدد
+</option>
+
+<option value="مسدد جزئي">
+مسدد جزئي
+</option>
+
+<option value="غير مسدد">
+غير مسدد
+</option>
+
+</select>
+
+
+<select
+id="supplierFilter"
+onchange="renderTransactions()"
+>
+
+<option value="">
+كل حالات الموردين
+</option>
+
+<option value="مسدد">
+مسدد
+</option>
+
+<option value="مسدد جزئي">
+مسدد جزئي
+</option>
+
+<option value="غير مسدد">
+غير مسدد
+</option>
+
+</select>
 
 </div>
+
 
 <div class="table-wrapper">
 
 <table>
 
 <thead>
+
 <tr>
-    <th>المسافر</th>
-    <th>الهاتف</th>
-    <th>التاريخ</th>
-    <th>البيع</th>
-    <th>سعر التصريف</th>
-    <th>السفر</th>
-    <th>المورد</th>
-    <th>مبلغ المورد</th>
-    <th>المسدد للمورد</th>
-    <th>المتبقي للمورد</th>
-    <th>حالة المورد</th>
-    <th>حالة الزبون</th>
-    <th>الإجراءات</th>
+
+<th>المسافر</th>
+<th>الهاتف</th>
+<th>التاريخ</th>
+<th>البيع</th>
+<th>التصريف</th>
+<th>السفر</th>
+<th>المورد</th>
+<th>مبلغ المورد</th>
+<th>المسدد للمورد</th>
+<th>المتبقي للمورد</th>
+<th>حالة المورد</th>
+<th>حالة الزبون</th>
+<th>الإجراءات</th>
+
 </tr>
+
 </thead>
 
 <tbody id="transactionsBody"></tbody>
@@ -596,7 +779,8 @@ td {
 
 </div>
 
-<!-- SUPPLIER DUES -->
+
+<!-- SUPPLIER -->
 
 <div class="section">
 
@@ -607,16 +791,20 @@ td {
 <table>
 
 <thead>
+
 <tr>
-    <th>المورد</th>
-    <th>المسافر</th>
-    <th>المبلغ المطلوب</th>
-    <th>المبلغ المسدد</th>
-    <th>المتبقي</th>
-    <th>الاستحقاق</th>
-    <th>الحالة</th>
-    <th>إجراء</th>
+
+<th>المورد</th>
+<th>المسافر</th>
+<th>المبلغ المطلوب</th>
+<th>المبلغ المسدد</th>
+<th>المتبقي</th>
+<th>الاستحقاق</th>
+<th>الحالة</th>
+<th>إجراء</th>
+
 </tr>
+
 </thead>
 
 <tbody id="supplierBody"></tbody>
@@ -629,13 +817,22 @@ td {
 
 </div>
 
-<!-- SUPPLIER PAYMENT MODAL -->
 
-<div class="modal" id="paymentModal">
+<!-- PAYMENT MODAL -->
+
+<div
+class="modal"
+id="paymentModal"
+>
 
 <div class="modal-content">
 
-<span class="close" onclick="closePaymentModal()">×</span>
+<span
+class="close"
+onclick="closePaymentModal()"
+>
+×
+</span>
 
 <h2>تسديد للمورد</h2>
 
@@ -643,1121 +840,1936 @@ td {
 
 <div class="form-grid">
 
-    <div class="field">
-        <label>المبلغ المسدد دولار</label>
-        <input id="supplierPayUSD" type="number" step="0.01">
-    </div>
+<div class="field">
 
-    <div class="field">
-        <label>المبلغ المسدد دينار</label>
-        <input id="supplierPayIQD" type="number" step="1">
-    </div>
+<label>المبلغ المسدد دولار</label>
 
-    <div class="field">
-        <label>تاريخ التسديد</label>
-        <input id="supplierPaymentDate" type="date">
-    </div>
-
-    <div class="field">
-        <label>ملاحظات</label>
-        <input id="supplierPaymentNotes">
-    </div>
+<input
+id="supplierPayUSD"
+type="number"
+step="0.01"
+>
 
 </div>
+
+
+<div class="field">
+
+<label>المبلغ المسدد دينار</label>
+
+<input
+id="supplierPayIQD"
+type="number"
+step="1"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>تاريخ التسديد</label>
+
+<input
+id="supplierPaymentDate"
+type="date"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>ملاحظات</label>
+
+<input
+id="supplierPaymentNotes"
+>
+
+</div>
+
+</div>
+
 
 <div class="buttons">
 
-    <button class="btn-success" onclick="saveSupplierPayment()">
-        حفظ التسديد
-    </button>
+<button
+class="btn-success"
+onclick="saveSupplierPayment()"
+>
+حفظ التسديد
+</button>
 
 </div>
 
-<div class="payment-list" id="paymentList"></div>
+
+<div
+class="payment-list"
+id="paymentList"
+></div>
 
 </div>
 
 </div>
+
 
 <script>
 
-let transactions = JSON.parse(localStorage.getItem("travelTransactions")) || [];
+
+/* ===================================
+   قراءة البيانات
+=================================== */
+
+let transactions =
+JSON.parse(
+localStorage.getItem("travelTransactions")
+) || [];
+
 
 let editingId = null;
+
 let currentSupplierTransactionId = null;
 
-/* =========================
-   MIGRATION
-========================= */
 
-transactions = transactions.map(t => {
+/* ===================================
+   تحويل البيانات القديمة
+=================================== */
 
-    return {
-        ...t,
+transactions = transactions.map(function(t) {
 
-        exchangeRate: Number(t.exchangeRate || 0),
+return {
 
-        saleCurrency: t.saleCurrency || (
-            Number(t.saleUSD || 0) > 0 ? "USD" : "IQD"
-        ),
+...t,
 
-        saleAmount: Number(
-            t.saleAmount ||
-            t.saleUSD ||
-            t.saleIQD ||
-            0
-        ),
+id:
+t.id ||
+(
+Date.now().toString() +
+Math.random().toString(36).substring(2)
+),
 
-        saleUSD: Number(t.saleUSD || 0),
-        saleIQD: Number(t.saleIQD || 0),
+exchangeRate:
+Number(t.exchangeRate || 0),
 
-        paidUSD: Number(t.paidUSD || 0),
-        paidIQD: Number(t.paidIQD || 0),
+saleCurrency:
+t.saleCurrency ||
+(
+Number(t.saleUSD || 0) > 0
+? "USD"
+: "IQD"
+),
 
-        supplierAmountUSD: Number(t.supplierAmountUSD || 0),
-        supplierAmountIQD: Number(t.supplierAmountIQD || 0),
+saleAmount:
+Number(
+t.saleAmount ||
+t.saleUSD ||
+t.saleIQD ||
+0
+),
 
-        supplierPayments: Array.isArray(t.supplierPayments)
-            ? t.supplierPayments
-            : []
+saleUSD:
+Number(t.saleUSD || 0),
 
-    };
+saleIQD:
+Number(t.saleIQD || 0),
+
+paidUSD:
+Number(t.paidUSD || 0),
+
+paidIQD:
+Number(t.paidIQD || 0),
+
+supplierAmountUSD:
+Number(t.supplierAmountUSD || 0),
+
+supplierAmountIQD:
+Number(t.supplierAmountIQD || 0),
+
+supplierPayments:
+Array.isArray(t.supplierPayments)
+? t.supplierPayments
+: []
+
+};
 
 });
 
+
 saveData();
 
-/* =========================
-   DATE
-========================= */
+
+/* ===================================
+   تاريخ اليوم
+=================================== */
 
 function today() {
 
-    const d = new Date();
+const d = new Date();
 
-    const month = String(d.getMonth() + 1).padStart(2, "0");
-    const day = String(d.getDate()).padStart(2, "0");
+const month =
+String(d.getMonth() + 1)
+.padStart(2, "0");
 
-    return `${d.getFullYear()}-${month}-${day}`;
+const day =
+String(d.getDate())
+.padStart(2, "0");
+
+return (
+d.getFullYear() +
+"-" +
+month +
+"-" +
+day
+);
+
 }
 
-document.getElementById("transactionDate").value = today();
-document.getElementById("addedDate").value = today();
-document.getElementById("paymentDate").value = today();
-document.getElementById("supplierPaymentDate").value = today();
 
-/* =========================
-   NUMBER
-========================= */
+document.getElementById("transactionDate").value =
+today();
+
+document.getElementById("addedDate").value =
+today();
+
+document.getElementById("paymentDate").value =
+today();
+
+document.getElementById("supplierPaymentDate").value =
+today();
+
+
+/* ===================================
+   الأرقام
+=================================== */
 
 function num(value) {
 
-    return Number(value) || 0;
+return Number(value) || 0;
 
 }
+
 
 function moneyUSD(value) {
 
-    return "$" + num(value).toLocaleString(
-        "en-US",
-        {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        }
-    );
+return "$" +
+num(value).toLocaleString(
+"en-US",
+{
+minimumFractionDigits: 2,
+maximumFractionDigits: 2
+}
+);
 
 }
+
 
 function moneyIQD(value) {
 
-    return num(value).toLocaleString("en-US") + " د.ع";
+return num(value).toLocaleString("en-US") +
+" د.ع";
 
 }
 
-/* =========================
-   EXCHANGE CALCULATION
-========================= */
+
+/* ===================================
+   التصريف
+=================================== */
 
 function calculateSale() {
 
-    const currency = document.getElementById("saleCurrency").value;
+const currency =
+document.getElementById("saleCurrency").value;
 
-    const amount = num(
-        document.getElementById("saleAmount").value
-    );
+const amount =
+num(
+document.getElementById("saleAmount").value
+);
 
-    const rate = num(
-        document.getElementById("exchangeRate").value
-    );
+const rate =
+num(
+document.getElementById("exchangeRate").value
+);
 
-    const saleUSD = document.getElementById("saleUSD");
-    const saleIQD = document.getElementById("saleIQD");
-    const result = document.getElementById("exchangeResult");
+const saleUSD =
+document.getElementById("saleUSD");
 
-    if (!amount || !rate) {
+const saleIQD =
+document.getElementById("saleIQD");
 
-        saleUSD.value = "";
-        saleIQD.value = "";
+const result =
+document.getElementById("exchangeResult");
 
-        result.innerText =
-            "أدخل مبلغ البيع وسعر التصريف";
 
-        return;
-    }
+if (!amount || !rate) {
 
-    if (currency === "USD") {
+saleUSD.value = "";
+saleIQD.value = "";
 
-        const iqd = amount * rate;
+result.innerText =
+"أدخل مبلغ البيع وسعر التصريف";
 
-        saleUSD.value = amount.toFixed(2);
-        saleIQD.value = Math.round(iqd);
-
-        result.innerText =
-            `${moneyUSD(amount)} × ${rate.toLocaleString()} = ${moneyIQD(iqd)}`;
-
-    } else {
-
-        const usd = amount / rate;
-
-        saleIQD.value = Math.round(amount);
-        saleUSD.value = usd.toFixed(2);
-
-        result.innerText =
-            `${moneyIQD(amount)} ÷ ${rate.toLocaleString()} = ${moneyUSD(usd)}`;
-
-    }
+return;
 
 }
 
-/* =========================
-   SAVE DATA
-========================= */
+
+if (currency === "USD") {
+
+const iqd =
+amount * rate;
+
+saleUSD.value =
+amount.toFixed(2);
+
+saleIQD.value =
+Math.round(iqd);
+
+result.innerText =
+moneyUSD(amount) +
+" × " +
+rate.toLocaleString() +
+" = " +
+moneyIQD(iqd);
+
+}
+
+else {
+
+const usd =
+amount / rate;
+
+saleIQD.value =
+Math.round(amount);
+
+saleUSD.value =
+usd.toFixed(2);
+
+result.innerText =
+moneyIQD(amount) +
+" ÷ " +
+rate.toLocaleString() +
+" = " +
+moneyUSD(usd);
+
+}
+
+}
+
+
+/* ===================================
+   حفظ
+=================================== */
 
 function saveData() {
 
-    localStorage.setItem(
-        "travelTransactions",
-        JSON.stringify(transactions)
-    );
+localStorage.setItem(
+"travelTransactions",
+JSON.stringify(transactions)
+);
 
 }
 
-/* =========================
-   SAVE TRANSACTION
-========================= */
+
+/* ===================================
+   حفظ المعاملة
+=================================== */
 
 function saveTransaction() {
 
-    calculateSale();
+calculateSale();
 
-    const currency =
-        document.getElementById("saleCurrency").value;
 
-    const amount =
-        num(document.getElementById("saleAmount").value);
+const currency =
+document.getElementById("saleCurrency").value;
 
-    const exchangeRate =
-        num(document.getElementById("exchangeRate").value);
+const amount =
+num(
+document.getElementById("saleAmount").value
+);
 
-    if (!document.getElementById("passengerName").value.trim()) {
+const exchangeRate =
+num(
+document.getElementById("exchangeRate").value
+);
 
-        alert("يرجى إدخال اسم المسافر");
-        return;
 
-    }
+if (
+!document
+.getElementById("passengerName")
+.value
+.trim()
+) {
 
-    if (!amount) {
+alert("يرجى إدخال اسم المسافر");
 
-        alert("يرجى إدخال مبلغ البيع");
-        return;
-
-    }
-
-    if (!exchangeRate) {
-
-        alert("يرجى إدخال سعر التصريف");
-        return;
-
-    }
-
-    const data = {
-
-        passengerName:
-            document.getElementById("passengerName").value.trim(),
-
-        phone:
-            document.getElementById("phone").value.trim(),
-
-        transactionDate:
-            document.getElementById("transactionDate").value,
-
-        travelDate:
-            document.getElementById("travelDate").value,
-
-        returnDate:
-            document.getElementById("returnDate").value,
-
-        addedDate:
-            document.getElementById("addedDate").value,
-
-        saleCurrency:
-            currency,
-
-        saleAmount:
-            amount,
-
-        exchangeRate:
-            exchangeRate,
-
-        saleUSD:
-            num(document.getElementById("saleUSD").value),
-
-        saleIQD:
-            num(document.getElementById("saleIQD").value),
-
-        issuer:
-            document.getElementById("issuer").value.trim(),
-
-        supplierAmountUSD:
-            num(document.getElementById("supplierAmountUSD").value),
-
-        supplierAmountIQD:
-            num(document.getElementById("supplierAmountIQD").value),
-
-        supplierDueDate:
-            document.getElementById("supplierDueDate").value,
-
-        supplierDueDay:
-            document.getElementById("supplierDueDay").value,
-
-        paidUSD:
-            num(document.getElementById("paidUSD").value),
-
-        paidIQD:
-            num(document.getElementById("paidIQD").value),
-
-        paymentDate:
-            document.getElementById("paymentDate").value,
-
-        notes:
-            document.getElementById("notes").value.trim()
-
-    };
-
-    if (editingId) {
-
-        const index =
-            transactions.findIndex(t => t.id === editingId);
-
-        if (index !== -1) {
-
-            data.id = editingId;
-
-            data.supplierPayments =
-                transactions[index].supplierPayments || [];
-
-            transactions[index] = data;
-
-        }
-
-        editingId = null;
-
-    } else {
-
-        data.id =
-            Date.now().toString();
-
-        data.supplierPayments = [];
-
-        transactions.push(data);
-
-    }
-
-    saveData();
-
-    clearForm();
-
-    renderAll();
-
-    alert("تم حفظ المعاملة بنجاح");
+return;
 
 }
 
-/* =========================
-   CUSTOMER BALANCE
-========================= */
+
+if (!amount) {
+
+alert("يرجى إدخال مبلغ البيع");
+
+return;
+
+}
+
+
+if (!exchangeRate) {
+
+alert("يرجى إدخال سعر التصريف");
+
+return;
+
+}
+
+
+const data = {
+
+passengerName:
+document.getElementById("passengerName").value.trim(),
+
+phone:
+document.getElementById("phone").value.trim(),
+
+transactionDate:
+document.getElementById("transactionDate").value,
+
+travelDate:
+document.getElementById("travelDate").value,
+
+returnDate:
+document.getElementById("returnDate").value,
+
+addedDate:
+document.getElementById("addedDate").value,
+
+saleCurrency:
+currency,
+
+saleAmount:
+amount,
+
+exchangeRate:
+exchangeRate,
+
+saleUSD:
+num(
+document.getElementById("saleUSD").value
+),
+
+saleIQD:
+num(
+document.getElementById("saleIQD").value
+),
+
+issuer:
+document.getElementById("issuer").value.trim(),
+
+supplierAmountUSD:
+num(
+document.getElementById("supplierAmountUSD").value
+),
+
+supplierAmountIQD:
+num(
+document.getElementById("supplierAmountIQD").value
+),
+
+supplierDueDate:
+document.getElementById("supplierDueDate").value,
+
+supplierDueDay:
+document.getElementById("supplierDueDay").value,
+
+paidUSD:
+num(
+document.getElementById("paidUSD").value
+),
+
+paidIQD:
+num(
+document.getElementById("paidIQD").value
+),
+
+paymentDate:
+document.getElementById("paymentDate").value,
+
+notes:
+document.getElementById("notes").value.trim()
+
+};
+
+
+if (editingId) {
+
+const index =
+transactions.findIndex(
+t => String(t.id) === String(editingId)
+);
+
+if (index !== -1) {
+
+data.id =
+transactions[index].id;
+
+data.supplierPayments =
+transactions[index].supplierPayments || [];
+
+transactions[index] =
+data;
+
+}
+
+editingId = null;
+
+}
+
+else {
+
+data.id =
+Date.now().toString() +
+Math.random()
+.toString(36)
+.substring(2);
+
+data.supplierPayments = [];
+
+transactions.push(data);
+
+}
+
+
+saveData();
+
+clearForm();
+
+renderAll();
+
+alert("تم حفظ المعاملة بنجاح");
+
+}
+
+
+/* ===================================
+   حساب الزبون
+=================================== */
 
 function customerTotalUSD(t) {
 
-    return num(t.saleUSD);
+return num(t.saleUSD);
 
 }
+
 
 function customerPaidUSD(t) {
 
-    const rate = num(t.exchangeRate);
+const rate =
+num(t.exchangeRate);
 
-    let result = num(t.paidUSD);
+let result =
+num(t.paidUSD);
 
-    if (rate > 0) {
+if (rate > 0) {
 
-        result += num(t.paidIQD) / rate;
-
-    }
-
-    return result;
+result +=
+num(t.paidIQD) / rate;
 
 }
+
+return result;
+
+}
+
 
 function customerRemainingUSD(t) {
 
-    return Math.max(
-        0,
-        customerTotalUSD(t) -
-        customerPaidUSD(t)
-    );
+return Math.max(
+0,
+customerTotalUSD(t) -
+customerPaidUSD(t)
+);
 
 }
+
 
 function customerStatus(t) {
 
-    const total = customerTotalUSD(t);
-    const paid = customerPaidUSD(t);
+const total =
+customerTotalUSD(t);
 
-    if (paid >= total && total > 0) {
+const paid =
+customerPaidUSD(t);
 
-        return "مسدد";
 
-    }
+if (
+paid >= total &&
+total > 0
+) {
 
-    if (paid > 0) {
-
-        return "مسدد جزئي";
-
-    }
-
-    return "غير مسدد";
+return "مسدد";
 
 }
 
-/* =========================
-   SUPPLIER
-========================= */
+
+if (paid > 0) {
+
+return "مسدد جزئي";
+
+}
+
+
+return "غير مسدد";
+
+}
+
+
+/* ===================================
+   حساب المورد
+=================================== */
 
 function supplierTotalUSD(t) {
 
-    return num(t.supplierAmountUSD);
+const rate =
+num(t.exchangeRate);
+
+let total =
+num(t.supplierAmountUSD);
+
+
+if (
+total === 0 &&
+num(t.supplierAmountIQD) > 0 &&
+rate > 0
+) {
+
+total =
+num(t.supplierAmountIQD) /
+rate;
 
 }
+
+return total;
+
+}
+
 
 function supplierPaidUSD(t) {
 
-    const rate = num(t.exchangeRate);
+const rate =
+num(t.exchangeRate);
 
-    let total = 0;
+let total = 0;
 
-    (t.supplierPayments || []).forEach(p => {
 
-        total += num(p.usd);
+(t.supplierPayments || [])
+.forEach(function(p) {
 
-        if (rate > 0) {
+total +=
+num(p.usd);
 
-            total += num(p.iqd) / rate;
+if (rate > 0) {
 
-        }
-
-    });
-
-    return total;
+total +=
+num(p.iqd) / rate;
 
 }
+
+});
+
+
+return total;
+
+}
+
 
 function supplierRemainingUSD(t) {
 
-    return Math.max(
-        0,
-        supplierTotalUSD(t) -
-        supplierPaidUSD(t)
-    );
+return Math.max(
+0,
+supplierTotalUSD(t) -
+supplierPaidUSD(t)
+);
 
 }
+
 
 function supplierStatus(t) {
 
-    const total = supplierTotalUSD(t);
-    const paid = supplierPaidUSD(t);
+const total =
+supplierTotalUSD(t);
 
-    if (total <= 0) {
+const paid =
+supplierPaidUSD(t);
 
-        return "غير مسدد";
 
-    }
+if (total <= 0) {
 
-    if (paid >= total) {
-
-        return "مسدد";
-
-    }
-
-    if (paid > 0) {
-
-        return "مسدد جزئي";
-
-    }
-
-    return "غير مسدد";
+return "غير مسدد";
 
 }
 
-/* =========================
-   BADGE
-========================= */
+
+if (paid >= total) {
+
+return "مسدد";
+
+}
+
+
+if (paid > 0) {
+
+return "مسدد جزئي";
+
+}
+
+
+return "غير مسدد";
+
+}
+
+
+/* ===================================
+   حالة
+=================================== */
 
 function statusBadge(status) {
 
-    let cls = "badge-red";
+let cls =
+"badge-red";
 
-    if (status === "مسدد") {
 
-        cls = "badge-green";
+if (status === "مسدد") {
 
-    } else if (status === "مسدد جزئي") {
-
-        cls = "badge-yellow";
-
-    }
-
-    return `<span class="badge ${cls}">${status}</span>`;
+cls =
+"badge-green";
 
 }
 
-/* =========================
-   RENDER TRANSACTIONS
-========================= */
+else if (
+status === "مسدد جزئي"
+) {
+
+cls =
+"badge-yellow";
+
+}
+
+
+return `
+<span class="badge ${cls}">
+${status}
+</span>
+`;
+
+}
+
+
+/* ===================================
+   عرض المعاملات
+=================================== */
 
 function renderTransactions() {
 
-    const body =
-        document.getElementById("transactionsBody");
+const body =
+document.getElementById(
+"transactionsBody"
+);
 
-    const search =
-        document.getElementById("searchInput")
-        .value
-        .toLowerCase()
-        .trim();
 
-    const customerFilter =
-        document.getElementById("customerFilter").value;
+const search =
+document.getElementById(
+"searchInput"
+)
+.value
+.toLowerCase()
+.trim();
 
-    const supplierFilter =
-        document.getElementById("supplierFilter").value;
 
-    let list = transactions.filter(t => {
+const customerFilter =
+document.getElementById(
+"customerFilter"
+).value;
 
-        const text = (
 
-            (t.passengerName || "") +
-            " " +
-            (t.phone || "") +
-            " " +
-            (t.issuer || "")
+const supplierFilter =
+document.getElementById(
+"supplierFilter"
+).value;
 
-        ).toLowerCase();
 
-        const customerOK =
-            !customerFilter ||
-            customerStatus(t) === customerFilter;
+const list =
+transactions.filter(function(t) {
 
-        const supplierOK =
-            !supplierFilter ||
-            supplierStatus(t) === supplierFilter;
+const text = (
 
-        return (
-            text.includes(search) &&
-            customerOK &&
-            supplierOK
-        );
+(t.passengerName || "") +
+" " +
+(t.phone || "") +
+" " +
+(t.issuer || "")
 
-    });
+).toLowerCase();
 
-    if (!list.length) {
 
-        body.innerHTML =
-            `<tr>
-                <td colspan="13" class="empty">
-                    لا توجد معاملات
-                </td>
-             </tr>`;
+const customerOK =
+!customerFilter ||
+customerStatus(t) ===
+customerFilter;
 
-        return;
 
-    }
+const supplierOK =
+!supplierFilter ||
+supplierStatus(t) ===
+supplierFilter;
 
-    body.innerHTML = list.map(t => {
 
-        const cStatus = customerStatus(t);
-        const sStatus = supplierStatus(t);
+return (
+text.includes(search) &&
+customerOK &&
+supplierOK
+);
 
-        const saleText =
-            `${moneyUSD(t.saleUSD)}<br>${moneyIQD(t.saleIQD)}`;
+});
 
-        return `
 
-        <tr>
+if (!list.length) {
 
-            <td>${escapeHTML(t.passengerName)}</td>
+body.innerHTML = `
 
-            <td>${escapeHTML(t.phone)}</td>
+<tr>
 
-            <td>${t.transactionDate || "-"}</td>
+<td
+colspan="13"
+class="empty"
+>
+لا توجد معاملات
+</td>
 
-            <td>${saleText}</td>
+</tr>
 
-            <td>${num(t.exchangeRate).toLocaleString()}</td>
+`;
 
-            <td>${t.travelDate || "-"}</td>
-
-            <td>${escapeHTML(t.issuer || "-")}</td>
-
-            <td>${moneyUSD(supplierTotalUSD(t))}</td>
-
-            <td>${moneyUSD(supplierPaidUSD(t))}</td>
-
-            <td>${moneyUSD(supplierRemainingUSD(t))}</td>
-
-            <td>${statusBadge(sStatus)}</td>
-
-            <td>${statusBadge(cStatus)}</td>
-
-            <td>
-
-                <div class="actions">
-
-                    <button
-                        class="btn-success"
-                        onclick="openPaymentModal('${t.id}')">
-                        تسديد
-                    </button>
-
-                    <button
-                        class="btn-warning"
-                        onclick="editTransaction('${t.id}')">
-                        تعديل
-                    </button>
-
-                    <button
-                        class="btn-danger"
-                        onclick="deleteTransaction('${t.id}')">
-                        حذف
-                    </button>
-
-                </div>
-
-            </td>
-
-        </tr>
-
-        `;
-
-    }).join("");
+return;
 
 }
 
-/* =========================
-   SUPPLIER TABLE
-========================= */
+
+body.innerHTML =
+list.map(function(t) {
+
+const cStatus =
+customerStatus(t);
+
+const sStatus =
+supplierStatus(t);
+
+
+return `
+
+<tr>
+
+<td>
+${escapeHTML(t.passengerName)}
+</td>
+
+
+<td>
+${escapeHTML(t.phone)}
+</td>
+
+
+<td>
+${t.transactionDate || "-"}
+</td>
+
+
+<td>
+
+${moneyUSD(t.saleUSD)}
+
+<br>
+
+${moneyIQD(t.saleIQD)}
+
+</td>
+
+
+<td>
+
+${num(t.exchangeRate)
+.toLocaleString()}
+
+</td>
+
+
+<td>
+${t.travelDate || "-"}
+</td>
+
+
+<td>
+${escapeHTML(t.issuer || "-")}
+</td>
+
+
+<td>
+${moneyUSD(
+supplierTotalUSD(t)
+)}
+</td>
+
+
+<td>
+${moneyUSD(
+supplierPaidUSD(t)
+)}
+</td>
+
+
+<td>
+${moneyUSD(
+supplierRemainingUSD(t)
+)}
+</td>
+
+
+<td>
+${statusBadge(sStatus)}
+</td>
+
+
+<td>
+${statusBadge(cStatus)}
+</td>
+
+
+<td>
+
+<div class="actions">
+
+<button
+class="btn-success"
+onclick="openPaymentModal('${t.id}')"
+>
+تسديد
+</button>
+
+
+<button
+class="btn-warning"
+onclick="editTransaction('${t.id}')"
+>
+تعديل
+</button>
+
+
+<button
+class="btn-danger"
+onclick="deleteTransaction('${t.id}')"
+>
+حذف
+</button>
+
+
+<button
+class="btn-dark-danger"
+onclick="forceDeleteTransaction('${t.id}')"
+>
+حذف إجباري
+</button>
+
+</div>
+
+</td>
+
+</tr>
+
+`;
+
+}).join("");
+
+}
+
+
+/* ===================================
+   الموردين
+=================================== */
 
 function renderSuppliers() {
 
-    const body =
-        document.getElementById("supplierBody");
+const body =
+document.getElementById(
+"supplierBody"
+);
 
-    const list =
-        transactions.filter(t =>
-            supplierTotalUSD(t) > 0
-        );
 
-    if (!list.length) {
+const list =
+transactions.filter(function(t) {
 
-        body.innerHTML =
-            `<tr>
-                <td colspan="8" class="empty">
-                    لا توجد مبالغ مستحقة للموردين
-                </td>
-             </tr>`;
+return supplierTotalUSD(t) > 0;
 
-        return;
+});
 
-    }
 
-    body.innerHTML = list.map(t => {
+if (!list.length) {
 
-        return `
+body.innerHTML = `
 
-        <tr>
+<tr>
 
-            <td>${escapeHTML(t.issuer || "-")}</td>
+<td
+colspan="8"
+class="empty"
+>
+لا توجد مبالغ مستحقة للموردين
+</td>
 
-            <td>${escapeHTML(t.passengerName || "-")}</td>
+</tr>
 
-            <td>${moneyUSD(supplierTotalUSD(t))}</td>
+`;
 
-            <td>${moneyUSD(supplierPaidUSD(t))}</td>
-
-            <td>${moneyUSD(supplierRemainingUSD(t))}</td>
-
-            <td>
-                ${t.supplierDueDate || "-"}
-                ${t.supplierDueDay ? "<br>" + t.supplierDueDay : ""}
-            </td>
-
-            <td>
-                ${statusBadge(supplierStatus(t))}
-            </td>
-
-            <td>
-
-                <button
-                    class="btn-success"
-                    onclick="openPaymentModal('${t.id}')">
-                    تسديد
-                </button>
-
-            </td>
-
-        </tr>
-
-        `;
-
-    }).join("");
+return;
 
 }
 
-/* =========================
-   DASHBOARD
-========================= */
+
+body.innerHTML =
+list.map(function(t) {
+
+return `
+
+<tr>
+
+<td>
+${escapeHTML(t.issuer || "-")}
+</td>
+
+
+<td>
+${escapeHTML(t.passengerName || "-")}
+</td>
+
+
+<td>
+${moneyUSD(
+supplierTotalUSD(t)
+)}
+</td>
+
+
+<td>
+${moneyUSD(
+supplierPaidUSD(t)
+)}
+</td>
+
+
+<td>
+${moneyUSD(
+supplierRemainingUSD(t)
+)}
+</td>
+
+
+<td>
+
+${t.supplierDueDate || "-"}
+
+<br>
+
+${t.supplierDueDay || ""}
+
+</td>
+
+
+<td>
+${statusBadge(
+supplierStatus(t)
+)}
+</td>
+
+
+<td>
+
+<button
+class="btn-success"
+onclick="openPaymentModal('${t.id}')"
+>
+تسديد
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+}).join("");
+
+}
+
+
+/* ===================================
+   Dashboard
+=================================== */
 
 function updateDashboard() {
 
-    let salesUSD = 0;
-    let salesIQD = 0;
+let salesUSD = 0;
+let salesIQD = 0;
 
-    let customerOutstanding = 0;
-    let supplierOutstanding = 0;
+let customerOutstanding = 0;
+let supplierOutstanding = 0;
 
-    transactions.forEach(t => {
 
-        salesUSD += num(t.saleUSD);
-        salesIQD += num(t.saleIQD);
+transactions.forEach(function(t) {
 
-        customerOutstanding +=
-            customerRemainingUSD(t);
+salesUSD +=
+num(t.saleUSD);
 
-        supplierOutstanding +=
-            supplierRemainingUSD(t);
+salesIQD +=
+num(t.saleIQD);
 
-    });
+customerOutstanding +=
+customerRemainingUSD(t);
 
-    document.getElementById("totalTransactions")
-        .innerText = transactions.length;
+supplierOutstanding +=
+supplierRemainingUSD(t);
 
-    document.getElementById("totalSalesUSD")
-        .innerText = moneyUSD(salesUSD);
+});
 
-    document.getElementById("totalSalesIQD")
-        .innerText = moneyIQD(salesIQD);
 
-    document.getElementById("customerOutstanding")
-        .innerText = moneyUSD(customerOutstanding);
+document.getElementById(
+"totalTransactions"
+).innerText =
+transactions.length;
 
-    document.getElementById("supplierOutstanding")
-        .innerText = moneyUSD(supplierOutstanding);
+
+document.getElementById(
+"totalSalesUSD"
+).innerText =
+moneyUSD(salesUSD);
+
+
+document.getElementById(
+"totalSalesIQD"
+).innerText =
+moneyIQD(salesIQD);
+
+
+document.getElementById(
+"customerOutstanding"
+).innerText =
+moneyUSD(customerOutstanding);
+
+
+document.getElementById(
+"supplierOutstanding"
+).innerText =
+moneyUSD(supplierOutstanding);
 
 }
 
-/* =========================
-   EDIT
-========================= */
+
+/* ===================================
+   تعديل
+=================================== */
 
 function editTransaction(id) {
 
-    const t =
-        transactions.find(x => x.id === id);
+const t =
+transactions.find(
+x => String(x.id) === String(id)
+);
 
-    if (!t) return;
 
-    editingId = id;
+if (!t) {
 
-    document.getElementById("passengerName").value =
-        t.passengerName || "";
+alert("لم يتم العثور على المعاملة");
 
-    document.getElementById("phone").value =
-        t.phone || "";
-
-    document.getElementById("transactionDate").value =
-        t.transactionDate || "";
-
-    document.getElementById("travelDate").value =
-        t.travelDate || "";
-
-    document.getElementById("returnDate").value =
-        t.returnDate || "";
-
-    document.getElementById("addedDate").value =
-        t.addedDate || "";
-
-    document.getElementById("saleCurrency").value =
-        t.saleCurrency || "USD";
-
-    document.getElementById("saleAmount").value =
-        t.saleAmount || "";
-
-    document.getElementById("exchangeRate").value =
-        t.exchangeRate || "";
-
-    document.getElementById("saleUSD").value =
-        t.saleUSD || "";
-
-    document.getElementById("saleIQD").value =
-        t.saleIQD || "";
-
-    document.getElementById("issuer").value =
-        t.issuer || "";
-
-    document.getElementById("supplierAmountUSD").value =
-        t.supplierAmountUSD || "";
-
-    document.getElementById("supplierAmountIQD").value =
-        t.supplierAmountIQD || "";
-
-    document.getElementById("supplierDueDate").value =
-        t.supplierDueDate || "";
-
-    document.getElementById("supplierDueDay").value =
-        t.supplierDueDay || "";
-
-    document.getElementById("paidUSD").value =
-        t.paidUSD || "";
-
-    document.getElementById("paidIQD").value =
-        t.paidIQD || "";
-
-    document.getElementById("paymentDate").value =
-        t.paymentDate || "";
-
-    document.getElementById("notes").value =
-        t.notes || "";
-
-    calculateSale();
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+return;
 
 }
 
-/* =========================
-   DELETE
-========================= */
+
+editingId =
+t.id;
+
+
+document.getElementById(
+"passengerName"
+).value =
+t.passengerName || "";
+
+
+document.getElementById(
+"phone"
+).value =
+t.phone || "";
+
+
+document.getElementById(
+"transactionDate"
+).value =
+t.transactionDate || "";
+
+
+document.getElementById(
+"travelDate"
+).value =
+t.travelDate || "";
+
+
+document.getElementById(
+"returnDate"
+).value =
+t.returnDate || "";
+
+
+document.getElementById(
+"addedDate"
+).value =
+t.addedDate || "";
+
+
+document.getElementById(
+"saleCurrency"
+).value =
+t.saleCurrency || "USD";
+
+
+document.getElementById(
+"saleAmount"
+).value =
+t.saleAmount || "";
+
+
+document.getElementById(
+"exchangeRate"
+).value =
+t.exchangeRate || "";
+
+
+document.getElementById(
+"saleUSD"
+).value =
+t.saleUSD || "";
+
+
+document.getElementById(
+"saleIQD"
+).value =
+t.saleIQD || "";
+
+
+document.getElementById(
+"issuer"
+).value =
+t.issuer || "";
+
+
+document.getElementById(
+"supplierAmountUSD"
+).value =
+t.supplierAmountUSD || "";
+
+
+document.getElementById(
+"supplierAmountIQD"
+).value =
+t.supplierAmountIQD || "";
+
+
+document.getElementById(
+"supplierDueDate"
+).value =
+t.supplierDueDate || "";
+
+
+document.getElementById(
+"supplierDueDay"
+).value =
+t.supplierDueDay || "";
+
+
+document.getElementById(
+"paidUSD"
+).value =
+t.paidUSD || "";
+
+
+document.getElementById(
+"paidIQD"
+).value =
+t.paidIQD || "";
+
+
+document.getElementById(
+"paymentDate"
+).value =
+t.paymentDate || "";
+
+
+document.getElementById(
+"notes"
+).value =
+t.notes || "";
+
+
+calculateSale();
+
+
+window.scrollTo({
+top: 0,
+behavior: "smooth"
+});
+
+}
+
+
+/* ===================================
+   الحذف العادي
+=================================== */
 
 function deleteTransaction(id) {
 
-    if (!confirm("هل أنت متأكد من حذف المعاملة؟")) {
+const index =
+transactions.findIndex(
+t => String(t.id) === String(id)
+);
 
-        return;
 
-    }
+if (index === -1) {
 
-    transactions =
-        transactions.filter(t => t.id !== id);
+alert("لم يتم العثور على المعاملة");
 
-    saveData();
-
-    renderAll();
+return;
 
 }
 
-/* =========================
-   CLEAR
-========================= */
+
+const name =
+transactions[index].passengerName ||
+"هذه المعاملة";
+
+
+if (
+!confirm(
+`هل أنت متأكد من حذف معاملة "${name}"؟`
+)
+) {
+
+return;
+
+}
+
+
+transactions.splice(index, 1);
+
+saveData();
+
+renderAll();
+
+}
+
+
+/* ===================================
+   الحذف الإجباري
+=================================== */
+
+function forceDeleteTransaction(id) {
+
+const index =
+transactions.findIndex(
+t => String(t.id) === String(id)
+);
+
+
+if (index === -1) {
+
+alert(
+"لم يتم العثور على المعاملة. قد تكون محذوفة مسبقاً."
+);
+
+return;
+
+}
+
+
+const transaction =
+transactions[index];
+
+
+const name =
+transaction.passengerName ||
+"بدون اسم";
+
+
+const issuer =
+transaction.issuer ||
+"بدون مورد";
+
+
+const firstConfirm =
+confirm(
+`⚠️ حذف إجباري
+
+المسافر:
+${name}
+
+المورد:
+${issuer}
+
+هل تريد حذف هذه المعاملة نهائياً؟`
+);
+
+
+if (!firstConfirm) {
+
+return;
+
+}
+
+
+const secondConfirm =
+confirm(
+`تأكيد أخير
+
+سيتم حذف المعاملة "${name}"
+بشكل نهائي من ذاكرة الموقع.
+
+لا يمكن التراجع عن هذا الحذف.
+
+هل أنت متأكد؟`
+);
+
+
+if (!secondConfirm) {
+
+return;
+
+}
+
+
+/*
+   الحذف باستخدام رقم المعاملة مباشرة
+*/
+
+transactions.splice(index, 1);
+
+
+/*
+   حفظ القائمة الجديدة مباشرة
+*/
+
+localStorage.setItem(
+"travelTransactions",
+JSON.stringify(transactions)
+);
+
+
+/*
+   التأكد من عدم بقاء المعاملة
+*/
+
+const check =
+JSON.parse(
+localStorage.getItem(
+"travelTransactions"
+)
+) || [];
+
+
+const stillExists =
+check.some(
+t => String(t.id) === String(id)
+);
+
+
+if (stillExists) {
+
+alert(
+"تعذر حذف المعاملة من التخزين المحلي."
+);
+
+return;
+
+}
+
+
+editingId = null;
+
+currentSupplierTransactionId = null;
+
+renderAll();
+
+
+alert(
+`تم حذف معاملة "${name}" إجبارياً بنجاح.`
+);
+
+}
+
+
+/* ===================================
+   مسح النموذج
+=================================== */
 
 function clearForm() {
 
-    editingId = null;
+editingId = null;
 
-    document.getElementById("passengerName").value = "";
-    document.getElementById("phone").value = "";
 
-    document.getElementById("transactionDate").value = today();
-    document.getElementById("addedDate").value = today();
+document.getElementById(
+"passengerName"
+).value = "";
 
-    document.getElementById("travelDate").value = "";
-    document.getElementById("returnDate").value = "";
 
-    document.getElementById("saleCurrency").value = "USD";
-    document.getElementById("saleAmount").value = "";
+document.getElementById(
+"phone"
+).value = "";
 
-    document.getElementById("exchangeRate").value = "";
 
-    document.getElementById("saleUSD").value = "";
-    document.getElementById("saleIQD").value = "";
+document.getElementById(
+"transactionDate"
+).value =
+today();
 
-    document.getElementById("issuer").value = "";
 
-    document.getElementById("supplierAmountUSD").value = "";
-    document.getElementById("supplierAmountIQD").value = "";
+document.getElementById(
+"addedDate"
+).value =
+today();
 
-    document.getElementById("supplierDueDate").value = "";
-    document.getElementById("supplierDueDay").value = "";
 
-    document.getElementById("paidUSD").value = "";
-    document.getElementById("paidIQD").value = "";
+document.getElementById(
+"travelDate"
+).value = "";
 
-    document.getElementById("paymentDate").value = today();
 
-    document.getElementById("notes").value = "";
+document.getElementById(
+"returnDate"
+).value = "";
 
-    document.getElementById("exchangeResult").innerText =
-        "أدخل مبلغ البيع وسعر التصريف";
+
+document.getElementById(
+"saleCurrency"
+).value =
+"USD";
+
+
+document.getElementById(
+"saleAmount"
+).value = "";
+
+
+document.getElementById(
+"exchangeRate"
+).value = "";
+
+
+document.getElementById(
+"saleUSD"
+).value = "";
+
+
+document.getElementById(
+"saleIQD"
+).value = "";
+
+
+document.getElementById(
+"issuer"
+).value = "";
+
+
+document.getElementById(
+"supplierAmountUSD"
+).value = "";
+
+
+document.getElementById(
+"supplierAmountIQD"
+).value = "";
+
+
+document.getElementById(
+"supplierDueDate"
+).value = "";
+
+
+document.getElementById(
+"supplierDueDay"
+).value = "";
+
+
+document.getElementById(
+"paidUSD"
+).value = "";
+
+
+document.getElementById(
+"paidIQD"
+).value = "";
+
+
+document.getElementById(
+"paymentDate"
+).value =
+today();
+
+
+document.getElementById(
+"notes"
+).value = "";
+
+
+document.getElementById(
+"exchangeResult"
+).innerText =
+"أدخل مبلغ البيع وسعر التصريف";
 
 }
 
-/* =========================
-   SUPPLIER PAYMENT MODAL
-========================= */
+
+/* ===================================
+   فتح التسديد
+=================================== */
 
 function openPaymentModal(id) {
 
-    const t =
-        transactions.find(x => x.id === id);
+const t =
+transactions.find(
+x => String(x.id) === String(id)
+);
 
-    if (!t) return;
 
-    currentSupplierTransactionId = id;
+if (!t) {
 
-    document.getElementById("paymentModal").style.display =
-        "flex";
+alert("لم يتم العثور على المعاملة");
 
-    document.getElementById("supplierPayUSD").value = "";
-    document.getElementById("supplierPayIQD").value = "";
-
-    document.getElementById("supplierPaymentDate").value =
-        today();
-
-    document.getElementById("supplierPaymentNotes").value =
-        "";
-
-    document.getElementById("paymentInfo").innerHTML = `
-
-        <div class="payment-item">
-
-            <strong>المورد:</strong>
-            ${escapeHTML(t.issuer || "-")}
-
-            <br>
-
-            <strong>المسافر:</strong>
-            ${escapeHTML(t.passengerName || "-")}
-
-            <br>
-
-            <strong>المطلوب:</strong>
-            ${moneyUSD(supplierTotalUSD(t))}
-
-            <br>
-
-            <strong>المسدد:</strong>
-            ${moneyUSD(supplierPaidUSD(t))}
-
-            <br>
-
-            <strong>المتبقي:</strong>
-            ${moneyUSD(supplierRemainingUSD(t))}
-
-            <br>
-
-            <strong>سعر التصريف:</strong>
-            ${num(t.exchangeRate).toLocaleString()}
-
-        </div>
-
-    `;
-
-    renderPaymentList(t);
+return;
 
 }
 
-/* =========================
-   PAYMENT LIST
-========================= */
+
+currentSupplierTransactionId =
+t.id;
+
+
+document.getElementById(
+"paymentModal"
+).style.display =
+"flex";
+
+
+document.getElementById(
+"supplierPayUSD"
+).value = "";
+
+
+document.getElementById(
+"supplierPayIQD"
+).value = "";
+
+
+document.getElementById(
+"supplierPaymentDate"
+).value =
+today();
+
+
+document.getElementById(
+"supplierPaymentNotes"
+).value = "";
+
+
+document.getElementById(
+"paymentInfo"
+).innerHTML = `
+
+<div class="payment-item">
+
+<strong>المورد:</strong>
+${escapeHTML(t.issuer || "-")}
+
+<br>
+
+<strong>المسافر:</strong>
+${escapeHTML(t.passengerName || "-")}
+
+<br>
+
+<strong>المطلوب:</strong>
+${moneyUSD(
+supplierTotalUSD(t)
+)}
+
+<br>
+
+<strong>المسدد:</strong>
+${moneyUSD(
+supplierPaidUSD(t)
+)}
+
+<br>
+
+<strong>المتبقي:</strong>
+${moneyUSD(
+supplierRemainingUSD(t)
+)}
+
+<br>
+
+<strong>سعر التصريف:</strong>
+${num(t.exchangeRate)
+.toLocaleString()}
+
+</div>
+
+`;
+
+
+renderPaymentList(t);
+
+}
+
+
+/* ===================================
+   قائمة التسديدات
+=================================== */
 
 function renderPaymentList(t) {
 
-    const list =
-        document.getElementById("paymentList");
+const list =
+document.getElementById(
+"paymentList"
+);
 
-    if (!t.supplierPayments ||
-        !t.supplierPayments.length) {
 
-        list.innerHTML =
-            `<div class="empty">
-                لا توجد تسديدات سابقة
-             </div>`;
+if (
+!t.supplierPayments ||
+!t.supplierPayments.length
+) {
 
-        return;
+list.innerHTML = `
 
-    }
+<div class="empty">
+لا توجد تسديدات سابقة
+</div>
 
-    list.innerHTML = `
+`;
 
-        <h3>التسديدات السابقة</h3>
-
-        ${t.supplierPayments.map((p, index) => `
-
-            <div class="payment-item">
-
-                <strong>التسديد ${index + 1}</strong>
-
-                <br>
-
-                التاريخ:
-                ${p.date || "-"}
-
-                <br>
-
-                دولار:
-                ${moneyUSD(p.usd)}
-
-                <br>
-
-                دينار:
-                ${moneyIQD(p.iqd)}
-
-                <br>
-
-                ${p.notes
-                    ? "ملاحظات: " + escapeHTML(p.notes)
-                    : ""
-                }
-
-            </div>
-
-        `).join("")}
-
-    `;
+return;
 
 }
 
-/* =========================
-   SAVE SUPPLIER PAYMENT
-========================= */
+
+list.innerHTML = `
+
+<h3>التسديدات السابقة</h3>
+
+${t.supplierPayments.map(
+function(p, index) {
+
+return `
+
+<div class="payment-item">
+
+<strong>
+التسديد ${index + 1}
+</strong>
+
+<br>
+
+التاريخ:
+${p.date || "-"}
+
+<br>
+
+دولار:
+${moneyUSD(p.usd)}
+
+<br>
+
+دينار:
+${moneyIQD(p.iqd)}
+
+<br>
+
+${p.notes
+? "ملاحظات: " +
+escapeHTML(p.notes)
+: ""
+}
+
+</div>
+
+`;
+
+}).join("")}
+
+`;
+
+}
+
+
+/* ===================================
+   حفظ تسديد المورد
+=================================== */
 
 function saveSupplierPayment() {
 
-    const t =
-        transactions.find(
-            x => x.id === currentSupplierTransactionId
-        );
+const t =
+transactions.find(
+x =>
+String(x.id) ===
+String(currentSupplierTransactionId)
+);
 
-    if (!t) return;
 
-    const usd =
-        num(document.getElementById("supplierPayUSD").value);
+if (!t) {
 
-    const iqd =
-        num(document.getElementById("supplierPayIQD").value);
+alert("لم يتم العثور على المعاملة");
 
-    if (!usd && !iqd) {
-
-        alert("أدخل مبلغ التسديد");
-        return;
-
-    }
-
-    const payment = {
-
-        id: Date.now().toString(),
-
-        usd: usd,
-
-        iqd: iqd,
-
-        date:
-            document.getElementById(
-                "supplierPaymentDate"
-            ).value,
-
-        notes:
-            document.getElementById(
-                "supplierPaymentNotes"
-            ).value.trim()
-
-    };
-
-    if (!Array.isArray(t.supplierPayments)) {
-
-        t.supplierPayments = [];
-
-    }
-
-    t.supplierPayments.push(payment);
-
-    saveData();
-
-    renderAll();
-
-    openPaymentModal(t.id);
-
-    alert("تم تسجيل التسديد");
+return;
 
 }
 
-/* =========================
-   CLOSE MODAL
-========================= */
+
+const usd =
+num(
+document.getElementById(
+"supplierPayUSD"
+).value
+);
+
+
+const iqd =
+num(
+document.getElementById(
+"supplierPayIQD"
+).value
+);
+
+
+if (!usd && !iqd) {
+
+alert("أدخل مبلغ التسديد");
+
+return;
+
+}
+
+
+const payment = {
+
+id:
+Date.now().toString() +
+Math.random()
+.toString(36)
+.substring(2),
+
+usd:
+usd,
+
+iqd:
+iqd,
+
+date:
+document.getElementById(
+"supplierPaymentDate"
+).value,
+
+notes:
+document.getElementById(
+"supplierPaymentNotes"
+).value.trim()
+
+};
+
+
+if (!Array.isArray(
+t.supplierPayments
+)) {
+
+t.supplierPayments = [];
+
+}
+
+
+t.supplierPayments.push(
+payment
+);
+
+
+saveData();
+
+renderAll();
+
+openPaymentModal(t.id);
+
+alert(
+"تم تسجيل التسديد بنجاح"
+);
+
+}
+
+
+/* ===================================
+   إغلاق نافذة التسديد
+=================================== */
 
 function closePaymentModal() {
 
-    document.getElementById("paymentModal").style.display =
-        "none";
+document.getElementById(
+"paymentModal"
+).style.display =
+"none";
 
-    currentSupplierTransactionId = null;
+
+currentSupplierTransactionId =
+null;
 
 }
 
-/* =========================
-   ESCAPE HTML
-========================= */
+
+/* ===================================
+   حماية HTML
+=================================== */
 
 function escapeHTML(value) {
 
-    return String(value || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+return String(value || "")
+.replace(/&/g, "&amp;")
+.replace(/</g, "&lt;")
+.replace(/>/g, "&gt;")
+.replace(/"/g, "&quot;")
+.replace(/'/g, "&#039;");
 
 }
 
-/* =========================
-   RENDER ALL
-========================= */
+
+/* ===================================
+   تحديث الكل
+=================================== */
 
 function renderAll() {
 
-    updateDashboard();
+updateDashboard();
 
-    renderTransactions();
+renderTransactions();
 
-    renderSuppliers();
+renderSuppliers();
 
 }
 
-/* =========================
-   START
-========================= */
+
+/* ===================================
+   تشغيل
+=================================== */
 
 renderAll();
 
