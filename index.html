@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>نظام حسابات السفر والسياحة</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Tahoma, Arial, sans-serif;
+    background:
+        radial-gradient(circle at top right, #1d4ed8 0%, transparent 35%),
+        radial-gradient(circle at bottom left, #0891b2 0%, transparent 30%),
+        #07152f;
+    color: #fff;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 25px 15px;
+}
+
+/* Header */
+
+.header {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(18px);
+    border-radius: 25px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
+    background: linear-gradient(135deg,#2563eb,#06b6d4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    flex-shrink: 0;
+}
+
+.header h1 {
+    margin: 0 0 7px;
+    font-size: 27px;
+}
+
+.header p {
+    margin: 0;
+    color: #a9bddf;
+    font-size: 13px;
+}
+
+/* Buttons */
+
+button {
+    border: none;
+    font-family: inherit;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg,#2563eb,#0ea5e9);
+    color: white;
+    padding: 14px 20px;
+    border-radius: 13px;
+    font-weight: bold;
+    box-shadow: 0 8px 20px rgba(37,99,235,.3);
+}
+
+.btn-secondary {
+    background: rgba(255,255,255,.09);
+    border: 1px solid rgba(255,255,255,.12);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 12px;
+}
+
+.btn-danger {
+    background: rgba(239,68,68,.15);
+    color: #ff9c9c;
+    padding: 8px 11px;
+    border-radius: 9px;
+}
+
+.btn-edit {
+    background: rgba(14,165,233,.15);
+    color: #7dd3fc;
+    padding: 8px 11px;
+    border-radius: 9px;
+}
+
+/* Dashboard */
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.11);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.stat-title {
+    color: #9eb3d8;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.stat-value {
+    font-size: 22px;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+.stat-sub {
+    margin-top: 5px;
+    color: #8ba2c9;
+    font-size: 11px;
+}
+
+/* Main */
+
+.main-card {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    backdrop-filter: blur(18px);
+    border-radius: 25px;
+    padding: 25px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.25);
+}
+
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.top-bar h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.search {
+    width: 300px;
+    max-width: 100%;
+    background: rgba(0,0,0,.2);
+    border: 1px solid rgba(255,255,255,.1);
+    color: white;
+    padding: 12px 15px;
+    border-radius: 12px;
+    font-family: inherit;
+}
+
+.search::placeholder {
+    color: #7890b8;
+}
+
+/* Table */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1050px;
+}
+
+th {
+    color: #9fb5d9;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 14px 10px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    text-align: right;
+}
+
+td {
+    padding: 14px 10px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    font-size: 13px;
+}
+
+td small {
+    color: #8ba2c9;
+}
+
+.empty {
+    text-align: center;
+    padding: 50px 20px;
+    color: #7890b8;
+}
+
+/* Modal */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    z-index: 1000;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-box {
+    width: 100%;
+    max-width: 850px;
+    max-height: 92vh;
+    overflow-y: auto;
+    background: #0b1b38;
+    border: 1px solid rgba(255,255,255,.13);
+    border-radius: 25px;
+    padding: 25px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.5);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 21px;
+}
+
+.close {
+    background: rgba(255,255,255,.08);
+    color: white;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+/* Form */
+
+.form-section {
+    margin-bottom: 25px;
+}
+
+.form-section-title {
+    color: #38bdf8;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    color: #a9bddf;
+    font-size: 12px;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    background: rgba(0,0,0,.22);
+    border: 1px solid rgba(255,255,255,.11);
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    outline: none;
+    font-family: inherit;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #0ea5e9;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+select option {
+    background: #0b1b38;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+/* Toast */
+
+.toast {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #0f172a;
+    border: 1px solid rgba(255,255,255,.15);
+    padding: 13px 22px;
+    border-radius: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: .3s;
+    z-index: 2000;
+    font-size: 13px;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Responsive */
+
+@media(max-width:850px) {
+
+    .dashboard {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .header-content {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .form-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media(max-width:550px) {
+
+    .container {
+        padding: 12px;
+    }
+
+    .header {
+        padding: 20px;
+    }
+
+    .header h1 {
+        font-size: 22px;
+    }
+
+    .dashboard {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 15px;
+    }
+
+    .stat-value {
+        font-size: 17px;
+    }
+
+    .top-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search {
+        width: 100%;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    .modal-box {
+        padding: 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+
+    <div class="header">
+
+        <div class="header-content">
+
+            <div style="display:flex;align-items:center;gap:15px">
+
+                <div class="logo">🇮🇶</div>
+
+                <div>
+                    <h1>نظام حسابات السفر والسياحة</h1>
+                    <p>إدارة المعاملات والمبيعات والتسديدات</p>
+                </div>
+
+            </div>
+
+            <button class="btn-primary" onclick="openModal()">
+                ＋ إضافة معاملة
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- Dashboard -->
+
+    <div class="dashboard">
+
+        <div class="stat-card">
+
+            <div class="stat-title">عدد المعاملات</div>
+
+            <div class="stat-value" id="totalTransactions">
+                0
+            </div>
+
+            <div class="stat-sub">
+                معاملة مسجلة
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">إجمالي البيع دولار</div>
+
+            <div class="stat-value" id="totalSaleUSD">
+                $0
+            </div>
+
+            <div class="stat-sub">
+                قيمة المبيعات
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">إجمالي التسديد دولار</div>
+
+            <div class="stat-value" id="totalPaidUSD">
+                $0
+            </div>
+
+            <div class="stat-sub">
+                المبالغ المسددة
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">المتبقي دولار</div>
+
+            <div class="stat-value" id="totalRemainingUSD">
+                $0
+            </div>
+
+            <div class="stat-sub">
+                المبالغ المتبقية
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Main -->
+
+    <div class="main-card">
+
+        <div class="top-bar">
+
+            <h2>📋 جميع المعاملات</h2>
+
+            <input
+                type="text"
+                id="search"
+                class="search"
+                placeholder="بحث بالاسم أو رقم الهاتف..."
+                oninput="renderTransactions()"
+            >
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>اسم المسافر</th>
+                        <th>رقم الهاتف</th>
+                        <th>تاريخ المعاملة</th>
+                        <th>البيع</th>
+                        <th>السفر</th>
+                        <th>الإياب</th>
+                        <th>التسديد</th>
+                        <th>المتبقي</th>
+                        <th>جهة الإصدار</th>
+                        <th>إجراء</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="transactionsTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Modal -->
+
+<div class="modal" id="transactionModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h2 id="modalTitle">
+                إضافة معاملة جديدة
+            </h2>
+
+            <button class="close" onclick="closeModal()">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="transactionForm">
+
+
+            <!-- بيانات المسافر -->
+
+            <div class="form-section">
+
+                <div class="form-section-title">
+                    👤 بيانات المسافر
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>اسم المسافر *</label>
+
+                        <input
+                            type="text"
+                            id="passengerName"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>رقم الهاتف *</label>
+
+                        <input
+                            type="text"
+                            id="phone"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>تاريخ المعاملة *</label>
+
+                        <input
+                            type="date"
+                            id="transactionDate"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>تاريخ السفر</label>
+
+                        <input
+                            type="date"
+                            id="travelDate"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>تاريخ الإياب</label>
+
+                        <input
+                            type="date"
+                            id="returnDate"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>تاريخ إضافة العملية</label>
+
+                        <input
+                            type="date"
+                            id="addedDate"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- بيانات البيع -->
+
+            <div class="form-section">
+
+                <div class="form-section-title">
+                    💰 بيانات البيع
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>مبلغ البيع بالدولار</label>
+
+                        <input
+                            type="number"
+                            id="saleUSD"
+                            min="0"
+                            step="0.01"
+                            value="0"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>مبلغ البيع بالدينار</label>
+
+                        <input
+                            type="number"
+                            id="saleIQD"
+                            min="0"
+                            step="1"
+                            value="0"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>جهة الإصدار</label>
+
+                        <input
+                            type="text"
+                            id="issuer"
+                            placeholder="مثال: الخطوط الجوية العراقية"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- التسديد -->
+
+            <div class="form-section">
+
+                <div class="form-section-title">
+                    💵 بيانات التسديد
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label>مبلغ التسديد بالدولار</label>
+
+                        <input
+                            type="number"
+                            id="paidUSD"
+                            min="0"
+                            step="0.01"
+                            value="0"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>مبلغ التسديد بالدينار</label>
+
+                        <input
+                            type="number"
+                            id="paidIQD"
+                            min="0"
+                            step="1"
+                            value="0"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>تاريخ التسديد</label>
+
+                        <input
+                            type="date"
+                            id="paymentDate"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ملاحظات -->
+
+            <div class="form-section">
+
+                <div class="form-section-title">
+                    📝 ملاحظات
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="form-group full">
+
+                        <textarea
+                            id="notes"
+                            placeholder="اكتب أي ملاحظات هنا..."
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <button
+                    type="button"
+                    class="btn-secondary"
+                    onclick="closeModal()"
+                >
+                    إلغاء
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn-primary"
+                >
+                    💾 حفظ المعاملة
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<div class="toast" id="toast">
+    تم الحفظ بنجاح ✓
+</div>
+
+
+<script>
+
+let transactions = JSON.parse(
+    localStorage.getItem("travelTransactions") || "[]"
+);
+
+let editingId = null;
+
+
+/* فتح النافذة */
+
+function openModal(id = null) {
+
+    const modal = document.getElementById("transactionModal");
+
+    const form = document.getElementById("transactionForm");
+
+    form.reset();
+
+    editingId = id;
+
+    document.getElementById("modalTitle").textContent =
+        id ? "تعديل المعاملة" : "إضافة معاملة جديدة";
+
+
+    if (id) {
+
+        const t = transactions.find(x => x.id === id);
+
+        if (!t) return;
+
+        document.getElementById("passengerName").value = t.passengerName;
+        document.getElementById("phone").value = t.phone;
+        document.getElementById("transactionDate").value = t.transactionDate;
+        document.getElementById("travelDate").value = t.travelDate;
+        document.getElementById("returnDate").value = t.returnDate;
+        document.getElementById("addedDate").value = t.addedDate;
+        document.getElementById("saleUSD").value = t.saleUSD;
+        document.getElementById("saleIQD").value = t.saleIQD;
+        document.getElementById("issuer").value = t.issuer;
+        document.getElementById("paidUSD").value = t.paidUSD;
+        document.getElementById("paidIQD").value = t.paidIQD;
+        document.getElementById("paymentDate").value = t.paymentDate;
+        document.getElementById("notes").value = t.notes;
+
+    } else {
+
+        const today = new Date().toISOString().split("T")[0];
+
+        document.getElementById("transactionDate").value = today;
+
+        document.getElementById("addedDate").value = today;
+
+    }
+
+    modal.classList.add("active");
+}
+
+
+/* إغلاق النافذة */
+
+function closeModal() {
+
+    document
+        .getElementById("transactionModal")
+        .classList.remove("active");
+
+    editingId = null;
+
+}
+
+
+/* حفظ المعاملة */
+
+document
+.getElementById("transactionForm")
+.addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+
+    const data = {
+
+        passengerName:
+            document.getElementById("passengerName").value.trim(),
+
+        phone:
+            document.getElementById("phone").value.trim(),
+
+        transactionDate:
+            document.getElementById("transactionDate").value,
+
+        travelDate:
+            document.getElementById("travelDate").value,
+
+        returnDate:
+            document.getElementById("returnDate").value,
+
+        addedDate:
+            document.getElementById("addedDate").value,
+
+        saleUSD:
+            parseFloat(document.getElementById("saleUSD").value) || 0,
+
+        saleIQD:
+            parseFloat(document.getElementById("saleIQD").value) || 0,
+
+        issuer:
+            document.getElementById("issuer").value.trim(),
+
+        paidUSD:
+            parseFloat(document.getElementById("paidUSD").value) || 0,
+
+        paidIQD:
+            parseFloat(document.getElementById("paidIQD").value) || 0,
+
+        paymentDate:
+            document.getElementById("paymentDate").value,
+
+        notes:
+            document.getElementById("notes").value.trim()
+
+    };
+
+
+    if (editingId) {
+
+        const index =
+            transactions.findIndex(x => x.id === editingId);
+
+        if (index !== -1) {
+
+            transactions[index] = {
+                ...transactions[index],
+                ...data
+            };
+
+        }
+
+        showToast("تم تعديل المعاملة ✓");
+
+    } else {
+
+        transactions.push({
+
+            id: Date.now(),
+
+            ...data
+
+        });
+
+        showToast("تمت إضافة المعاملة ✓");
+
+    }
+
+
+    saveData();
+
+    renderTransactions();
+
+    closeModal();
+
+});
+
+
+/* حفظ البيانات */
+
+function saveData() {
+
+    localStorage.setItem(
+        "travelTransactions",
+        JSON.stringify(transactions)
+    );
+
+}
+
+
+/* عرض المعاملات */
+
+function renderTransactions() {
+
+    const table =
+        document.getElementById("transactionsTable");
+
+    const search =
+        document.getElementById("search")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    let filtered = transactions.filter(t =>
+
+        t.passengerName.toLowerCase().includes(search) ||
+
+        t.phone.toLowerCase().includes(search)
+
+    );
+
+
+    table.innerHTML = "";
+
+
+    if (filtered.length === 0) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="10" class="empty">
+                    لا توجد معاملات حالياً
+                </td>
+            </tr>
+        `;
+
+        updateDashboard();
+
+        return;
+
+    }
+
+
+    filtered.forEach(t => {
+
+        const remainingUSD =
+            t.saleUSD - t.paidUSD;
+
+        const remainingIQD =
+            t.saleIQD - t.paidIQD;
+
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>
+                <strong>${escapeHTML(t.passengerName)}</strong>
+            </td>
+
+            <td dir="ltr">
+                ${escapeHTML(t.phone)}
+            </td>
+
+            <td>
+                ${formatDate(t.transactionDate)}
+            </td>
+
+            <td>
+                $${formatNumber(t.saleUSD)}
+                <br>
+                <small>${formatNumber(t.saleIQD)} د.ع</small>
+            </td>
+
+            <td>
+                ${formatDate(t.travelDate)}
+            </td>
+
+            <td>
+                ${formatDate(t.returnDate)}
+            </td>
+
+            <td>
+                $${formatNumber(t.paidUSD)}
+                <br>
+                <small>${formatNumber(t.paidIQD)} د.ع</small>
+            </td>
+
+            <td>
+                <strong>
+                    $${formatNumber(remainingUSD)}
+                </strong>
+                <br>
+                <small>
+                    ${formatNumber(remainingIQD)} د.ع
+                </small>
+            </td>
+
+            <td>
+                ${escapeHTML(t.issuer || "-")}
+            </td>
+
+            <td>
+
+                <button
+                    class="btn-edit"
+                    onclick="openModal(${t.id})"
+                >
+                    تعديل
+                </button>
+
+                <button
+                    class="btn-danger"
+                    onclick="deleteTransaction(${t.id})"
+                >
+                    حذف
+                </button>
+
+            </td>
+
+        `;
+
+        table.appendChild(row);
+
+    });
+
+
+    updateDashboard();
+
+}
+
+
+/* لوحة الحسابات */
+
+function updateDashboard() {
+
+    let saleUSD = 0;
+    let paidUSD = 0;
+
+    transactions.forEach(t => {
+
+        saleUSD += Number(t.saleUSD) || 0;
+
+        paidUSD += Number(t.paidUSD) || 0;
+
+    });
+
+
+    document.getElementById("totalTransactions")
+        .textContent = transactions.length;
+
+    document.getElementById("totalSaleUSD")
+        .textContent = "$" + formatNumber(saleUSD);
+
+    document.getElementById("totalPaidUSD")
+        .textContent = "$" + formatNumber(paidUSD);
+
+    document.getElementById("totalRemainingUSD")
+        .textContent = "$" + formatNumber(saleUSD - paidUSD);
+
+}
+
+
+/* حذف */
+
+function deleteTransaction(id) {
+
+    const confirmDelete =
+        confirm("هل أنت متأكد من حذف هذه المعاملة؟");
+
+    if (!confirmDelete) return;
+
+
+    transactions =
+        transactions.filter(t => t.id !== id);
+
+
+    saveData();
+
+    renderTransactions();
+
+    showToast("تم حذف المعاملة");
+
+}
+
+
+/* تنسيق الأرقام */
+
+function formatNumber(number) {
+
+    return Number(number || 0)
+        .toLocaleString("en-US", {
+            maximumFractionDigits: 2
+        });
+
+}
+
+
+/* تنسيق التاريخ */
+
+function formatDate(date) {
+
+    if (!date) return "-";
+
+    const parts = date.split("-");
+
+    if (parts.length !== 3) return date;
+
+    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+
+}
+
+
+/* حماية النص */
+
+function escapeHTML(text) {
+
+    return String(text || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* رسالة */
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 1800);
+
+}
+
+
+/* تشغيل أول مرة */
+
+renderTransactions();
+
+</script>
+
+</body>
+</html>
