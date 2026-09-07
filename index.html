@@ -179,11 +179,56 @@ function customerBalance(t){
 
     const rate = Number(t.exchangeRate || 1550);
 
+    /*
+     * قيمة البيع بالدولار حسب سعر صرف العملية
+     */
     const saleUSDValue = equivalentUSD(
         sale.usd,
         sale.iqd,
         rate
     );
+
+    /*
+     * قيمة البيع بالدينار حسب سعر صرف العملية
+     */
+    const saleIQDValue = equivalentIQD(
+        sale.usd,
+        sale.iqd,
+        rate
+    );
+
+    /*
+     * التسديدات:
+     * إذا كان التسديد بالدولار، يتم تحويله
+     * حسب سعر صرف التسديد نفسه.
+     *
+     * إذا كان التسديد بالدينار، يبقى كما هو.
+     */
+    const paidUSDValue = Number(
+        paid.equivalentUSD || 0
+    );
+
+    const paidIQDValue = Number(
+        paid.equivalentIQD || 0
+    );
+
+    /*
+     * الرصيد المتبقي
+     */
+    return {
+
+        usd: Math.max(
+            0,
+            saleUSDValue - paidUSDValue
+        ),
+
+        iqd: Math.max(
+            0,
+            saleIQDValue - paidIQDValue
+        )
+
+    };
+}
 
     const paidUSDValue = equivalentUSD(
         paid.usd,
